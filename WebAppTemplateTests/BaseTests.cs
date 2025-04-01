@@ -8,8 +8,7 @@ namespace WebAppTemplateTests
         [Test]
         public void BaseTest()
         {
-            Assert.IsTrue(1==1);
+            Assert.That(1 == 1, "Pass condition");
         }
-
     }
 }
