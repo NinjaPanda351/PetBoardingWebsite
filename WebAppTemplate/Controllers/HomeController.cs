@@ -15,21 +15,26 @@ namespace WebAppTemplate.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "The application description page.";
 
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "My contact page.";
 
             return View();
         }
 
         public ActionResult GitBasics()
         {
-            return Content("Git basics");
+            return Content("Git Basics");
+        }
+
+        public ActionResult EndpointA()
+        {
+            return Content("This is endpoint A");
         }
     }
 }
