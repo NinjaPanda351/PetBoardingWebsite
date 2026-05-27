@@ -10,8 +10,7 @@ namespace WebAppTemplate.Models
         [Key]
         public Guid PetId { get; set; }
 
-        [Required]
-        public Guid OwnerId { get; set; } // FK
+        public Guid? OwnerId { get; set; } // FK
 
         [Required, MaxLength(100)]
         public string Name { get; set; }
@@ -62,6 +61,7 @@ namespace WebAppTemplate.Models
         public PetModel()
         {
             PetId = Guid.NewGuid();
+            FeedingsPerDay = 1;
             PetMedications = new List<PetMedicationModel>();
             Bookings = new List<BookingModel>();
         }

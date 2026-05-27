@@ -35,6 +35,7 @@ namespace WebAppTemplate.Models
         public ContactUsModel()
         {
             SubmissionId = Guid.NewGuid();
+            SubmittedAt = DateTime.UtcNow;
         }
     }
 }

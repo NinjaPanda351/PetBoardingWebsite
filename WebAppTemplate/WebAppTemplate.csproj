@@ -198,6 +198,10 @@
     <Compile Include="Migrations\202605132349133_RemoveToDoModels.Designer.cs">
       <DependentUpon>202605132349133_RemoveToDoModels.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202605262347235_MakeOwnerIdOptional.cs" />
+    <Compile Include="Migrations\202605262347235_MakeOwnerIdOptional.Designer.cs">
+      <DependentUpon>202605262347235_MakeOwnerIdOptional.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\BookingEventModel.cs" />
@@ -346,6 +350,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202605132349133_RemoveToDoModels.resx">
       <DependentUpon>202605132349133_RemoveToDoModels.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202605262347235_MakeOwnerIdOptional.resx">
+      <DependentUpon>202605262347235_MakeOwnerIdOptional.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
