@@ -30,6 +30,31 @@ namespace WebAppTemplate.Models
     public class RegisterViewModel
     {
         [Required]
+        [Display (Name = "First Name")]
+        public string FirstName { get; set; }
+
+        [Required]
+        [Display (Name = "Last Name")]
+        public string LastName { get; set; }
+
+        [Required]
+        [Phone]
+        [Display (Name = "Phone Number")]
+        public string  Phone { get; set; }
+
+        [Display (Name = "Address")]
+        public string Address { get; set; }
+
+        [Display (Name = "City")]
+        public string City { get; set; }
+
+        [Display (Name = "State")]
+        public string State { get; set; }
+
+        [Display (Name = "Zip Code")]
+        public string ZipCode { get; set; }
+
+        [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
@@ -46,7 +71,7 @@ namespace WebAppTemplate.Models
         public string ConfirmPassword { get; set; }
     }
 
-    public class ResetPasswordViewModel
+public class ResetPasswordViewModel
     {
         [Required]
         [EmailAddress]
