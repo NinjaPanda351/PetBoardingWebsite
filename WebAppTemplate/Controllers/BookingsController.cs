@@ -1,8 +1,8 @@
 using System;
 using System.Web.Mvc;
-using WebAppTemplate.Models;
+using PawesomePalace.Models;
 
-namespace WebAppTemplate.Controllers
+namespace PawesomePalace.Controllers
 {
     public class BookingsController : Controller
     {

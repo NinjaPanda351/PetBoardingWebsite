@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections;
 using System.ComponentModel.DataAnnotations;
 
-namespace WebAppTemplate.Models
+namespace PawesomePalace.Models
 {
     public class IndexViewModel
     {

@@ -1,4 +1,4 @@
-﻿namespace WebAppTemplate.Migrations
+﻿namespace PawesomePalace.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;

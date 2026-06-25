@@ -1,8 +1,8 @@
 using System.Web.Mvc;
-using WebAppTemplate.Models;
-using WebAppTemplate.ViewModels;
+using PawesomePalace.Models;
+using PawesomePalace.ViewModels;
 
-namespace WebAppTemplate.Controllers
+namespace PawesomePalace.Controllers
 {
     public class ContactUsController : Controller
     {

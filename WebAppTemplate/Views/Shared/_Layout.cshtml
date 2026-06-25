@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Paws &amp; Stay Pet Boarding</title>
+    <title>@ViewBag.Title - Pawesome Palace Pet Boarding</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
@@ -19,8 +19,8 @@
             <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav flex-grow-1">
                     <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("User Layout", "Index", "MyAccount", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Admin Layout", "Index", "Admin", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("MyAccount", "Index", "MyAccount", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Admin", "Index", "Admin", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Hours", "Index", "Hours", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Contact Us", "Index", "ContactUs", new { area = "" }, new { @class = "nav-link" })</li>
                 </ul>
@@ -39,7 +39,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - Pawsome Palace | Joey Fausto</p>
+            <p>&copy; @DateTime.Now.Year - Pawesome Palace | Joey Fausto</p>
         </footer>
     </div>
 

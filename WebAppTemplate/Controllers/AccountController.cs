@@ -8,9 +8,9 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using WebAppTemplate.Models;
+using PawesomePalace.Models;
 
-namespace WebAppTemplate.Controllers
+namespace PawesomePalace.Controllers
 {
     [Authorize]
     public class AccountController : Controller

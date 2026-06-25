@@ -5,9 +5,9 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
-using WebAppTemplate.Models;
+using PawesomePalace.Models;
 
-namespace WebAppTemplate
+namespace PawesomePalace
 {
     public partial class Startup
     {

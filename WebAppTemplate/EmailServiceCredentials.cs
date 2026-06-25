@@ -4,7 +4,7 @@ using System.Configuration;
 using System.Linq;
 using System.Web;
 
-namespace WebAppTemplate
+namespace PawesomePalace
 {
     public static class EmailServiceCredentials
     {
