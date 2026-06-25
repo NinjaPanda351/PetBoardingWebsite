@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace WebAppTemplate.Models
+namespace PawesomePalace.Models
 {
     public class PetModel
     {

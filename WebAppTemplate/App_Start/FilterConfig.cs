@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 
-namespace WebAppTemplate
+namespace PawesomePalace
 {
     public class FilterConfig
     {

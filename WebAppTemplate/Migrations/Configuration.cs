@@ -1,18 +1,18 @@
-﻿namespace WebAppTemplate.Migrations
+﻿namespace PawesomePalace.Migrations
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<WebAppTemplate.Models.ApplicationDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<PawesomePalace.Models.ApplicationDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(WebAppTemplate.Models.ApplicationDbContext context)
+        protected override void Seed(PawesomePalace.Models.ApplicationDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 

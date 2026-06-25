@@ -1,6 +1,6 @@
 using System.Web.Mvc;
 
-namespace WebAppTemplate.Controllers
+namespace PawesomePalace.Controllers
 {
     public class AdminController : Controller
     {

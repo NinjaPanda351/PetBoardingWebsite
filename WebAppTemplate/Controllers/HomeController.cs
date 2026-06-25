@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using WebAppTemplate.Models;
+using PawesomePalace.Models;
 
-namespace WebAppTemplate.Controllers
+namespace PawesomePalace.Controllers
 {
     public class HomeController : Controller
     {

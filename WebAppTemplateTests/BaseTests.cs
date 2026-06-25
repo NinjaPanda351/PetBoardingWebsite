@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 
-namespace WebAppTemplateTests
+namespace PawesomePalaceTests
 {
     [TestFixture]
     public class BaseTests

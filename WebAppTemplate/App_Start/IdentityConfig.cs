@@ -12,9 +12,9 @@ using System.Net.Mail;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
-using WebAppTemplate.Models;
+using PawesomePalace.Models;
 
-namespace WebAppTemplate
+namespace PawesomePalace
 {
     
 public class EmailService : IIdentityMessageService
