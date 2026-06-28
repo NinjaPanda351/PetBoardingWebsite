@@ -1,14 +1,13 @@
-@model PawesomePalace.Models.ResetPasswordViewModel
+@model PawesomePalace.Controllers.ResendConfirmationViewModel
 @{
     Layout = null;
-    ViewBag.Title = "Reset password";
 }
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Reset password &middot; Pawesome Palace</title>
+    <title>Resend confirmation &middot; Pawesome Palace</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -34,39 +33,25 @@
                 <span style="font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #9a9eaa; font-weight: 600;">Pet Boarding</span>
             </div>
             <div style="background: #fff; border: 1px solid #ebeaf1; border-radius: 20px; padding: 30px; box-shadow: rgba(40,40,70,0.3) 0px 14px 36px -20px;">
-                <h1 style="margin: 0 0 4px; font-family: Newsreader, serif; font-size: 24px; font-weight: 500;">Choose a new password</h1>
-                <p style="margin: 0 0 22px; font-size: 14px; color: #9a9eaa; line-height: 1.55;">Enter your email and a new password below.</p>
+                <h1 style="margin: 0 0 4px; font-family: Newsreader, serif; font-size: 24px; font-weight: 500;">Resend confirmation</h1>
+                <p style="margin: 0 0 22px; font-size: 14px; color: #9a9eaa; line-height: 1.55;">Enter your email and we'll send a new confirmation link.</p>
 
                 @Html.ValidationSummary(true, "", new { @class = "validation-summary-errors" })
 
-                @using (Html.BeginForm("ResetPassword", "Account", FormMethod.Post))
+                @using (Html.BeginForm("ResendConfirmation", "Account", FormMethod.Post))
                 {
                     @Html.AntiForgeryToken()
-                    @Html.HiddenFor(m => m.Code)
 
-                    <label style="display: block; margin-bottom: 14px;">
+                    <label style="display: block; margin-bottom: 20px;">
                         <span style="display: block; font-size: 12px; font-weight: 700; color: #6b7280; margin-bottom: 6px;">Email address</span>
                         @Html.TextBoxFor(m => m.Email, new { type = "email", placeholder = "you@email.com", style = "width: 100%; padding: 12px 14px; border: 1px solid #e4e2ec; border-radius: 10px; font: inherit; font-size: 14px; color: #2b2f3a;" })
                         @Html.ValidationMessageFor(m => m.Email)
                     </label>
 
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 20px;">
-                        <label style="display: block;">
-                            <span style="display: block; font-size: 12px; font-weight: 700; color: #6b7280; margin-bottom: 6px;">New password</span>
-                            @Html.PasswordFor(m => m.Password, new { placeholder = "&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;", style = "width: 100%; padding: 12px 14px; border: 1px solid #e4e2ec; border-radius: 10px; font: inherit; font-size: 14px; color: #2b2f3a;" })
-                            @Html.ValidationMessageFor(m => m.Password)
-                        </label>
-                        <label style="display: block;">
-                            <span style="display: block; font-size: 12px; font-weight: 700; color: #6b7280; margin-bottom: 6px;">Confirm</span>
-                            @Html.PasswordFor(m => m.ConfirmPassword, new { placeholder = "&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;", style = "width: 100%; padding: 12px 14px; border: 1px solid #e4e2ec; border-radius: 10px; font: inherit; font-size: 14px; color: #2b2f3a;" })
-                            @Html.ValidationMessageFor(m => m.ConfirmPassword)
-                        </label>
-                    </div>
-
-                    <button type="submit" style="width: 100%; padding: 13px; border-radius: 11px; border: none; background: var(--accent); color: #fff; font-weight: 700; font-size: 15px; cursor: pointer; font-family: inherit;">Reset password</button>
+                    <button type="submit" style="width: 100%; padding: 13px; border-radius: 11px; border: none; background: var(--accent); color: #fff; font-weight: 700; font-size: 15px; cursor: pointer; font-family: inherit;">Send confirmation link</button>
                 }
 
-                <a href="@Url.Action("Login", "Account")" style="display: block; width: 100%; margin-top: 10px; padding: 12px; border-radius: 11px; border: 1px solid #dcdbe6; background: #fff; color: #2b2f3a; font-weight: 700; font-size: 14px; text-align: center; text-decoration: none;">Back to login</a>
+                <a href="@Url.Action("Login", "Account")" style="display: block; width: 100%; margin-top: 12px; padding: 12px; border-radius: 11px; border: 1px solid #dcdbe6; background: #fff; color: #2b2f3a; font-weight: 700; font-size: 14px; font-family: inherit; text-align: center; text-decoration: none;">Back to sign in</a>
             </div>
         </div>
     </div>

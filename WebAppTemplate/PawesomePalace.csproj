@@ -218,6 +218,7 @@
     <Compile Include="Models\PetModel.cs" />
     <Compile Include="Models\PetOwnerModel.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
+    <Compile Include="ViewModels\MyAccountViewModel.cs" />
     <Compile Include="Models\ApplicationDBContext.cs" />
     <Compile Include="ViewModels\ContactUsSubmissionVM.cs" />
     <Compile Include="ViewModels\ManageViewModels.cs" />

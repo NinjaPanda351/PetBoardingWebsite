@@ -15,26 +15,26 @@ namespace PawesomePalace.Controllers
         public ActionResult Add(string petName, string breed, int age = 0, Guid? ownerId = null)
         {
             ApplicationDbContext dbContext = new ApplicationDbContext();
-            
+
             var pet = new PetModel();
 
             pet.OwnerId = ownerId;
             pet.Name = petName;
             pet.Breed = breed;
             pet.Age = age;
-            
+
             dbContext.PetModels.Add(pet);
             dbContext.SaveChanges();
 
             return Content($"Pet '{pet.Name}' added with ID: {pet.PetId}");
-            
+
         }
 
         // GET: /Pets/Remove?petId=...
         public ActionResult Remove(Guid petId)
         {
             ApplicationDbContext dbContext = new ApplicationDbContext();
-            
+
             var pet = dbContext.PetModels.Find(petId);
 
             if (pet == null)
