@@ -8,7 +8,6 @@ namespace PawesomePalace.ViewModels
         public string Phone { get; set; }
         public int PetCount { get; set; }
         public int ActiveBookingCount { get; set; }
-
         public string FullName => $"{FirstName} {LastName}";
         public string Initials => $"{FirstName?[0]}{LastName?[0]}";
     }

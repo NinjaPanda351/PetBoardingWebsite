@@ -16,9 +16,14 @@ namespace PawesomePalace.Models
         public string Name { get; set; }
 
         [MaxLength(100)]
+        public string Species { get; set; }
+
+        [MaxLength(100)]
         public string Breed { get; set; }
 
-        [Range(0, 30)]
+        [MaxLength(10)]
+        public string Sex { get; set; }
+
         public int Age { get; set; }
 
         [MaxLength(50)]

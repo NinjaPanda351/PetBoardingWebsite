@@ -1,12 +1,6 @@
-@using Microsoft.AspNet.Identity
-@using Microsoft.AspNet.Identity.Owin
-@using PawesomePalace.Models
 @{
-    var userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-    var ppUser = userManager?.FindById(User.Identity.GetUserId());
-    var headerFullName = ppUser != null ? $"{ppUser.FirstName} {ppUser.LastName}".Trim() : User.Identity.GetUserName();
-    var headerInitials = (ppUser?.FirstName?.Length > 0 && ppUser?.LastName?.Length > 0)
-        ? $"{ppUser.FirstName[0]}{ppUser.LastName[0]}" : "?";
+    var headerFullName = ViewBag.HeaderFullName as string ?? User.Identity.Name;
+    var headerInitials = ViewBag.HeaderInitials as string ?? "?";
     var activeNav = ViewBag.ActiveNav as string ?? "";
 }
 <header style="position: sticky; top: 0; z-index: 40; background: rgba(255,255,255,0.86); backdrop-filter: blur(10px); border-bottom: 1px solid #e7e6ee;">

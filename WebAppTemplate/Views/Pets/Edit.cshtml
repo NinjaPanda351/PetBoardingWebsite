@@ -1,7 +1,7 @@
-@model PawesomePalace.ViewModels.CreatePetViewModel
+@model PawesomePalace.ViewModels.EditPetViewModel
 @{
     Layout = null;
-    ViewBag.Title = "Add a pet";
+    ViewBag.Title = "Edit pet";
     ViewBag.ActiveNav = "Pets";
 }
 <!DOCTYPE html>
@@ -9,13 +9,14 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Add pet &middot; Pawesome Palace</title>
+    <title>Edit pet &middot; Pawesome Palace</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * { box-sizing: border-box; }
         html, body { margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
         body { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; color: #2b2f3a; background: #f3f4f8; -webkit-font-smoothing: antialiased; }
         ::placeholder { color: #aeb2bd; }
         @@keyframes ppFade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
@@ -26,14 +27,17 @@
 <body>
 <div style="min-height: 100vh; --accent: #6b7fd1; --accent-soft: #eef0fb; --accent-ink: #41509a;">
     @Html.Partial("_PpHeader")
-    <main style="max-width: 1120px; margin: 0 auto; padding: 36px 28px 80px;">
-        <div style="animation: ppFade 0.34s ease both; max-width: 640px; margin: 0 auto;">
-            <a href="@Url.Action("Index", "Pets")" style="color: #9a9eaa; font-size: 14px; font-weight: 600; text-decoration: none; display: inline-block; margin-bottom: 16px;">&#x2190; Back to pets</a>
-            <h1 style="margin: 0 0 22px; font-family: Newsreader, serif; font-size: 30px; font-weight: 500;">Add a pet</h1>
-            <div style="background: #fff; border: 1px solid #ebeaf1; border-radius: 18px; padding: 28px; box-shadow: rgba(40,40,70,0.04) 0px 1px 2px;">
-                @using (Html.BeginForm("Create", "Pets", FormMethod.Post))
+    <main style="max-width: 1120px; margin: 0px auto; padding: 36px 28px 80px;">
+        <div style="animation: ppFade 0.34s ease both; max-width: 640px; margin: 0px auto;">
+            <a href="@Url.Action("Details", "Pets", new { id = Model.PetId })" style="color: #9a9eaa; font-size: 14px; font-weight: 600; text-decoration: none; display: inline-block; margin-bottom: 16px;">&#x2190; Back to pet</a>
+            <h1 style="margin: 0px 0px 22px; font-family: Newsreader, serif; font-size: 30px; font-weight: 500;">Edit @Model.Name</h1>
+            <div style="background: #fff; border: 1px solid #ebeaf1; border-radius: 18px; padding: 28px; box-shadow: rgba(40, 40, 70, 0.04) 0px 1px 2px;">
+
+                @* Edit form wraps all fields and the Save button *@
+                @using (Html.BeginForm("Edit", "Pets", FormMethod.Post))
                 {
                     @Html.AntiForgeryToken()
+                    @Html.HiddenFor(m => m.PetId)
 
                     <label style="display: block; margin-bottom: 16px;">
                         <span style="display: block; font-size: 12px; font-weight: 700; color: #6b7280; margin-bottom: 6px;">Pet name</span>
@@ -45,7 +49,7 @@
                         <label style="display: block;">
                             <span style="display: block; font-size: 12px; font-weight: 700; color: #6b7280; margin-bottom: 6px;">Species</span>
                             @Html.DropDownListFor(m => m.Species,
-                                new SelectList(new[] { "Dog", "Cat"}),
+                                new SelectList(new[] { "Dog", "Cat", "Rabbit", "Bird", "Other" }),
                                 new { style = "width: 100%; padding: 11px 14px; border: 1px solid #e4e2ec; border-radius: 10px; font: inherit; font-size: 14px; color: #2b2f3a; background: #fff;" })
                         </label>
                         <label style="display: block;">
@@ -53,8 +57,8 @@
                             @Html.TextBoxFor(m => m.Breed, new { placeholder = "e.g. Golden Retriever", style = "width: 100%; padding: 11px 14px; border: 1px solid #e4e2ec; border-radius: 10px; font: inherit; font-size: 14px; color: #2b2f3a;" })
                         </label>
                         <label style="display: block;">
-                            <span style="display: block; font-size: 12px; font-weight: 700; color: #6b7280; margin-bottom: 6px;">Date of birth</span>
-                            @Html.TextBoxFor(m => m.DateOfBirth, new { type = "date", style = "width: 100%; padding: 11px 14px; border: 1px solid #e4e2ec; border-radius: 10px; font: inherit; font-size: 14px; color: #2b2f3a;" })
+                            <span style="display: block; font-size: 12px; font-weight: 700; color: #6b7280; margin-bottom: 6px;">Age</span>
+                            @Html.TextBoxFor(m => m.Age, new { type = "number", min = "0", style = "width: 100%; padding: 11px 14px; border: 1px solid #e4e2ec; border-radius: 10px; font: inherit; font-size: 14px; color: #2b2f3a;" })
                         </label>
                         <label style="display: block;">
                             <span style="display: block; font-size: 12px; font-weight: 700; color: #6b7280; margin-bottom: 6px;">Sex</span>
@@ -71,9 +75,11 @@
 
                     <div style="margin-top: 24px; display: flex; align-items: center; gap: 12px;">
                         <button type="submit" style="padding: 12px 22px; border-radius: 11px; border: none; background: var(--accent); color: #fff; font-weight: 700; font-size: 14px; cursor: pointer; font-family: inherit;">Save pet</button>
-                        <a href="@Url.Action("Index", "Pets")" style="padding: 12px 20px; border-radius: 11px; border: 1px solid #dcdbe6; background: #fff; color: #2b2f3a; font-weight: 700; font-size: 14px; text-decoration: none;">Cancel</a>
+                        <a href="@Url.Action("Details", "Pets", new { id = Model.PetId })" style="padding: 12px 20px; border-radius: 11px; border: 1px solid #dcdbe6; background: #fff; color: #2b2f3a; font-weight: 700; font-size: 14px; text-decoration: none;">Cancel</a>
+                        <a href="@Url.Action("DeletePet", "Pets", new { id = Model.PetId })" style="margin-left: auto; padding: 12px 18px; border-radius: 11px; border: 1px solid #ecd9d9; background: #fff; color: #b4564f; font-weight: 700; font-size: 14px; text-decoration: none;">Remove pet</a>
                     </div>
                 }
+
             </div>
         </div>
     </main>
