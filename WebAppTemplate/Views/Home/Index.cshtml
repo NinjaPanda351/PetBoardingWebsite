@@ -262,14 +262,27 @@
             animation: ppFade 0.5s ease both;
         }
 
-        .pp-hero-img-placeholder {
+        .pp-hero-slideshow {
             aspect-ratio: 4/5;
             border-radius: 24px;
-            background: repeating-linear-gradient(45deg, #e7eaf6, #e7eaf6 13px, #eef0f8 13px, #eef0f8 26px);
+            overflow: hidden;
+            position: relative;
             border: 1px solid #e2e3f0;
-            display: grid;
-            place-items: center;
         }
+
+            .pp-hero-slideshow img {
+                position: absolute;
+                inset: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                opacity: 0;
+                transition: opacity 0.9s ease;
+            }
+
+            .pp-hero-slideshow img.active {
+                opacity: 1;
+            }
 
             .pp-hero-img-placeholder span {
                 font-family: ui-monospace, monospace;
@@ -695,8 +708,17 @@
             </div>
         </div>
         <div class="pp-hero-visual">
-            <div class="pp-hero-img-placeholder">
-                <span>hero photo · happy dog at the palace</span>
+            <div class="pp-hero-slideshow">
+                <img src="~/Assets/IMG_6366.JPG"      class="active" alt="Pet at Pawesome Palace">
+                <img src="~/Assets/IMG_4725.jpeg"              alt="Pet at Pawesome Palace">
+                <img src="~/Assets/7451504006991794744.JPG"    alt="Pet at Pawesome Palace">
+                <img src="~/Assets/IMG_5420.JPG"               alt="Pet at Pawesome Palace">
+                <img src="~/Assets/9027344693747640248.JPG"    alt="Pet at Pawesome Palace">
+                <img src="~/Assets/image000001.jpeg"           alt="Pet at Pawesome Palace">
+                <img src="~/Assets/IMG_3274.JPG"               alt="Pet at Pawesome Palace">
+                <img src="~/Assets/IMG_2322.jpeg"              alt="Pet at Pawesome Palace">
+                <img src="~/Assets/IMG_0178.JPG"               alt="Pet at Pawesome Palace">
+                <img src="~/Assets/Resized_Resized_20230313_104129(1).JPG" alt="Pet at Pawesome Palace">
             </div>
             <div class="pp-hero-checkin">
                 <span class="pp-hero-checkin-icon">🐶</span>
@@ -850,3 +872,15 @@
         <span class="pp-footer-copy">© @DateTime.Now.Year Pawesome Palace Pet Boarding. Made with care.</span>
     </div>
 </footer>
+<script>
+    (function () {
+        var imgs = document.querySelectorAll('.pp-hero-slideshow img');
+        if (!imgs.length) return;
+        var idx = 0;
+        setInterval(function () {
+            imgs[idx].classList.remove('active');
+            idx = (idx + 1) % imgs.length;
+            imgs[idx].classList.add('active');
+        }, 3500);
+    })();
+</script>

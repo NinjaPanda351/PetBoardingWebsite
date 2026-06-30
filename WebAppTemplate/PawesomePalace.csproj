@@ -240,6 +240,16 @@
     <Compile Include="ViewModels\PetsViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\7451504006991794744.JPG" />
+    <Content Include="Assets\9027344693747640248.JPG" />
+    <Content Include="Assets\image000001.jpeg" />
+    <Content Include="Assets\IMG_0178.JPG" />
+    <Content Include="Assets\IMG_2322.jpeg" />
+    <Content Include="Assets\IMG_3274.JPG" />
+    <Content Include="Assets\IMG_4725.jpeg" />
+    <Content Include="Assets\IMG_5420.JPG" />
+    <Content Include="Assets\IMG_6366.JPG" />
+    <Content Include="Assets\Resized_Resized_20230313_104129%281%29.JPG" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-grid.rtl.css" />
