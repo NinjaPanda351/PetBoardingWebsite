@@ -1,0 +1,105 @@
+@model PawesomePalace.ViewModels.CreateBookingViewModel
+@{
+    Layout = null;
+    ViewBag.Title = "Request a booking";
+    ViewBag.ActiveNav = "Bookings";
+
+    var serviceOptions = new List<System.Web.Mvc.SelectListItem>
+    {
+        new System.Web.Mvc.SelectListItem { Value = "Standard Boarding", Text = "Standard Boarding" },
+        new System.Web.Mvc.SelectListItem { Value = "Deluxe Suite",      Text = "Deluxe Suite" },
+        new System.Web.Mvc.SelectListItem { Value = "Daycare",           Text = "Daycare" },
+        new System.Web.Mvc.SelectListItem { Value = "Grooming Add-on",   Text = "Grooming Add-on" }
+    };
+
+    string fieldStyle = "width: 100%; padding: 11px 14px; border: 1px solid #e4e2ec; border-radius: 10px; font: inherit; font-size: 14px; background: #fff; color: #2b2f3a;";
+    string labelStyle = "display: block; font-size: 12px; font-weight: 700; color: #6b7280; margin-bottom: 6px;";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Request a booking &middot; Pawesome Palace</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; }
+        html, body { margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; color: #2b2f3a; background: #f3f4f8; -webkit-font-smoothing: antialiased; }
+        ::placeholder { color: #aeb2bd; }
+        @@keyframes ppFade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+        input:focus, select:focus, textarea:focus { outline: none; border-color: #6b7fd1; box-shadow: 0 0 0 3px #eef0fb; }
+    </style>
+</head>
+<body>
+<div style="min-height: 100vh; --accent: #6b7fd1; --accent-soft: #eef0fb; --accent-ink: #41509a;">
+    @Html.Partial("_PpHeader")
+    <main style="max-width: 1120px; margin: 0px auto; padding: 36px 28px 80px;">
+        <div style="animation: ppFade 0.34s ease both; max-width: 680px; margin: 0px auto;">
+            <a href="@Url.Action("Index", "Bookings")" style="display: inline-block; background: none; border: none; color: #9a9eaa; font-size: 14px; font-weight: 600; cursor: pointer; padding: 0px; margin-bottom: 16px; font-family: inherit; text-decoration: none;">&#x2190; Back to bookings</a>
+            <h1 style="margin: 0px 0px 22px; font-family: Newsreader, serif; font-size: 30px; font-weight: 500;">Request a booking</h1>
+
+            @using (Html.BeginForm("Create", "Bookings", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                <div style="background: #fff; border: 1px solid #ebeaf1; border-radius: 18px; padding: 28px; box-shadow: rgba(40, 40, 70, 0.04) 0px 1px 2px;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+
+                        <label style="display: block;">
+                            <span style="@labelStyle">Select pet</span>
+                            @Html.DropDownListFor(m => m.PetId, Model.PetOptions, "-- Select a pet --", new { style = fieldStyle })
+                        </label>
+
+                        <label style="display: block;">
+                            <span style="@labelStyle">Service type</span>
+                            @Html.DropDownListFor(m => m.ServiceType, serviceOptions, new { style = fieldStyle })
+                        </label>
+
+                        <label style="display: block;">
+                            <span style="@labelStyle">Start date</span>
+                            @Html.TextBoxFor(m => m.StartDate, "{0:yyyy-MM-dd}", new { type = "date", style = fieldStyle })
+                            @Html.ValidationMessageFor(m => m.StartDate, "", new { style = "color:#b4564f; font-size:12px; margin-top:4px; display:block;" })
+                        </label>
+
+                        <label style="display: block;">
+                            <span style="@labelStyle">End date</span>
+                            @Html.TextBoxFor(m => m.EndDate, "{0:yyyy-MM-dd}", new { type = "date", style = fieldStyle })
+                            @Html.ValidationMessageFor(m => m.EndDate, "", new { style = "color:#b4564f; font-size:12px; margin-top:4px; display:block;" })
+                        </label>
+
+                        <label style="display: block;">
+                            <span style="@labelStyle">Drop-off time</span>
+                            @Html.TextBoxFor(m => m.DropOffTime, new { type = "time", style = fieldStyle })
+                        </label>
+
+                        <label style="display: block;">
+                            <span style="@labelStyle">Pick-up time</span>
+                            @Html.TextBoxFor(m => m.PickUpTime, new { type = "time", style = fieldStyle })
+                        </label>
+
+                    </div>
+
+                    <label style="display: block; margin-top: 16px;">
+                        <span style="@labelStyle">Special instructions</span>
+                        @Html.TextAreaFor(m => m.SpecialInstructions, 3, 0, new { placeholder = "Feeding schedule, medication, comfort items...", style = fieldStyle })
+                    </label>
+
+                    <div style="margin-top: 20px; display: flex; align-items: center; justify-content: space-between; padding: 16px 18px; background: var(--accent-soft); border-radius: 12px;">
+                        <span style="font-size: 13px; color: var(--accent-ink); font-weight: 600;">Estimated cost <span style="opacity: 0.7;">· Standard Boarding from $45/night</span></span>
+                        <span style="font-size: 22px; font-weight: 800; color: var(--accent-ink); font-family: Newsreader, serif;">$45+</span>
+                    </div>
+
+                    <div style="margin-top: 22px; display: flex; gap: 12px;">
+                        <button type="submit" style="padding: 12px 22px; border-radius: 11px; border: none; background: var(--accent); color: #fff; font-weight: 700; font-size: 14px; cursor: pointer; font-family: inherit;">Submit request</button>
+                        <a href="@Url.Action("Index", "Bookings")" style="padding: 12px 20px; border-radius: 11px; border: 1px solid #dcdbe6; background: #fff; color: #2b2f3a; font-weight: 700; font-size: 14px; cursor: pointer; font-family: inherit; text-decoration: none; display: inline-flex; align-items: center;">Cancel</a>
+                    </div>
+                </div>
+            }
+        </div>
+    </main>
+</div>
+</body>
+</html>

@@ -32,7 +32,7 @@
                     <p style="margin: 0px 0px 6px; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-ink); font-weight: 700;">Stays &amp; reservations</p>
                     <h1 style="margin: 0px; font-family: Newsreader, serif; font-size: 34px; font-weight: 500;">My bookings</h1>
                 </div>
-                <a href="#" style="padding: 11px 20px; border-radius: 11px; border: none; background: var(--accent); color: #fff; font-weight: 700; font-size: 14px; font-family: inherit; text-decoration: none;">+ New booking</a>
+                <a href="@Url.Action("Create", "Bookings")" style="padding: 11px 20px; border-radius: 11px; border: none; background: var(--accent); color: #fff; font-weight: 700; font-size: 14px; font-family: inherit; text-decoration: none;">+ New booking</a>
             </div>
 
             <div style="display: flex; gap: 8px; margin-bottom: 18px;">
@@ -95,10 +95,10 @@
                     }
                     else
                     {
-                        dateDisplay = booking.StartDate.ToString("MMM d") + " – " + booking.EndDate.ToString("MMM d, yyyy");
+                        dateDisplay = booking.StartDate.ToString("MMM d") + " - " + booking.EndDate.ToString("MMM d, yyyy");
                     }
 
-                    <a href="#" style="text-align: left; background: #fff; border: 1px solid #ebeaf1; border-radius: 16px; padding: 18px 22px; display: flex; align-items: center; gap: 18px; box-shadow: rgba(40,40,70,0.04) 0px 1px 2px; text-decoration: none;">
+                    <a href="@Url.Action("Details", "Bookings", new { bookingId = booking.BookingId })" style="text-align: left; background: #fff; border: 1px solid #ebeaf1; border-radius: 16px; padding: 18px 22px; display: flex; align-items: center; gap: 18px; box-shadow: rgba(40,40,70,0.04) 0px 1px 2px; text-decoration: none;">
                         <span style="width: 46px; height: 46px; border-radius: 13px; background: @iconBg; color: @iconColor; display: grid; place-items: center; font-size: 22px; flex: 0 0 auto;">@Html.Raw(emoji)</span>
                         <span style="flex: 1 1 0%; min-width: 0px;">
                             <span style="display: flex; align-items: center; gap: 10px;">

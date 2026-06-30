@@ -1,4 +1,5 @@
-﻿@{
+﻿@model PawesomePalace.ViewModels.HomeContactViewModel
+@{
     ViewData["Title"] = "Pawesome Palace — Pet Boarding";
 }
 
@@ -814,24 +815,28 @@
             </div>
         </div>
 
-        <div class="pp-contact-form">
-            @* Wire this up to a ContactViewModel + controller action when ready *@
+        @using (Html.BeginForm("HomeContact", "Home", FormMethod.Post, new { @class = "pp-contact-form" }))
+        {
+            @Html.AntiForgeryToken()
             <div class="pp-form-row">
                 <label class="pp-form-field">
                     <span class="pp-form-label">Name</span>
-                    <input class="pp-form-input" type="text" placeholder="Your Name" />
+                    @Html.TextBoxFor(m => m.Name, new { @class = "pp-form-input", placeholder = "Your Name" })
+                    @Html.ValidationMessageFor(m => m.Name, "", new { style = "color:#b4564f; font-size:12px; margin-top:4px; display:block;" })
                 </label>
                 <label class="pp-form-field">
                     <span class="pp-form-label">Email</span>
-                    <input class="pp-form-input" type="email" placeholder="you@email.com" />
+                    @Html.TextBoxFor(m => m.Email, new { @class = "pp-form-input", type = "email", placeholder = "you@email.com" })
+                    @Html.ValidationMessageFor(m => m.Email, "", new { style = "color:#b4564f; font-size:12px; margin-top:4px; display:block;" })
                 </label>
             </div>
             <label class="pp-form-field">
                 <span class="pp-form-label">How can we help?</span>
-                <textarea class="pp-form-textarea" rows="4" placeholder="Tell us about your pet and the dates you have in mind…"></textarea>
+                @Html.TextAreaFor(m => m.Message, 4, 0, new { @class = "pp-form-textarea", placeholder = "Tell us about your pet and the dates you have in mind..." })
+                @Html.ValidationMessageFor(m => m.Message, "", new { style = "color:#b4564f; font-size:12px; margin-top:4px; display:block;" })
             </label>
-            <button class="pp-btn-submit" type="button">Send message</button>
-        </div>
+            <button class="pp-btn-submit" type="submit">Send message</button>
+        }
     </div>
 </section>
 
