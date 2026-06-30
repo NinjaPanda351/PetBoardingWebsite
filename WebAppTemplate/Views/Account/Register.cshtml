@@ -45,37 +45,37 @@
 
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
                         <label style="display: block;">
-                            <span style="display: block; font-size: 12px; font-weight: 700; color: #6b7280; margin-bottom: 6px;">First name</span>
+                            <span style="display: block; font-size: 12px; font-weight: 700; color: #6b7280; margin-bottom: 6px;">First name *</span>
                             @Html.TextBoxFor(m => m.FirstName, new { placeholder = "John", style = "width: 100%; padding: 12px 14px; border: 1px solid #e4e2ec; border-radius: 10px; font: inherit; font-size: 14px; color: #2b2f3a;" })
                             @Html.ValidationMessageFor(m => m.FirstName)
                         </label>
                         <label style="display: block;">
-                            <span style="display: block; font-size: 12px; font-weight: 700; color: #6b7280; margin-bottom: 6px;">Last name</span>
+                            <span style="display: block; font-size: 12px; font-weight: 700; color: #6b7280; margin-bottom: 6px;">Last name *</span>
                             @Html.TextBoxFor(m => m.LastName, new { placeholder = "Doe", style = "width: 100%; padding: 12px 14px; border: 1px solid #e4e2ec; border-radius: 10px; font: inherit; font-size: 14px; color: #2b2f3a;" })
                             @Html.ValidationMessageFor(m => m.LastName)
                         </label>
                     </div>
 
                     <label style="display: block; margin-top: 14px;">
-                        <span style="display: block; font-size: 12px; font-weight: 700; color: #6b7280; margin-bottom: 6px;">Email address</span>
+                        <span style="display: block; font-size: 12px; font-weight: 700; color: #6b7280; margin-bottom: 6px;">Email address *</span>
                         @Html.TextBoxFor(m => m.Email, new { type = "email", placeholder = "you@email.com", style = "width: 100%; padding: 12px 14px; border: 1px solid #e4e2ec; border-radius: 10px; font: inherit; font-size: 14px; color: #2b2f3a;" })
                         @Html.ValidationMessageFor(m => m.Email)
                     </label>
 
                     <label style="display: block; margin-top: 14px;">
-                        <span style="display: block; font-size: 12px; font-weight: 700; color: #6b7280; margin-bottom: 6px;">Phone number</span>
+                        <span style="display: block; font-size: 12px; font-weight: 700; color: #6b7280; margin-bottom: 6px;">Phone number *</span>
                         @Html.TextBoxFor(m => m.Phone, new { type = "tel", placeholder = "(XXX) XXX-XXXX", style = "width: 100%; padding: 12px 14px; border: 1px solid #e4e2ec; border-radius: 10px; font: inherit; font-size: 14px; color: #2b2f3a;" })
                         @Html.ValidationMessageFor(m => m.Phone)
                     </label>
 
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 14px;">
                         <label style="display: block;">
-                            <span style="display: block; font-size: 12px; font-weight: 700; color: #6b7280; margin-bottom: 6px;">Password</span>
+                            <span style="display: block; font-size: 12px; font-weight: 700; color: #6b7280; margin-bottom: 6px;">Password *</span>
                             @Html.PasswordFor(m => m.Password, new { placeholder = "Password", style = "width: 100%; padding: 12px 14px; border: 1px solid #e4e2ec; border-radius: 10px; font: inherit; font-size: 14px; color: #2b2f3a;" })
                             @Html.ValidationMessageFor(m => m.Password)
                         </label>
                         <label style="display: block;">
-                            <span style="display: block; font-size: 12px; font-weight: 700; color: #6b7280; margin-bottom: 6px;">Confirm</span>
+                            <span style="display: block; font-size: 12px; font-weight: 700; color: #6b7280; margin-bottom: 6px;">Confirm *</span>
                             @Html.PasswordFor(m => m.ConfirmPassword, new { placeholder = "Password", style = "width: 100%; padding: 12px 14px; border: 1px solid #e4e2ec; border-radius: 10px; font: inherit; font-size: 14px; color: #2b2f3a;" })
                             @Html.ValidationMessageFor(m => m.ConfirmPassword)
                         </label>

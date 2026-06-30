@@ -14,11 +14,26 @@ namespace PawesomePalace.ViewModels
     {
         [Required]
         public string Name { get; set; }
+        [Required]
         public string Species { get; set; }
         public string Breed { get; set; }
         public DateTime? DateOfBirth { get; set; }
+        [Required]
         public string Sex { get; set; }
-        public string Notes { get; set; }
+        public string Color { get; set; }
+        public string SecondaryColor { get; set; }
+        [Required]
+        public string VetName { get; set; }
+        [Required]
+        public string VetPhone { get; set; }
+        public string MedicalNotes { get; set; }
+        public string Medication { get; set; }
+        [Range(1, 10)]
+        public int FeedingsPerDay { get; set; } = 1;
+        [Required]
+        public string FeedAmount { get; set; }
+        public string FeedingInstructions { get; set; }
+        public string SpecialInstructions { get; set; }
     }
 
     public class EditPetViewModel
@@ -27,11 +42,26 @@ namespace PawesomePalace.ViewModels
 
         [Required]
         public string Name { get; set; }
+        [Required]
         public string Species { get; set; }
         public string Breed { get; set; }
         public int? Age { get; set; }
+        [Required]
         public string Sex { get; set; }
-        public string Notes { get; set; }
+        public string Color { get; set; }
+        public string SecondaryColor { get; set; }
+        [Required]
+        public string VetName { get; set; }
+        [Required]
+        public string VetPhone { get; set; }
+        public string MedicalNotes { get; set; }
+        public string Medication { get; set; }
+        [Required, Range(1, 10)]
+        public int FeedingsPerDay { get; set; } = 1;
+        [Required]
+        public string FeedAmount { get; set; }
+        public string FeedingInstructions { get; set; }
+        public string SpecialInstructions { get; set; }
     }
 
     public class PetDetailsViewModel
@@ -44,6 +74,15 @@ namespace PawesomePalace.ViewModels
         public string Breed { get; set; }
         public int? Age { get; set; }
         public string Sex { get; set; }
-        public string Notes { get; set; }
+        public string Color { get; set; }
+        public string SecondaryColor { get; set; }
+        public string VetName { get; set; }
+        public string VetPhone { get; set; }
+        public string MedicalNotes { get; set; }
+        public string Medication { get; set; }
+        public int FeedingsPerDay { get; set; }
+        public string FeedAmount { get; set; }
+        public string FeedingInstructions { get; set; }
+        public string SpecialInstructions { get; set; }
     }
 }

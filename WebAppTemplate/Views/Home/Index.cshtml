@@ -922,7 +922,14 @@
         <div class="pp-header-actions">
             @if (Request.IsAuthenticated)
             {
-                <a href="@Url.Action("Index", "MyAccount")" class="pp-btn-ghost">My Account</a>
+                if (User.IsInRole("Admin"))
+                {
+                    <a href="@Url.Action("Index", "Admin")" class="pp-btn-ghost">Admin Dashboard</a>
+                }
+                else
+                {
+                    <a href="@Url.Action("Index", "MyAccount")" class="pp-btn-ghost">My Account</a>
+                }
                 using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { style = "display:inline;" }))
                 {
                     @Html.AntiForgeryToken()

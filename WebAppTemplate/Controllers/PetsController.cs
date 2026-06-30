@@ -113,13 +113,31 @@ namespace PawesomePalace.Controllers
                 Breed = model.Breed,
                 Sex = model.Sex,
                 OwnerId = owner?.OwnerId,
-                MedicalNotes = model.Notes,
-                Age = model.DateOfBirth.HasValue ? (int)((DateTime.Today - model.DateOfBirth.Value).TotalDays / 365) : 0
+                Age = model.DateOfBirth.HasValue ? (int)((DateTime.Today - model.DateOfBirth.Value).TotalDays / 365) : 0,
+                Color = model.Color,
+                SecondaryColor = model.SecondaryColor,
+                VetName = model.VetName,
+                VetPhone = model.VetPhone,
+                MedicalNotes = model.MedicalNotes,
+                Medication = model.Medication,
+                FeedingsPerDay = model.FeedingsPerDay < 1 ? 1 : model.FeedingsPerDay,
+                FeedAmount = model.FeedAmount,
+                FeedingInstructions = model.FeedingInstructions,
+                SpecialInstructions = model.SpecialInstructions
             };
 
             db.PetModels.Add(pet);
-            db.SaveChanges();
-
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (System.Data.Entity.Validation.DbEntityValidationException ex)
+            {
+                foreach (var eve in ex.EntityValidationErrors)
+                    foreach (var ve in eve.ValidationErrors)
+                        ModelState.AddModelError("", ve.ErrorMessage);
+                return View(model);
+            }
 
             return RedirectToAction("Index");
         }
@@ -150,7 +168,16 @@ namespace PawesomePalace.Controllers
                 Breed = pet.Breed,
                 Age = pet.Age,
                 Sex = pet.Sex,
-                Notes = pet.MedicalNotes
+                Color = pet.Color,
+                SecondaryColor = pet.SecondaryColor,
+                VetName = pet.VetName,
+                VetPhone = pet.VetPhone,
+                MedicalNotes = pet.MedicalNotes,
+                Medication = pet.Medication,
+                FeedingsPerDay = pet.FeedingsPerDay,
+                FeedAmount = pet.FeedAmount,
+                FeedingInstructions = pet.FeedingInstructions,
+                SpecialInstructions = pet.SpecialInstructions
             };
 
             return View(model);
@@ -171,14 +198,44 @@ namespace PawesomePalace.Controllers
             var owner = db.PetOwnerModels.FirstOrDefault(o => o.Email == user.Email);
             if (owner == null || pet.OwnerId != owner.OwnerId) return new HttpUnauthorizedResult();
 
+            if (!ModelState.IsValid)
+            {
+                ViewBag.HeaderFullName = (user.FirstName + " " + user.LastName).Trim();
+                ViewBag.HeaderInitials = (user.FirstName?.Length > 0 && user.LastName?.Length > 0)
+                    ? "" + user.FirstName[0] + user.LastName[0] : "?";
+                return View(model);
+            }
+
             pet.Name = model.Name;
             pet.Species = model.Species;
             pet.Breed = model.Breed;
             pet.Age = model.Age ?? pet.Age;
             pet.Sex = model.Sex;
-            pet.MedicalNotes = model.Notes;
+            pet.Color = model.Color;
+            pet.SecondaryColor = model.SecondaryColor;
+            pet.VetName = model.VetName;
+            pet.VetPhone = model.VetPhone;
+            pet.MedicalNotes = model.MedicalNotes;
+            pet.Medication = model.Medication;
+            pet.FeedingsPerDay = model.FeedingsPerDay < 1 ? 1 : model.FeedingsPerDay;
+            pet.FeedAmount = model.FeedAmount;
+            pet.FeedingInstructions = model.FeedingInstructions;
+            pet.SpecialInstructions = model.SpecialInstructions;
 
-            db.SaveChanges();
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (System.Data.Entity.Validation.DbEntityValidationException ex)
+            {
+                foreach (var eve in ex.EntityValidationErrors)
+                    foreach (var ve in eve.ValidationErrors)
+                        ModelState.AddModelError("", ve.ErrorMessage);
+                ViewBag.HeaderFullName = (user.FirstName + " " + user.LastName).Trim();
+                ViewBag.HeaderInitials = (user.FirstName?.Length > 0 && user.LastName?.Length > 0)
+                    ? "" + user.FirstName[0] + user.LastName[0] : "?";
+                return View(model);
+            }
 
             return RedirectToAction("Index");
         }
@@ -209,7 +266,16 @@ namespace PawesomePalace.Controllers
                 Breed = pet.Breed,
                 Age = pet.Age,
                 Sex = pet.Sex,
-                Notes = pet.MedicalNotes
+                Color = pet.Color,
+                SecondaryColor = pet.SecondaryColor,
+                VetName = pet.VetName,
+                VetPhone = pet.VetPhone,
+                MedicalNotes = pet.MedicalNotes,
+                Medication = pet.Medication,
+                FeedingsPerDay = pet.FeedingsPerDay,
+                FeedAmount = pet.FeedAmount,
+                FeedingInstructions = pet.FeedingInstructions,
+                SpecialInstructions = pet.SpecialInstructions
             };
 
             return View(model);

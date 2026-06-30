@@ -56,13 +56,13 @@
                     @Html.AntiForgeryToken()
 
                     <label style="display: block; margin-bottom: 14px;">
-                        <span style="display: block; font-size: 12px; font-weight: 700; color: #6b7280; margin-bottom: 6px;">Email</span>
+                        <span style="display: block; font-size: 12px; font-weight: 700; color: #6b7280; margin-bottom: 6px;">Email *</span>
                         @Html.TextBoxFor(m => m.Email, new { type = "email", placeholder = "you@email.com", style = "width: 100%; padding: 12px 14px; border: 1px solid #e4e2ec; border-radius: 10px; font: inherit; font-size: 14px; color: #2b2f3a;" })
                         @Html.ValidationMessageFor(m => m.Email)
                     </label>
 
                     <label style="display: block; margin-bottom: 14px;">
-                        <span style="display: block; font-size: 12px; font-weight: 700; color: #6b7280; margin-bottom: 6px;">Password</span>
+                        <span style="display: block; font-size: 12px; font-weight: 700; color: #6b7280; margin-bottom: 6px;">Password *</span>
                         @Html.PasswordFor(m => m.Password, new { placeholder = "Password", style = "width: 100%; padding: 12px 14px; border: 1px solid #e4e2ec; border-radius: 10px; font: inherit; font-size: 14px; color: #2b2f3a;" })
                         @Html.ValidationMessageFor(m => m.Password)
                     </label>

@@ -3,13 +3,14 @@
     Layout = null;
     ViewBag.Title = "Pet details";
     ViewBag.ActiveNav = "Pets";
+    string fieldStyle = "padding: 11px 14px; border: 1px solid #e4e2ec; border-radius: 10px; font-size: 14px; color: #2b2f3a; background: #fafafa;";
 }
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@Model.Name &middot; Pawesome Palace</title>
+    <title>@Model.Name - Pawesome Palace</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -19,44 +20,105 @@
         html { scroll-behavior: smooth; }
         body { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; color: #2b2f3a; background: #f3f4f8; -webkit-font-smoothing: antialiased; }
         @@keyframes ppFade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+        .pp-field { margin-bottom: 16px; }
+        .pp-label { display: block; font-size: 12px; font-weight: 700; color: #6b7280; margin-bottom: 6px; }
+        .pp-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .pp-section-label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #9a9eaa; margin: 28px 0 16px; padding-bottom: 10px; border-bottom: 1px solid #f0eff5; }
+        .pp-value { padding: 11px 14px; border: 1px solid #e4e2ec; border-radius: 10px; font-size: 14px; color: #2b2f3a; background: #fafafa; }
+        .pp-value-pre { padding: 11px 14px; border: 1px solid #e4e2ec; border-radius: 10px; font-size: 14px; color: #2b2f3a; background: #fafafa; min-height: 60px; white-space: pre-wrap; }
+        .pp-empty { color: #c0c4ce; }
     </style>
 </head>
 <body>
 <div style="min-height: 100vh; --accent: #6b7fd1; --accent-soft: #eef0fb; --accent-ink: #41509a;">
     @Html.Partial("_PpHeader")
-    <main style="max-width: 1120px; margin: 0px auto; padding: 36px 28px 80px;">
-        <div style="animation: ppFade 0.34s ease both; max-width: 640px; margin: 0px auto;">
-            <a href="@Url.Action("Index", "Pets")" style="color: #9a9eaa; font-size: 14px; font-weight: 600; text-decoration: none; display: inline-block; margin-bottom: 16px;">&#x2190; Back to pets</a>
-            <h1 style="margin: 0px 0px 22px; font-family: Newsreader, serif; font-size: 30px; font-weight: 500;">@Model.Name</h1>
-            <div style="background: #fff; border: 1px solid #ebeaf1; border-radius: 18px; padding: 28px; box-shadow: rgba(40, 40, 70, 0.04) 0px 1px 2px;">
+    <main style="max-width: 1120px; margin: 0 auto; padding: 36px 28px 80px;">
+        <div style="animation: ppFade 0.34s ease both; max-width: 680px; margin: 0 auto;">
+            <a href="@Url.Action("Index", "Pets")" style="color: #9a9eaa; font-size: 14px; font-weight: 600; text-decoration: none; display: inline-block; margin-bottom: 16px;">&lt;- Back to pets</a>
+            <h1 style="margin: 0 0 22px; font-family: Newsreader, serif; font-size: 30px; font-weight: 500;">@Model.Name</h1>
+            <div style="background: #fff; border: 1px solid #ebeaf1; border-radius: 18px; padding: 28px; box-shadow: rgba(40,40,70,0.04) 0px 1px 2px;">
 
-                <div style="margin-bottom: 16px;">
-                    <span style="display: block; font-size: 12px; font-weight: 700; color: #6b7280; margin-bottom: 6px;">Pet name</span>
-                    <div style="padding: 11px 14px; border: 1px solid #e4e2ec; border-radius: 10px; font-size: 14px; color: #2b2f3a; background: #fafafa;">@(Model.Name ?? "-")</div>
+                <p class="pp-section-label">Basic info</p>
+
+                <div class="pp-field">
+                    <span class="pp-label">Pet name</span>
+                    <div class="pp-value">@Model.Name</div>
+                </div>
+                <div class="pp-grid-2">
+                    <div class="pp-field">
+                        <span class="pp-label">Species</span>
+                        <div class="pp-value">@(string.IsNullOrWhiteSpace(Model.Species) ? "-" : Model.Species)</div>
+                    </div>
+                    <div class="pp-field">
+                        <span class="pp-label">Breed</span>
+                        <div class="pp-value">@(string.IsNullOrWhiteSpace(Model.Breed) ? "-" : Model.Breed)</div>
+                    </div>
+                    <div class="pp-field">
+                        <span class="pp-label">Age</span>
+                        <div class="pp-value">@(Model.Age.HasValue && Model.Age > 0 ? Model.Age + " yrs" : "-")</div>
+                    </div>
+                    <div class="pp-field">
+                        <span class="pp-label">Sex</span>
+                        <div class="pp-value">@(string.IsNullOrWhiteSpace(Model.Sex) ? "-" : Model.Sex)</div>
+                    </div>
                 </div>
 
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
-                    <div>
-                        <span style="display: block; font-size: 12px; font-weight: 700; color: #6b7280; margin-bottom: 6px;">Species</span>
-                        <div style="padding: 11px 14px; border: 1px solid #e4e2ec; border-radius: 10px; font-size: 14px; color: #2b2f3a; background: #fafafa;">@(Model.Species ?? "-")</div>
+                <p class="pp-section-label">Appearance</p>
+
+                <div class="pp-grid-2">
+                    <div class="pp-field">
+                        <span class="pp-label">Primary color</span>
+                        <div class="pp-value">@(string.IsNullOrWhiteSpace(Model.Color) ? "-" : Model.Color)</div>
                     </div>
-                    <div>
-                        <span style="display: block; font-size: 12px; font-weight: 700; color: #6b7280; margin-bottom: 6px;">Breed</span>
-                        <div style="padding: 11px 14px; border: 1px solid #e4e2ec; border-radius: 10px; font-size: 14px; color: #2b2f3a; background: #fafafa;">@(Model.Breed ?? "-")</div>
-                    </div>
-                    <div>
-                        <span style="display: block; font-size: 12px; font-weight: 700; color: #6b7280; margin-bottom: 6px;">Age</span>
-                        <div style="padding: 11px 14px; border: 1px solid #e4e2ec; border-radius: 10px; font-size: 14px; color: #2b2f3a; background: #fafafa;">@(Model.Age.HasValue ? Model.Age + " yrs" : "—")</div>
-                    </div>
-                    <div>
-                        <span style="display: block; font-size: 12px; font-weight: 700; color: #6b7280; margin-bottom: 6px;">Sex</span>
-                        <div style="padding: 11px 14px; border: 1px solid #e4e2ec; border-radius: 10px; font-size: 14px; color: #2b2f3a; background: #fafafa;">@(Model.Sex ?? "-")</div>
+                    <div class="pp-field">
+                        <span class="pp-label">Secondary color</span>
+                        <div class="pp-value">@(string.IsNullOrWhiteSpace(Model.SecondaryColor) ? "-" : Model.SecondaryColor)</div>
                     </div>
                 </div>
 
-                <div style="margin-top: 16px;">
-                    <span style="display: block; font-size: 12px; font-weight: 700; color: #6b7280; margin-bottom: 6px;">Notes &amp; care instructions</span>
-                    <div style="padding: 11px 14px; border: 1px solid #e4e2ec; border-radius: 10px; font-size: 14px; color: #2b2f3a; background: #fafafa; min-height: 80px; white-space: pre-wrap;">@(Model.Notes ?? "")</div>
+                <p class="pp-section-label">Vet &amp; medical</p>
+
+                <div class="pp-grid-2">
+                    <div class="pp-field">
+                        <span class="pp-label">Vet name</span>
+                        <div class="pp-value">@(string.IsNullOrWhiteSpace(Model.VetName) ? "-" : Model.VetName)</div>
+                    </div>
+                    <div class="pp-field">
+                        <span class="pp-label">Vet phone</span>
+                        <div class="pp-value">@(string.IsNullOrWhiteSpace(Model.VetPhone) ? "-" : Model.VetPhone)</div>
+                    </div>
+                </div>
+                <div class="pp-field">
+                    <span class="pp-label">Medications</span>
+                    <div class="pp-value">@(string.IsNullOrWhiteSpace(Model.Medication) ? "-" : Model.Medication)</div>
+                </div>
+                <div class="pp-field">
+                    <span class="pp-label">Medical notes</span>
+                    <div class="pp-value-pre">@(string.IsNullOrWhiteSpace(Model.MedicalNotes) ? "-" : Model.MedicalNotes)</div>
+                </div>
+
+                <p class="pp-section-label">Feeding</p>
+
+                <div class="pp-grid-2">
+                    <div class="pp-field">
+                        <span class="pp-label">Feedings per day</span>
+                        <div class="pp-value">@Model.FeedingsPerDay</div>
+                    </div>
+                    <div class="pp-field">
+                        <span class="pp-label">Amount per feeding</span>
+                        <div class="pp-value">@(string.IsNullOrWhiteSpace(Model.FeedAmount) ? "-" : Model.FeedAmount)</div>
+                    </div>
+                </div>
+                <div class="pp-field">
+                    <span class="pp-label">Feeding instructions</span>
+                    <div class="pp-value-pre">@(string.IsNullOrWhiteSpace(Model.FeedingInstructions) ? "-" : Model.FeedingInstructions)</div>
+                </div>
+
+                <p class="pp-section-label">Special instructions</p>
+
+                <div class="pp-field">
+                    <span class="pp-label">Notes for staff</span>
+                    <div class="pp-value-pre">@(string.IsNullOrWhiteSpace(Model.SpecialInstructions) ? "-" : Model.SpecialInstructions)</div>
                 </div>
 
                 <div style="margin-top: 24px; display: flex; align-items: center; gap: 12px;">
@@ -68,6 +130,5 @@
         </div>
     </main>
 </div>
-
 </body>
 </html>

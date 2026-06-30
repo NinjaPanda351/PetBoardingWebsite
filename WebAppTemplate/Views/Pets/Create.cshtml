@@ -9,7 +9,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Add pet &middot; Pawesome Palace</title>
+    <title>Add pet - Pawesome Palace</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -21,52 +21,125 @@
         @@keyframes ppFade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
         input:focus, select:focus, textarea:focus { outline: none; border-color: #6b7fd1; box-shadow: 0 0 0 3px #eef0fb; }
         .field-validation-error { display: block; font-size: 12px; color: #d9534f; margin-top: 4px; }
+        .pp-field { display: block; margin-bottom: 16px; }
+        .pp-label { display: block; font-size: 12px; font-weight: 700; color: #6b7280; margin-bottom: 6px; }
+        .pp-input { width: 100%; padding: 11px 14px; border: 1px solid #e4e2ec; border-radius: 10px; font: inherit; font-size: 14px; color: #2b2f3a; background: #fff; }
+        .pp-textarea { width: 100%; padding: 11px 14px; border: 1px solid #e4e2ec; border-radius: 10px; font: inherit; font-size: 14px; color: #2b2f3a; resize: vertical; }
+        .pp-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .pp-section-label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #9a9eaa; margin: 28px 0 16px; padding-bottom: 10px; border-bottom: 1px solid #f0eff5; }
     </style>
 </head>
 <body>
 <div style="min-height: 100vh; --accent: #6b7fd1; --accent-soft: #eef0fb; --accent-ink: #41509a;">
     @Html.Partial("_PpHeader")
     <main style="max-width: 1120px; margin: 0 auto; padding: 36px 28px 80px;">
-        <div style="animation: ppFade 0.34s ease both; max-width: 640px; margin: 0 auto;">
-            <a href="@Url.Action("Index", "Pets")" style="color: #9a9eaa; font-size: 14px; font-weight: 600; text-decoration: none; display: inline-block; margin-bottom: 16px;">&#x2190; Back to pets</a>
+        <div style="animation: ppFade 0.34s ease both; max-width: 680px; margin: 0 auto;">
+            <a href="@Url.Action("Index", "Pets")" style="color: #9a9eaa; font-size: 14px; font-weight: 600; text-decoration: none; display: inline-block; margin-bottom: 16px;">&lt;- Back to pets</a>
             <h1 style="margin: 0 0 22px; font-family: Newsreader, serif; font-size: 30px; font-weight: 500;">Add a pet</h1>
             <div style="background: #fff; border: 1px solid #ebeaf1; border-radius: 18px; padding: 28px; box-shadow: rgba(40,40,70,0.04) 0px 1px 2px;">
                 @using (Html.BeginForm("Create", "Pets", FormMethod.Post))
                 {
                     @Html.AntiForgeryToken()
+                    if (!ViewData.ModelState.IsValid)
+                    {
+                        @Html.ValidationSummary(false, "", new { style = "margin-bottom: 16px; padding: 12px 16px; border-radius: 10px; background: #fef2f2; border: 1px solid #fecaca; color: #b91c1c; font-size: 13px;" })
+                    }
 
-                    <label style="display: block; margin-bottom: 16px;">
-                        <span style="display: block; font-size: 12px; font-weight: 700; color: #6b7280; margin-bottom: 6px;">Pet name</span>
-                        @Html.TextBoxFor(m => m.Name, new { placeholder = "e.g. Biscuit", style = "width: 100%; padding: 11px 14px; border: 1px solid #e4e2ec; border-radius: 10px; font: inherit; font-size: 14px; color: #2b2f3a;" })
+                    <p class="pp-section-label">Basic info</p>
+
+                    <label class="pp-field">
+                        <span class="pp-label">Pet name *</span>
+                        @Html.TextBoxFor(m => m.Name, new { @class = "pp-input", placeholder = "e.g. Biscuit" })
                         @Html.ValidationMessageFor(m => m.Name)
                     </label>
 
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
-                        <label style="display: block;">
-                            <span style="display: block; font-size: 12px; font-weight: 700; color: #6b7280; margin-bottom: 6px;">Species</span>
+                    <div class="pp-grid-2">
+                        <label class="pp-field">
+                            <span class="pp-label">Species *</span>
                             @Html.DropDownListFor(m => m.Species,
-                                new SelectList(new[] { "Dog", "Cat"}),
-                                new { style = "width: 100%; padding: 11px 14px; border: 1px solid #e4e2ec; border-radius: 10px; font: inherit; font-size: 14px; color: #2b2f3a; background: #fff;" })
+                                new SelectList(new[] { "Dog", "Cat", "Rabbit", "Bird", "Other" }),
+                                "-- Select --",
+                                new { @class = "pp-input" })
+                            @Html.ValidationMessageFor(m => m.Species)
                         </label>
-                        <label style="display: block;">
-                            <span style="display: block; font-size: 12px; font-weight: 700; color: #6b7280; margin-bottom: 6px;">Breed</span>
-                            @Html.TextBoxFor(m => m.Breed, new { placeholder = "e.g. Golden Retriever", style = "width: 100%; padding: 11px 14px; border: 1px solid #e4e2ec; border-radius: 10px; font: inherit; font-size: 14px; color: #2b2f3a;" })
+                        <label class="pp-field">
+                            <span class="pp-label">Breed</span>
+                            @Html.TextBoxFor(m => m.Breed, new { @class = "pp-input", placeholder = "e.g. Golden Retriever" })
                         </label>
-                        <label style="display: block;">
-                            <span style="display: block; font-size: 12px; font-weight: 700; color: #6b7280; margin-bottom: 6px;">Date of birth</span>
-                            @Html.TextBoxFor(m => m.DateOfBirth, new { type = "date", style = "width: 100%; padding: 11px 14px; border: 1px solid #e4e2ec; border-radius: 10px; font: inherit; font-size: 14px; color: #2b2f3a;" })
+                        <label class="pp-field">
+                            <span class="pp-label">Date of birth</span>
+                            @Html.TextBoxFor(m => m.DateOfBirth, new { type = "date", @class = "pp-input" })
                         </label>
-                        <label style="display: block;">
-                            <span style="display: block; font-size: 12px; font-weight: 700; color: #6b7280; margin-bottom: 6px;">Sex</span>
+                        <label class="pp-field">
+                            <span class="pp-label">Sex *</span>
                             @Html.DropDownListFor(m => m.Sex,
                                 new SelectList(new[] { "Female", "Male" }),
-                                new { style = "width: 100%; padding: 11px 14px; border: 1px solid #e4e2ec; border-radius: 10px; font: inherit; font-size: 14px; color: #2b2f3a; background: #fff;" })
+                                "-- Select --",
+                                new { @class = "pp-input" })
+                            @Html.ValidationMessageFor(m => m.Sex)
                         </label>
                     </div>
 
-                    <label style="display: block; margin-top: 16px;">
-                        <span style="display: block; font-size: 12px; font-weight: 700; color: #6b7280; margin-bottom: 6px;">Notes &amp; care instructions</span>
-                        @Html.TextAreaFor(m => m.Notes, 3, 0, new { placeholder = "Allergies, medication, temperament\u2026", style = "width: 100%; padding: 11px 14px; border: 1px solid #e4e2ec; border-radius: 10px; font: inherit; font-size: 14px; color: #2b2f3a; resize: vertical;" })
+                    <p class="pp-section-label">Appearance</p>
+
+                    <div class="pp-grid-2">
+                        <label class="pp-field">
+                            <span class="pp-label">Primary color</span>
+                            @Html.TextBoxFor(m => m.Color, new { @class = "pp-input", placeholder = "e.g. Golden" })
+                        </label>
+                        <label class="pp-field">
+                            <span class="pp-label">Secondary color</span>
+                            @Html.TextBoxFor(m => m.SecondaryColor, new { @class = "pp-input", placeholder = "e.g. White" })
+                        </label>
+                    </div>
+
+                    <p class="pp-section-label">Vet &amp; medical</p>
+
+                    <div class="pp-grid-2">
+                        <label class="pp-field">
+                            <span class="pp-label">Vet name *</span>
+                            @Html.TextBoxFor(m => m.VetName, new { @class = "pp-input", placeholder = "Dr. Smith" })
+                            @Html.ValidationMessageFor(m => m.VetName)
+                        </label>
+                        <label class="pp-field">
+                            <span class="pp-label">Vet phone *</span>
+                            @Html.TextBoxFor(m => m.VetPhone, new { @class = "pp-input", type = "tel", placeholder = "(XXX) XXX-XXXX" })
+                            @Html.ValidationMessageFor(m => m.VetPhone)
+                        </label>
+                    </div>
+                    <label class="pp-field">
+                        <span class="pp-label">Medications</span>
+                        @Html.TextBoxFor(m => m.Medication, new { @class = "pp-input", placeholder = "Name, dosage, and frequency" })
+                    </label>
+                    <label class="pp-field">
+                        <span class="pp-label">Medical notes</span>
+                        @Html.TextAreaFor(m => m.MedicalNotes, 3, 0, new { @class = "pp-textarea", placeholder = "Allergies, conditions, or anything our staff should know..." })
+                    </label>
+
+                    <p class="pp-section-label">Feeding</p>
+
+                    <div class="pp-grid-2">
+                        <label class="pp-field">
+                            <span class="pp-label">Feedings per day *</span>
+                            @Html.TextBoxFor(m => m.FeedingsPerDay, new { type = "number", min = "1", max = "10", @class = "pp-input" })
+                            @Html.ValidationMessageFor(m => m.FeedingsPerDay)
+                        </label>
+                        <label class="pp-field">
+                            <span class="pp-label">Amount per feeding *</span>
+                            @Html.TextBoxFor(m => m.FeedAmount, new { @class = "pp-input", placeholder = "e.g. 1 cup" })
+                            @Html.ValidationMessageFor(m => m.FeedAmount)
+                        </label>
+                    </div>
+                    <label class="pp-field">
+                        <span class="pp-label">Feeding instructions</span>
+                        @Html.TextAreaFor(m => m.FeedingInstructions, 2, 0, new { @class = "pp-textarea", placeholder = "Food brand, timing, any special preparation..." })
+                    </label>
+
+                    <p class="pp-section-label">Special instructions</p>
+
+                    <label class="pp-field">
+                        <span class="pp-label">Anything else we should know?</span>
+                        @Html.TextAreaFor(m => m.SpecialInstructions, 3, 0, new { @class = "pp-textarea", placeholder = "Temperament, favourite toys, do not disturb after 9pm..." })
                     </label>
 
                     <div style="margin-top: 24px; display: flex; align-items: center; gap: 12px;">

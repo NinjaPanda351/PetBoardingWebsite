@@ -35,7 +35,7 @@ namespace PawesomePalace.Models
         [MaxLength(100)]
         public string VetName { get; set; }
 
-        [MaxLength(20), Phone]
+        [MaxLength(20)]
         public string VetPhone { get; set; }
 
         [MaxLength(1000)]
