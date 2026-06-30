@@ -215,6 +215,10 @@
     <Compile Include="Migrations\202606280747016_AddSexToPet.Designer.cs">
       <DependentUpon>202606280747016_AddSexToPet.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202606300040347_AddServiceTypeAndPriceAndReferenceToBooking.cs" />
+    <Compile Include="Migrations\202606300040347_AddServiceTypeAndPriceAndReferenceToBooking.Designer.cs">
+      <DependentUpon>202606300040347_AddServiceTypeAndPriceAndReferenceToBooking.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\BookingEventModel.cs" />
@@ -226,6 +230,7 @@
     <Compile Include="Models\PetModel.cs" />
     <Compile Include="Models\PetOwnerModel.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
+    <Compile Include="ViewModels\BookingsViewModel.cs" />
     <Compile Include="ViewModels\MyAccountViewModel.cs" />
     <Compile Include="Models\ApplicationDBContext.cs" />
     <Compile Include="ViewModels\ContactUsSubmissionVM.cs" />
@@ -373,6 +378,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202606280747016_AddSexToPet.resx">
       <DependentUpon>202606280747016_AddSexToPet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202606300040347_AddServiceTypeAndPriceAndReferenceToBooking.resx">
+      <DependentUpon>202606300040347_AddServiceTypeAndPriceAndReferenceToBooking.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

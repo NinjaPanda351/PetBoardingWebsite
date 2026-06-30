@@ -23,13 +23,13 @@ namespace PawesomePalace.Controllers
             var userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
             var user = userManager.FindById(User.Identity.GetUserId());
 
+            ViewBag.HeaderFullName = (user.FirstName + " " + user.LastName).Trim();
+            ViewBag.HeaderInitials = (user.FirstName?.Length > 0 && user.LastName?.Length > 0)
+                ? "" + user.FirstName[0] + user.LastName[0] : "?";
+
             var owner = db.PetOwnerModels.FirstOrDefault(o => o.Email == user.Email);
 
             var pets = owner != null ? db.PetModels.Where(p => p.OwnerId == owner.OwnerId).ToList() : new List<PetModel>();
-
-            ViewBag.HeaderFullName = (user.FirstName + " " + user.LastName).Trim();
-            ViewBag.HeaderInitials = (user.FirstName != null && user.FirstName.Length > 0 && user.LastName != null && user.LastName.Length > 0)
-                ? "" + user.FirstName[0] + user.LastName[0] : "?";
 
             var viewModel = new PetsIndexViewModel
             {
@@ -83,7 +83,7 @@ namespace PawesomePalace.Controllers
             var userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
             var user = userManager.FindById(User.Identity.GetUserId());
             ViewBag.HeaderFullName = (user.FirstName + " " + user.LastName).Trim();
-            ViewBag.HeaderInitials = (user.FirstName != null && user.FirstName.Length > 0 && user.LastName != null && user.LastName.Length > 0)
+            ViewBag.HeaderInitials = (user.FirstName?.Length > 0 && user.LastName?.Length > 0)
                 ? "" + user.FirstName[0] + user.LastName[0] : "?";
             return View();
         }
@@ -138,8 +138,9 @@ namespace PawesomePalace.Controllers
             var owner = db.PetOwnerModels.FirstOrDefault(o => o.Email == user.Email);
             if (owner == null || pet.OwnerId != owner.OwnerId) return new HttpUnauthorizedResult();
 
-            ViewBag.HeaderFullName = (user.FirstName + " " + user.LastName);
-            ViewBag.HeaderInitials = (user.FirstName?.Length > 0 && user.LastName?.Length > 0) ? "" + user.FirstName[0] + user.LastName[0] : "?";
+            ViewBag.HeaderFullName = (user.FirstName + " " + user.LastName).Trim();
+            ViewBag.HeaderInitials = (user.FirstName?.Length > 0 && user.LastName?.Length > 0)
+                ? "" + user.FirstName[0] + user.LastName[0] : "?";
 
             var model = new EditPetViewModel
             {
@@ -196,8 +197,9 @@ namespace PawesomePalace.Controllers
             var owner = db.PetOwnerModels.FirstOrDefault(o => o.Email == user.Email);
             if (owner == null || pet.OwnerId != owner.OwnerId) return new HttpUnauthorizedResult();
 
-            ViewBag.HeaderFullName = (user.FirstName + " " + user.LastName);
-            ViewBag.HeaderInitials = (user.FirstName?.Length > 0 && user.LastName?.Length > 0) ? "" + user.FirstName[0] + user.LastName[0] : "?";
+            ViewBag.HeaderFullName = (user.FirstName + " " + user.LastName).Trim();
+            ViewBag.HeaderInitials = (user.FirstName?.Length > 0 && user.LastName?.Length > 0)
+                ? "" + user.FirstName[0] + user.LastName[0] : "?";
 
             var model = new PetDetailsViewModel
             {
@@ -228,8 +230,9 @@ namespace PawesomePalace.Controllers
             var owner = db.PetOwnerModels.FirstOrDefault(o => o.Email == user.Email);
             if (owner == null || pet.OwnerId != owner.OwnerId) return new HttpUnauthorizedResult();
 
-            ViewBag.HeaderFullName = (user.FirstName + " " + user.LastName);
-            ViewBag.HeaderInitials = (user.FirstName?.Length > 0 && user.LastName?.Length > 0) ? "" + user.FirstName[0] + user.LastName[0] : "?";
+            ViewBag.HeaderFullName = (user.FirstName + " " + user.LastName).Trim();
+            ViewBag.HeaderInitials = (user.FirstName?.Length > 0 && user.LastName?.Length > 0)
+                ? "" + user.FirstName[0] + user.LastName[0] : "?";
 
             var model = new PetDetailsViewModel
             {

@@ -37,6 +37,15 @@ namespace PawesomePalace.Models
         [ForeignKey("PetId")]
         public PetModel Pet { get; set; }
 
+        [Required]
+        public string ServiceType { get; set; }
+        public decimal Price { get; set; }
+
+        [Required]
+        public string BookingReference { get; set; }
+
+
+
         public BookingModel()
         {
             BookingId = Guid.NewGuid();
