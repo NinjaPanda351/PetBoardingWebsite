@@ -180,6 +180,8 @@ namespace PawesomePalace.Controllers
                 PetSex = booking.Pet.Sex,
                 StartDate = booking.BookingStartTime,
                 EndDate = booking.BookingEndTime,
+                DropOffTime = booking.BookingStartTime.ToString("h:mm tt"),
+                PickUpTime = booking.BookingEndTime.ToString("h:mm tt"),
                 Price = booking.Price,
                 Notes = booking.Notes
             };
