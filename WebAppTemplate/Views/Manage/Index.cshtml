@@ -92,6 +92,23 @@
             @Html.TextBoxFor(m => m.Address, new { style = "width: 100%; padding: 11px 14px; border: 1px solid rgb(228, 226, 236); border-radius: 10px; font: inherit; font-size: 14px; color: rgb(43, 47, 58);" })
             @Html.ValidationMessageFor(m => m.Address, "", new { @class = "field-error" })
           </label>
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-top: 16px;">
+            <label style="display: block;">
+              <span style="display: block; font-size: 12px; font-weight: 700; color: rgb(107, 114, 128); margin-bottom: 6px;">City</span>
+              @Html.TextBoxFor(m => m.City, new { style = "width: 100%; padding: 11px 14px; border: 1px solid rgb(228, 226, 236); border-radius: 10px; font: inherit; font-size: 14px; color: rgb(43, 47, 58);" })
+              @Html.ValidationMessageFor(m => m.City, "", new { @class = "field-error" })
+            </label>
+            <label style="display: block;">
+              <span style="display: block; font-size: 12px; font-weight: 700; color: rgb(107, 114, 128); margin-bottom: 6px;">State</span>
+              @Html.TextBoxFor(m => m.State, new { style = "width: 100%; padding: 11px 14px; border: 1px solid rgb(228, 226, 236); border-radius: 10px; font: inherit; font-size: 14px; color: rgb(43, 47, 58);" })
+              @Html.ValidationMessageFor(m => m.State, "", new { @class = "field-error" })
+            </label>
+            <label style="display: block;">
+              <span style="display: block; font-size: 12px; font-weight: 700; color: rgb(107, 114, 128); margin-bottom: 6px;">Zip code</span>
+              @Html.TextBoxFor(m => m.ZipCode, new { style = "width: 100%; padding: 11px 14px; border: 1px solid rgb(228, 226, 236); border-radius: 10px; font: inherit; font-size: 14px; color: rgb(43, 47, 58);" })
+              @Html.ValidationMessageFor(m => m.ZipCode, "", new { @class = "field-error" })
+            </label>
+          </div>
           <div style="margin-top: 24px; padding-top: 22px; border-top: 1px solid rgb(240, 239, 245);">
             <p style="margin: 0px 0px 14px; font-size: 13px; font-weight: 700; color: rgb(138, 142, 155);">CHANGE PASSWORD</p>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">

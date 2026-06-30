@@ -55,7 +55,7 @@
                     </div>
                     <div class="pp-field">
                         <span class="pp-label">Age</span>
-                        <div class="pp-value">@(Model.Age.HasValue && Model.Age > 0 ? Model.Age + " yrs" : "-")</div>
+                        <div class="pp-value">@(Model.DateOfBirth.HasValue ? ((int)((DateTime.Today - Model.DateOfBirth.Value).TotalDays / 365.25)) + " yrs (" + Model.DateOfBirth.Value.ToString("MMM d, yyyy") + ")" : "-")</div>
                     </div>
                     <div class="pp-field">
                         <span class="pp-label">Sex</span>

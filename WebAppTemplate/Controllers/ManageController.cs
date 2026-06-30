@@ -62,6 +62,9 @@ namespace PawesomePalace.Controllers
                 Email = user.Email,
                 Phone = user.Phone,
                 Address = user.Address,
+                City = user.City,
+                State = user.State,
+                ZipCode = user.ZipCode,
                 StatusMessage = message == ManageMessageId.SaveSuccess ? "Profile saved." : null
             };
 
@@ -88,6 +91,9 @@ namespace PawesomePalace.Controllers
             user.UserName = model.Email;
             user.Phone = model.Phone;
             user.Address = model.Address;
+            user.City = model.City;
+            user.State = model.State;
+            user.ZipCode = model.ZipCode;
             await UserManager.UpdateAsync(user);
 
             if (!string.IsNullOrEmpty(model.NewPassword))

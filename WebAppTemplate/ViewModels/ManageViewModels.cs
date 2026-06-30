@@ -66,6 +66,15 @@ namespace PawesomePalace.Models
         [MaxLength(200)]
         public string Address { get; set; }
 
+        [MaxLength(100)]
+        public string City { get; set; }
+
+        [MaxLength(50)]
+        public string State { get; set; }
+
+        [MaxLength(20)]
+        public string ZipCode { get; set; }
+
         [DataType(DataType.Password)]
         [StringLength(100, MinimumLength = 8)]
         public string NewPassword { get; set; }

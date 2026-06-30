@@ -40,7 +40,7 @@ namespace PawesomePalace.Controllers
         }
 
         // GET: /Pets/Add?petName=Steve&breed=GermanShepherd&age=3&ownerId=...
-        public ActionResult Add(string petName, string breed, int age = 0, Guid? ownerId = null)
+        public ActionResult Add(string petName, string breed, Guid? ownerId = null)
         {
             ApplicationDbContext dbContext = new ApplicationDbContext();
 
@@ -49,7 +49,6 @@ namespace PawesomePalace.Controllers
             pet.OwnerId = ownerId;
             pet.Name = petName;
             pet.Breed = breed;
-            pet.Age = age;
 
             dbContext.PetModels.Add(pet);
             dbContext.SaveChanges();
@@ -113,7 +112,7 @@ namespace PawesomePalace.Controllers
                 Breed = model.Breed,
                 Sex = model.Sex,
                 OwnerId = owner?.OwnerId,
-                Age = model.DateOfBirth.HasValue ? (int)((DateTime.Today - model.DateOfBirth.Value).TotalDays / 365) : 0,
+                DateOfBirth = model.DateOfBirth,
                 Color = model.Color,
                 SecondaryColor = model.SecondaryColor,
                 VetName = model.VetName,
@@ -166,7 +165,7 @@ namespace PawesomePalace.Controllers
                 Name = pet.Name,
                 Species = pet.Species,
                 Breed = pet.Breed,
-                Age = pet.Age,
+                DateOfBirth = pet.DateOfBirth,
                 Sex = pet.Sex,
                 Color = pet.Color,
                 SecondaryColor = pet.SecondaryColor,
@@ -209,7 +208,7 @@ namespace PawesomePalace.Controllers
             pet.Name = model.Name;
             pet.Species = model.Species;
             pet.Breed = model.Breed;
-            pet.Age = model.Age ?? pet.Age;
+            pet.DateOfBirth = model.DateOfBirth;
             pet.Sex = model.Sex;
             pet.Color = model.Color;
             pet.SecondaryColor = model.SecondaryColor;
@@ -264,7 +263,7 @@ namespace PawesomePalace.Controllers
                 Name = pet.Name,
                 Species = pet.Species,
                 Breed = pet.Breed,
-                Age = pet.Age,
+                DateOfBirth = pet.DateOfBirth,
                 Sex = pet.Sex,
                 Color = pet.Color,
                 SecondaryColor = pet.SecondaryColor,
@@ -306,7 +305,7 @@ namespace PawesomePalace.Controllers
                 Name = pet.Name,
                 Species = pet.Species,
                 Breed = pet.Breed,
-                Age = pet.Age,
+                DateOfBirth = pet.DateOfBirth,
                 Sex = pet.Sex
             };
 

@@ -45,7 +45,7 @@ namespace PawesomePalace.ViewModels
         [Required]
         public string Species { get; set; }
         public string Breed { get; set; }
-        public int? Age { get; set; }
+        public DateTime? DateOfBirth { get; set; }
         [Required]
         public string Sex { get; set; }
         public string Color { get; set; }
@@ -72,7 +72,7 @@ namespace PawesomePalace.ViewModels
         public string Name { get; set; }
         public string Species { get; set; }
         public string Breed { get; set; }
-        public int? Age { get; set; }
+        public DateTime? DateOfBirth { get; set; }
         public string Sex { get; set; }
         public string Color { get; set; }
         public string SecondaryColor { get; set; }

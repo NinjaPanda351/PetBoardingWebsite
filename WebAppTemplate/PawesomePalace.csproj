@@ -223,6 +223,10 @@
     <Compile Include="Migrations\202606300836489_UpdateBookingModel.Designer.cs">
       <DependentUpon>202606300836489_UpdateBookingModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202606301432500_PetDateOfBirth.cs" />
+    <Compile Include="Migrations\202606301432500_PetDateOfBirth.Designer.cs">
+      <DependentUpon>202606301432500_PetDateOfBirth.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\BookingEventModel.cs" />
@@ -403,6 +407,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202606300836489_UpdateBookingModel.resx">
       <DependentUpon>202606300836489_UpdateBookingModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202606301432500_PetDateOfBirth.resx">
+      <DependentUpon>202606301432500_PetDateOfBirth.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

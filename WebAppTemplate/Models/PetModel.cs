@@ -24,7 +24,7 @@ namespace PawesomePalace.Models
         [MaxLength(10)]
         public string Sex { get; set; }
 
-        public int Age { get; set; }
+        public DateTime? DateOfBirth { get; set; }
 
         [MaxLength(50)]
         public string Color { get; set; }

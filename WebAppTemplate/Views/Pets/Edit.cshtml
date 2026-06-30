@@ -68,8 +68,8 @@
                             @Html.TextBoxFor(m => m.Breed, new { @class = "pp-input", placeholder = "e.g. Golden Retriever" })
                         </label>
                         <label class="pp-field">
-                            <span class="pp-label">Age (years)</span>
-                            @Html.TextBoxFor(m => m.Age, new { type = "number", min = "0", @class = "pp-input" })
+                            <span class="pp-label">Date of birth</span>
+                            @Html.TextBoxFor(m => m.DateOfBirth, new { type = "date", @class = "pp-input", Value = Model.DateOfBirth.HasValue ? Model.DateOfBirth.Value.ToString("yyyy-MM-dd") : "" })
                         </label>
                         <label class="pp-field">
                             <span class="pp-label">Sex *</span>
