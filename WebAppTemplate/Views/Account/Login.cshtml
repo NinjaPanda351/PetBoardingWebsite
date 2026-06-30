@@ -2,13 +2,19 @@
 @{
     Layout = null;
     ViewBag.Title = "Sign in";
+    bool isStaff = (ViewBag.ReturnUrl as string ?? "").StartsWith("/Admin");
+    string accent     = isStaff ? "#c0392b" : "#6b7fd1";
+    string accentSoft = isStaff ? "#fdecea" : "#eef0fb";
+    string accentInk  = isStaff ? "#922b21" : "#41509a";
+    string accentFocus = isStaff ? "#c0392b" : "#6b7fd1";
+    string accentFocusSoft = isStaff ? "#fdecea" : "#eef0fb";
 }
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Sign in &middot; Pawesome Palace</title>
+    <title>@(isStaff ? "Staff Sign in" : "Sign in") - Pawesome Palace</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -19,23 +25,23 @@
         body { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; color: #2b2f3a; background: #f3f4f8; -webkit-font-smoothing: antialiased; }
         ::placeholder { color: #aeb2bd; }
         @@keyframes ppFade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
-        input:focus, select:focus, textarea:focus { outline: none; border-color: #6b7fd1; box-shadow: 0 0 0 3px #eef0fb; }
+        input:focus, select:focus, textarea:focus { outline: none; border-color: @accentFocus; box-shadow: 0 0 0 3px @accentFocusSoft; }
         .field-validation-error { display: block; font-size: 12px; color: #d9534f; margin-top: 4px; }
         .validation-summary-errors ul { margin: 0; padding: 0 0 0 16px; font-size: 13px; color: #d9534f; }
     </style>
 </head>
 <body>
-<div style="min-height: 100vh; --accent: #6b7fd1; --accent-soft: #eef0fb; --accent-ink: #41509a;">
+<div style="min-height: 100vh; --accent: @accent; --accent-soft: @accentSoft; --accent-ink: @accentInk;">
     <div style="min-height: 100vh; display: grid; place-items: center; padding: 44px 20px; background: linear-gradient(165deg, var(--accent-soft), #f3f4f8 62%);">
         <div style="width: 100%; max-width: 440px; animation: ppFade 0.34s ease both;">
             <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 22px;">
-                <span style="width: 54px; height: 54px; border-radius: 16px; background: var(--accent); color: #fff; display: grid; place-items: center; font-size: 27px; box-shadow: 0 8px 22px -6px var(--accent);">&#x1F43E;</span>
+                <span style="width: 54px; height: 54px; border-radius: 16px; background: var(--accent); color: #fff; display: grid; place-items: center; font-size: @(isStaff ? "16px" : "27px"); font-weight: 700; letter-spacing: 0.05em; box-shadow: 0 8px 22px -6px var(--accent);">@Html.Raw(isStaff ? "STAFF" : "&#x1F43E;")</span>
                 <span style="font-family: Newsreader, serif; font-size: 23px; font-weight: 600; margin-top: 12px;">Pawesome Palace</span>
-                <span style="font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #9a9eaa; font-weight: 600;">Pet Boarding</span>
+                <span style="font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #9a9eaa; font-weight: 600;">@(isStaff ? "Staff Portal" : "Pet Boarding")</span>
             </div>
-            <div style="background: #fff; border: 1px solid #ebeaf1; border-radius: 20px; padding: 30px; box-shadow: rgba(40,40,70,0.3) 0px 14px 36px -20px;">
-                <h1 style="margin: 0 0 4px; font-family: Newsreader, serif; font-size: 24px; font-weight: 500;">Welcome back</h1>
-                <p style="margin: 0 0 22px; font-size: 14px; color: #9a9eaa;">Sign in to manage your pets and bookings.</p>
+            <div style="background: #fff; border: 1px solid @(isStaff ? "#f5c6c6" : "#ebeaf1"); border-radius: 20px; padding: 30px; box-shadow: @(isStaff ? "rgba(192,57,43,0.15)" : "rgba(40,40,70,0.3)") 0px 14px 36px -20px;">
+                <h1 style="margin: 0 0 4px; font-family: Newsreader, serif; font-size: 24px; font-weight: 500;">@(isStaff ? "Staff sign in" : "Welcome back")</h1>
+                <p style="margin: 0 0 22px; font-size: 14px; color: #9a9eaa;">@(isStaff ? "Admin portal - authorized personnel only." : "Sign in to manage your pets and bookings.")</p>
 
                 @if (ViewBag.StatusMessage != null)
                 {
@@ -57,7 +63,7 @@
 
                     <label style="display: block; margin-bottom: 14px;">
                         <span style="display: block; font-size: 12px; font-weight: 700; color: #6b7280; margin-bottom: 6px;">Password</span>
-                        @Html.PasswordFor(m => m.Password, new { placeholder = "&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;", style = "width: 100%; padding: 12px 14px; border: 1px solid #e4e2ec; border-radius: 10px; font: inherit; font-size: 14px; color: #2b2f3a;" })
+                        @Html.PasswordFor(m => m.Password, new { placeholder = "Password", style = "width: 100%; padding: 12px 14px; border: 1px solid #e4e2ec; border-radius: 10px; font: inherit; font-size: 14px; color: #2b2f3a;" })
                         @Html.ValidationMessageFor(m => m.Password)
                     </label>
 
@@ -72,15 +78,25 @@
                     <button type="submit" style="width: 100%; padding: 13px; border-radius: 11px; border: none; background: var(--accent); color: #fff; font-weight: 700; font-size: 15px; cursor: pointer; font-family: inherit;">Sign in</button>
                 }
 
-                <p style="margin: 18px 0 0; text-align: center; font-size: 14px; color: #9a9eaa;">
-                    New here? @Html.ActionLink("Create an account", "Register", "Account", null, new { style = "color: var(--accent-ink); font-weight: 700; text-decoration: none;" })
-                </p>
-                <p style="margin: 8px 0 0; text-align: center; font-size: 14px; color: #9a9eaa;">
-                    Didn't get a confirmation email? <a href="@Url.Action("ResendConfirmation", "Account")" style="color: var(--accent-ink); font-weight: 700; text-decoration: none;">Resend it</a>
-                </p>
+                @if (!isStaff)
+                {
+                    <p style="margin: 18px 0 0; text-align: center; font-size: 14px; color: #9a9eaa;">
+                        New here? @Html.ActionLink("Create an account", "Register", "Account", null, new { style = "color: var(--accent-ink); font-weight: 700; text-decoration: none;" })
+                    </p>
+                    <p style="margin: 8px 0 0; text-align: center; font-size: 14px; color: #9a9eaa;">
+                        Didn't get a confirmation email? <a href="@Url.Action("ResendConfirmation", "Account")" style="color: var(--accent-ink); font-weight: 700; text-decoration: none;">Resend it</a>
+                    </p>
+                }
             </div>
             <div style="text-align: center; margin-top: 16px;">
-                <a href="@Url.Action("Login", "Account", new { area = "Admin" })" style="color: #9a9eaa; font-weight: 600; font-size: 13px; text-decoration: none;">Staff sign in &#x2192;</a>
+                @if (isStaff)
+                {
+                    <a href="@Url.Action("Login", "Account")" style="color: #9a9eaa; font-weight: 600; font-size: 13px; text-decoration: none;">&lt;- Back to user login</a>
+                }
+                else
+                {
+                    <a href="@Url.Action("Login", "Account", new { returnUrl = "/Admin" })" style="color: #9a9eaa; font-weight: 600; font-size: 13px; text-decoration: none;">Staff sign in -&gt;</a>
+                }
             </div>
         </div>
     </div>

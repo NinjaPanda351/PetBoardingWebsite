@@ -622,19 +622,197 @@
             font-family: inherit;
         }
 
+        /* Stats strip */
+        .pp-stats {
+            background: #fff;
+            border-bottom: 1px solid #efeef4;
+        }
+
+        .pp-stats-inner {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 36px 28px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            text-align: center;
+        }
+
+        .pp-stat-item {
+            padding: 8px 0;
+        }
+
+        .pp-stat-num {
+            display: block;
+            font-family: Newsreader, serif;
+            font-size: 36px;
+            font-weight: 600;
+            color: var(--accent-ink);
+        }
+
+        .pp-stat-label {
+            display: block;
+            font-size: 13px;
+            color: #9a9eaa;
+            font-weight: 600;
+            margin-top: 4px;
+        }
+
+        /* Testimonials */
+        .pp-testimonials {
+            background: #fbfaf7;
+            border-top: 1px solid #efeef4;
+            border-bottom: 1px solid #efeef4;
+        }
+
+        .pp-testimonials-inner {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 80px 28px;
+        }
+
+        .pp-testimonial-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 44px;
+        }
+
+        .pp-testimonial {
+            background: #fff;
+            border: 1px solid #ebeaf1;
+            border-radius: 20px;
+            padding: 28px;
+            box-shadow: 0 1px 2px rgba(40,40,70,0.04);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .pp-stars {
+            color: #f59e0b;
+            font-size: 15px;
+            letter-spacing: 2px;
+            margin-bottom: 14px;
+        }
+
+        .pp-testimonial-text {
+            margin: 0 0 20px;
+            font-size: 14px;
+            color: #4a4f5d;
+            line-height: 1.7;
+            flex: 1;
+        }
+
+        .pp-testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .pp-author-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--accent-soft);
+            color: var(--accent-ink);
+            display: grid;
+            place-items: center;
+            font-weight: 700;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .pp-author-name {
+            display: block;
+            font-size: 14px;
+            font-weight: 700;
+            color: #2b2f3a;
+        }
+
+        .pp-author-pet {
+            display: block;
+            font-size: 12px;
+            color: #9a9eaa;
+        }
+
+        /* FAQ */
+        .pp-faq {
+            scroll-margin-top: 80px;
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 80px 28px;
+        }
+
+        .pp-faq-list {
+            margin-top: 44px;
+            max-width: 720px;
+            margin-left: auto;
+            margin-right: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .pp-faq-item {
+            background: #fff;
+            border: 1px solid #ebeaf1;
+            border-radius: 14px;
+            overflow: hidden;
+        }
+
+        .pp-faq-q {
+            width: 100%;
+            background: none;
+            border: none;
+            text-align: left;
+            padding: 18px 22px;
+            font: inherit;
+            font-size: 15px;
+            font-weight: 700;
+            color: #2b2f3a;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+            .pp-faq-q:hover { background: #fafafa; }
+
+        .pp-faq-icon {
+            font-size: 22px;
+            font-weight: 300;
+            color: #9a9eaa;
+            flex-shrink: 0;
+            transition: transform 0.2s ease;
+            line-height: 1;
+        }
+
+        .pp-faq-item.open .pp-faq-icon { transform: rotate(45deg); }
+
+        .pp-faq-a {
+            display: none;
+            padding: 0 22px 18px;
+            font-size: 14px;
+            color: #6a6f7d;
+            line-height: 1.7;
+            border-top: 1px solid #f0eff5;
+        }
+
+        .pp-faq-item.open .pp-faq-a { display: block; }
+
         /* Footer */
         .pp-footer {
             background: #2b2f3a;
         }
 
-        .pp-footer-inner {
+        .pp-footer-grid {
             max-width: 1120px;
             margin: 0 auto;
-            padding: 40px 28px;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            flex-wrap: wrap;
+            padding: 56px 28px 40px;
+            display: grid;
+            grid-template-columns: 1.4fr 1fr 1fr;
+            gap: 48px;
         }
 
         .pp-footer-logo {
@@ -661,8 +839,63 @@
             color: #fff;
         }
 
-        .pp-footer-copy {
-            margin-left: auto;
+        .pp-footer-desc {
+            margin: 14px 0 0;
+            font-size: 13px;
+            color: #8a8fa0;
+            line-height: 1.6;
+        }
+
+        .pp-footer-col-title {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #6a6f7d;
+            margin: 0 0 16px;
+        }
+
+        .pp-footer-links {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+            .pp-footer-links a {
+                color: #8a8fa0;
+                text-decoration: none;
+                font-size: 14px;
+            }
+
+            .pp-footer-links a:hover { color: #fff; }
+
+        .pp-footer-contact-item {
+            font-size: 13px;
+            color: #8a8fa0;
+            line-height: 1.5;
+            margin-bottom: 14px;
+        }
+
+            .pp-footer-contact-item strong {
+                display: block;
+                color: #6a6f7d;
+                font-size: 11px;
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+                margin-bottom: 3px;
+            }
+
+        .pp-footer-bottom {
+            border-top: 1px solid #3a3f4e;
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 20px 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
             font-size: 13px;
             color: #8a8fa0;
         }
@@ -672,21 +905,36 @@
 <!-- ═══ HEADER ═══ -->
 <header class="pp-header">
     <div class="pp-header-inner">
-        <button class="pp-logo-btn" type="button">
-            <span class="pp-logo-icon">🐾</span>
+        <a href="@Url.Action("Index", "Home")" class="pp-logo-btn" style="text-decoration:none;">
+            <span class="pp-logo-icon">&#x1F43E;</span>
             <span class="pp-logo-text">
                 <span class="pp-logo-name">Pawesome Palace</span>
                 <span class="pp-logo-sub">Pet Boarding</span>
             </span>
-        </button>
+        </a>
         <nav class="pp-nav">
             <a href="#services">Services</a>
+            <a href="#reviews">Reviews</a>
             <a href="#how">How it works</a>
+            <a href="#faq">FAQ</a>
             <a href="#contact">Contact</a>
         </nav>
         <div class="pp-header-actions">
-            <a href="@Url.Action("Login", "Account")" class="pp-btn-ghost">Sign in</a>
-            <a href="@Url.Action("Register", "Account")" class="pp-btn-accent">Get Started</a>
+            @if (Request.IsAuthenticated)
+            {
+                <a href="@Url.Action("Index", "MyAccount")" class="pp-btn-ghost">My Account</a>
+                using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { style = "display:inline;" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="pp-btn-accent">Sign out</button>
+                }
+            }
+            else
+            {
+                <a href="@Url.Action("Login", "Account")" class="pp-btn-ghost">Sign in</a>
+                <a href="@Url.Action("Register", "Account")" class="pp-btn-accent">Get Started</a>
+            }
+        </div>
     </div>
 </header>
 
@@ -694,17 +942,24 @@
 <section class="pp-hero">
     <div class="pp-hero-inner">
         <div class="pp-hero-copy">
-            <span class="pp-hero-badge">🐾 Trusted by 2,000+ pet parents</span>
+            <span class="pp-hero-badge">&#x1F43E; Trusted by 2,000+ pet parents</span>
             <h1 class="pp-hero-h1">A home away from home for your best friend.</h1>
-            <p class="pp-hero-lead">Cozy boarding, attentive daycare, and daily photo updates — so you can travel knowing they're loved and looked after.</p>
+            <p class="pp-hero-lead">Cozy boarding, attentive daycare, and daily photo updates so you can travel knowing they're loved and looked after.</p>
             <div class="pp-hero-ctas">
-                <button class="pp-btn-primary" type="button">Book a stay</button>
+                @if (Request.IsAuthenticated)
+                {
+                    <a href="@Url.Action("Create", "Bookings")" class="pp-btn-primary">Book a stay</a>
+                }
+                else
+                {
+                    <a href="@Url.Action("Register", "Account")" class="pp-btn-primary">Book a stay</a>
+                }
                 <a href="#services" class="pp-btn-outline">Explore services</a>
             </div>
             <div class="pp-hero-trust">
-                <span>✓ 24/7 supervised care</span>
-                <span>✓ Vet on call</span>
-                <span>✓ Free cancellation</span>
+                <span>&#10003; 24/7 supervised care</span>
+                <span>&#10003; Vet on call</span>
+                <span>&#10003; Free cancellation</span>
             </div>
         </div>
         <div class="pp-hero-visual">
@@ -721,15 +976,37 @@
                 <img src="~/Assets/Resized_Resized_20230313_104129(1).JPG" alt="Pet at Pawesome Palace">
             </div>
             <div class="pp-hero-checkin">
-                <span class="pp-hero-checkin-icon">🐶</span>
+                <span class="pp-hero-checkin-icon">&#x1F436;</span>
                 <div class="pp-hero-checkin-text">
                     <strong>Biscuit checked in</strong>
-                    <span>Daily updates on</span>
+                    <span>Daily updates sent to you</span>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
+<!-- ═══ STATS STRIP ═══ -->
+<div class="pp-stats">
+    <div class="pp-stats-inner">
+        <div class="pp-stat-item">
+            <span class="pp-stat-num">2,000+</span>
+            <span class="pp-stat-label">Pets cared for</span>
+        </div>
+        <div class="pp-stat-item">
+            <span class="pp-stat-num">5 yrs</span>
+            <span class="pp-stat-label">In business</span>
+        </div>
+        <div class="pp-stat-item">
+            <span class="pp-stat-num">4.9 / 5</span>
+            <span class="pp-stat-label">Average rating</span>
+        </div>
+        <div class="pp-stat-item">
+            <span class="pp-stat-num">24 / 7</span>
+            <span class="pp-stat-label">On-site staff</span>
+        </div>
+    </div>
+</div>
 
 <!-- ═══ SERVICES ═══ -->
 <section id="services" class="pp-services">
@@ -740,30 +1017,76 @@
     </div>
     <div class="pp-cards">
         <div class="pp-card">
-            <span class="pp-card-icon">🏡</span>
+            <span class="pp-card-icon">&#x1F3E1;</span>
             <h3>Standard Boarding</h3>
-            <p>A cozy private kennel, daily walks, and plenty of supervised playtime.</p>
+            <p>A cozy private kennel, daily walks, and plenty of supervised playtime with our caring staff.</p>
             <div class="pp-card-price">
                 <span class="amount">$45</span>
                 <span class="period">/ night</span>
             </div>
         </div>
         <div class="pp-card">
-            <span class="pp-card-icon">🛏️</span>
+            <span class="pp-card-icon">&#x1F6CC;</span>
             <h3>Deluxe Suite</h3>
-            <p>A spacious room with a comfy bed, window view, and extra one-on-one care.</p>
+            <p>A spacious room with a comfy bed, window view, and extra one-on-one attention and care.</p>
             <div class="pp-card-price">
                 <span class="amount">$75</span>
                 <span class="period">/ night</span>
             </div>
         </div>
         <div class="pp-card">
-            <span class="pp-card-icon">☀️</span>
+            <span class="pp-card-icon">&#x2600;&#xFE0F;</span>
             <h3>Daycare</h3>
-            <p>Supervised group play and restful naps while you are out for the day.</p>
+            <p>Supervised group play and restful naps while you are out for the day. Drop-off any time.</p>
             <div class="pp-card-price">
                 <span class="amount">$30</span>
                 <span class="period">/ day</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ TESTIMONIALS ═══ -->
+<section id="reviews" class="pp-testimonials">
+    <div class="pp-testimonials-inner">
+        <div class="pp-section-hdr">
+            <p class="pp-section-label">Reviews</p>
+            <h2>Pet parents love us</h2>
+            <p>Don't take our word for it. Here's what some of our regulars have to say.</p>
+        </div>
+        <div class="pp-testimonial-cards">
+            <div class="pp-testimonial">
+                <div class="pp-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <p class="pp-testimonial-text">"I was so nervous leaving Luna for the first time, but the team sent me photos every morning and she looked absolutely thrilled. The daily updates made all the difference. We'll be back every trip."</p>
+                <div class="pp-testimonial-author">
+                    <span class="pp-author-avatar">SM</span>
+                    <span>
+                        <span class="pp-author-name">Sarah M.</span>
+                        <span class="pp-author-pet">Owner of Luna, Golden Retriever</span>
+                    </span>
+                </div>
+            </div>
+            <div class="pp-testimonial">
+                <div class="pp-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <p class="pp-testimonial-text">"My cat Oliver is notoriously difficult with new people. I expected him to hide for the entire stay. Apparently he was sitting on laps by day two. That says everything about the staff here."</p>
+                <div class="pp-testimonial-author">
+                    <span class="pp-author-avatar">JT</span>
+                    <span>
+                        <span class="pp-author-name">James T.</span>
+                        <span class="pp-author-pet">Owner of Oliver, Tabby Cat</span>
+                    </span>
+                </div>
+            </div>
+            <div class="pp-testimonial">
+                <div class="pp-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <p class="pp-testimonial-text">"We have two dogs and a rabbit and I wasn't sure if anyone would take all three. Pawesome Palace didn't even blink. Everyone came home happy, healthy, and honestly better behaved than when they left."</p>
+                <div class="pp-testimonial-author">
+                    <span class="pp-author-avatar">ER</span>
+                    <span>
+                        <span class="pp-author-name">Emily R.</span>
+                        <span class="pp-author-pet">Owner of Beau, Rex &amp; Clover</span>
+                    </span>
+                </div>
             </div>
         </div>
     </div>
@@ -779,18 +1102,83 @@
         <div class="pp-steps">
             <div class="pp-step">
                 <span class="pp-step-num">1</span>
-                <h3>Book online</h3>
-                <p>Pick your dates, choose a service, and tell us about your pet's needs.</p>
+                <h3>Create your account</h3>
+                <p>Sign up, add your pet's details, and you're ready to book in under two minutes.</p>
             </div>
             <div class="pp-step">
                 <span class="pp-step-num">2</span>
-                <h3>Drop them off</h3>
-                <p>Bring your companion in — we'll handle the rest with care and daily updates.</p>
+                <h3>Book a stay</h3>
+                <p>Pick your dates, choose a service, and leave any special instructions for our team.</p>
             </div>
             <div class="pp-step">
                 <span class="pp-step-num">3</span>
-                <h3>Relax</h3>
-                <p>Enjoy your time away knowing they're playing, resting, and well cared for.</p>
+                <h3>Drop off and relax</h3>
+                <p>Bring your companion in and enjoy your time away. We'll send daily updates.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ FAQ ═══ -->
+<section id="faq" class="pp-faq">
+    <div class="pp-section-hdr">
+        <p class="pp-section-label">FAQ</p>
+        <h2>Common questions</h2>
+        <p>Everything you need to know before your pet's first stay.</p>
+    </div>
+    <div class="pp-faq-list">
+        <div class="pp-faq-item">
+            <button class="pp-faq-q" type="button">
+                What should I bring for my pet's stay?
+                <span class="pp-faq-icon">+</span>
+            </button>
+            <div class="pp-faq-a">
+                Please bring enough food for the full stay, any medications with clear dosage instructions, and a familiar blanket or toy if your pet finds comfort in one. We provide bedding, bowls, and all the love — you just cover the snacks.
+            </div>
+        </div>
+        <div class="pp-faq-item">
+            <button class="pp-faq-q" type="button">
+                How will I know my pet is doing well?
+                <span class="pp-faq-icon">+</span>
+            </button>
+            <div class="pp-faq-a">
+                We send daily photo updates through your account. If anything comes up that needs your attention, a staff member will contact you directly by phone or email. No news is good news, but we send photos either way.
+            </div>
+        </div>
+        <div class="pp-faq-item">
+            <button class="pp-faq-q" type="button">
+                What happens if my pet gets sick during their stay?
+                <span class="pp-faq-icon">+</span>
+            </button>
+            <div class="pp-faq-a">
+                We have a vet on call at all times. If your pet shows any signs of illness we will contact you immediately and, with your authorization, arrange veterinary care. We will never delay treatment in a genuine emergency.
+            </div>
+        </div>
+        <div class="pp-faq-item">
+            <button class="pp-faq-q" type="button">
+                Do you accommodate special diets or medications?
+                <span class="pp-faq-icon">+</span>
+            </button>
+            <div class="pp-faq-a">
+                Absolutely. Please provide all food and medication with written instructions when you drop off. Our staff follow feeding schedules and dosage instructions precisely. If your pet has a complex medical need, reach out before booking so we can make sure we can meet it.
+            </div>
+        </div>
+        <div class="pp-faq-item">
+            <button class="pp-faq-q" type="button">
+                What is your cancellation policy?
+                <span class="pp-faq-icon">+</span>
+            </button>
+            <div class="pp-faq-a">
+                Cancellations made more than 48 hours before the start of a booking are fully refunded. Cancellations within 48 hours are reviewed on a case-by-case basis. You can submit a cancellation request any time through your account and our team will respond within 24 hours.
+            </div>
+        </div>
+        <div class="pp-faq-item">
+            <button class="pp-faq-q" type="button">
+                Are dogs and cats kept separately?
+                <span class="pp-faq-icon">+</span>
+            </button>
+            <div class="pp-faq-a">
+                Yes. Dogs and cats have completely separate areas of the facility. All pets have their own private space and are never left unsupervised during group interactions. If you have multiple pets of different species, we accommodate all of them.
             </div>
         </div>
     </div>
@@ -805,21 +1193,21 @@
             <p>Questions about a stay, a tour, or your pet's special needs? We'd love to hear from you.</p>
             <div class="pp-contact-details">
                 <div class="pp-contact-item">
-                    <span class="pp-contact-item-icon">📍</span>
+                    <span class="pp-contact-item-icon">&#x1F4CD;</span>
                     <span>
                         <span class="pp-contact-item-label">Visit us</span>
                         <span class="pp-contact-item-value">1429 Larkspur Lane, San Mateo, CA 94403</span>
                     </span>
                 </div>
                 <div class="pp-contact-item">
-                    <span class="pp-contact-item-icon">📞</span>
+                    <span class="pp-contact-item-icon">&#x1F4DE;</span>
                     <span>
                         <span class="pp-contact-item-label">Call us</span>
                         <span class="pp-contact-item-value">(415) 555-7297</span>
                     </span>
                 </div>
                 <div class="pp-contact-item">
-                    <span class="pp-contact-item-icon">✉️</span>
+                    <span class="pp-contact-item-icon">&#x2709;&#xFE0F;</span>
                     <span>
                         <span class="pp-contact-item-label">Email us</span>
                         <span class="pp-contact-item-value">
@@ -828,10 +1216,10 @@
                     </span>
                 </div>
                 <div class="pp-contact-item">
-                    <span class="pp-contact-item-icon">🕘</span>
+                    <span class="pp-contact-item-icon">&#x1F552;</span>
                     <span>
                         <span class="pp-contact-item-label">Hours</span>
-                        <span class="pp-contact-item-value">Every day · 7:00am – 8:00pm</span>
+                        <span class="pp-contact-item-value">Every day, 7:00 am - 8:00 pm</span>
                     </span>
                 </div>
             </div>
@@ -864,23 +1252,88 @@
 
 <!-- ═══ FOOTER ═══ -->
 <footer class="pp-footer">
-    <div class="pp-footer-inner">
-        <div class="pp-footer-logo">
-            <span class="pp-footer-logo-icon">🐾</span>
-            <span class="pp-footer-logo-name">Pawesome Palace</span>
+    <div class="pp-footer-grid">
+        <div>
+            <div class="pp-footer-logo">
+                <span class="pp-footer-logo-icon">&#x1F43E;</span>
+                <span class="pp-footer-logo-name">Pawesome Palace</span>
+            </div>
+            <p class="pp-footer-desc">Professional pet boarding and daycare in San Mateo, CA. Your pet's home away from home since 2019.</p>
         </div>
-        <span class="pp-footer-copy">© @DateTime.Now.Year Pawesome Palace Pet Boarding. Made with care.</span>
+        <div>
+            <p class="pp-footer-col-title">Quick links</p>
+            <ul class="pp-footer-links">
+                <li><a href="#services">Services &amp; Pricing</a></li>
+                <li><a href="#how">How it works</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#contact">Contact us</a></li>
+                <li><a href="@Url.Action("Register", "Account")">Create an account</a></li>
+                <li><a href="@Url.Action("Login", "Account", new { returnUrl = "/Admin" })">Staff portal</a></li>
+            </ul>
+        </div>
+        <div>
+            <p class="pp-footer-col-title">Contact</p>
+            <div class="pp-footer-contact-item">
+                <strong>Address</strong>
+                1429 Larkspur Lane<br>San Mateo, CA 94403
+            </div>
+            <div class="pp-footer-contact-item">
+                <strong>Phone</strong>
+                (415) 555-7297
+            </div>
+            <div class="pp-footer-contact-item">
+                <strong>Email</strong>
+                <a href="mailto:hello@pawesomepalace.com" style="color:#8a8fa0; text-decoration:none;">hello@@pawesomepalace.com</a>
+            </div>
+            <div class="pp-footer-contact-item">
+                <strong>Hours</strong>
+                Every day, 7:00 am - 8:00 pm
+            </div>
+        </div>
+    </div>
+    <div class="pp-footer-bottom">
+        <span>&#169; @DateTime.Now.Year Pawesome Palace Pet Boarding. All rights reserved.</span>
+        <span>Made with care in San Mateo, CA</span>
     </div>
 </footer>
+
 <script>
     (function () {
+        // Slideshow
         var imgs = document.querySelectorAll('.pp-hero-slideshow img');
-        if (!imgs.length) return;
-        var idx = 0;
-        setInterval(function () {
-            imgs[idx].classList.remove('active');
-            idx = (idx + 1) % imgs.length;
-            imgs[idx].classList.add('active');
-        }, 3500);
+        if (imgs.length) {
+            var idx = 0;
+            setInterval(function () {
+                imgs[idx].classList.remove('active');
+                idx = (idx + 1) % imgs.length;
+                imgs[idx].classList.add('active');
+            }, 3500);
+        }
+
+        // FAQ accordion
+        document.querySelectorAll('.pp-faq-q').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                var item = this.closest('.pp-faq-item');
+                var isOpen = item.classList.contains('open');
+                document.querySelectorAll('.pp-faq-item.open').forEach(function (el) {
+                    el.classList.remove('open');
+                });
+                if (!isOpen) item.classList.add('open');
+            });
+        });
+
+        // Active nav highlight on scroll
+        var sections = document.querySelectorAll('section[id], div[id]');
+        var navLinks = document.querySelectorAll('.pp-nav a');
+        window.addEventListener('scroll', function () {
+            var scrollY = window.scrollY + 100;
+            sections.forEach(function (sec) {
+                if (scrollY >= sec.offsetTop && scrollY < sec.offsetTop + sec.offsetHeight) {
+                    navLinks.forEach(function (a) {
+                        a.style.color = a.getAttribute('href') === '#' + sec.id ? 'var(--accent-ink)' : '';
+                    });
+                }
+            });
+        });
     })();
 </script>

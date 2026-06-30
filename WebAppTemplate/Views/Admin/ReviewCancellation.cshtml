@@ -1,0 +1,103 @@
+@model PawesomePalace.ViewModels.AdminCancellationReviewViewModel
+@{
+    Layout = null;
+    ViewBag.Title = "Review cancellation";
+
+    string dateDisplay;
+    if (Model.StartDate.Date == Model.EndDate.Date)
+    {
+        dateDisplay = Model.StartDate.ToString("MMM d, yyyy");
+    }
+    else
+    {
+        dateDisplay = Model.StartDate.ToString("MMM d") + " - " + Model.EndDate.ToString("MMM d, yyyy");
+    }
+
+    string subtitle = Model.OwnerName + " · " + Model.PetDetails + " · " + dateDisplay;
+    string fieldStyle = "width: 100%; padding: 11px 14px; border: 1px solid #e4e2ec; border-radius: 10px; font: inherit; font-size: 14px; background: #fff; color: #2b2f3a;";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Review cancellation &middot; Pawesome Palace</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; }
+        html, body { margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; color: #2b2f3a; background: #f3f4f8; -webkit-font-smoothing: antialiased; }
+        ::placeholder { color: #aeb2bd; }
+        @@keyframes ppFade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+        input:focus, select:focus, textarea:focus { outline: none; border-color: #6b7fd1; box-shadow: 0 0 0 3px #eef0fb; }
+    </style>
+</head>
+<body>
+<div style="min-height: 100vh; --accent: #6b7fd1; --accent-soft: #eef0fb; --accent-ink: #41509a;">
+
+    <header style="position: sticky; top: 0; z-index: 40; background: #2b2f3a;">
+        <div style="max-width: 1120px; margin: 0 auto; padding: 14px 28px; display: flex; align-items: center; gap: 28px;">
+            <div style="display: flex; align-items: center; gap: 11px;">
+                <span style="width: 38px; height: 38px; border-radius: 12px; background: var(--accent); color: #fff; display: grid; place-items: center; font-size: 19px;">&#x1F43E;</span>
+                <span style="line-height: 1.05;">
+                    <span style="display: block; font-family: Newsreader, serif; font-size: 18px; font-weight: 600; color: #fff;">Pawesome Palace</span>
+                    <span style="display: block; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #8a8fa0; font-weight: 600;">Staff console</span>
+                </span>
+            </div>
+            <nav style="display: flex; gap: 6px; margin-left: 8px;">
+                <a href="@Url.Action("Index", "Admin")" style="padding: 8px 15px; border-radius: 10px; font-size: 14px; font-weight: 700; font-family: inherit; background: rgba(255,255,255,0.14); color: #fff; text-decoration: none;">Dashboard</a>
+                <a href="@Url.Action("Users", "Admin")" style="padding: 8px 15px; border-radius: 10px; font-size: 14px; font-weight: 700; font-family: inherit; background: transparent; color: rgb(154,160,178); text-decoration: none;">Users</a>
+            </nav>
+            <a href="@Url.Action("Index", "Home")" style="margin-left: auto; padding: 8px 15px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.2); background: transparent; color: #fff; font-weight: 700; font-size: 13px; font-family: inherit; text-decoration: none;">Exit console</a>
+        </div>
+    </header>
+
+    <main style="max-width: 1120px; margin: 0 auto; padding: 36px 28px 80px;">
+        <div style="animation: ppFade 0.34s ease both; max-width: 560px; margin: 0 auto;">
+
+            <a href="@Url.Action("Index", "Admin")" style="display: inline-block; background: none; border: none; color: #9a9eaa; font-size: 14px; font-weight: 600; cursor: pointer; padding: 0; margin-bottom: 16px; font-family: inherit; text-decoration: none;">&#x2190; Back to dashboard</a>
+            <h1 style="margin: 0 0 4px; font-family: Newsreader, serif; font-size: 28px; font-weight: 500;">Handle cancellation</h1>
+            <p style="margin: 0 0 20px; font-size: 13px; color: #9a9eaa;">@subtitle</p>
+
+            @using (Html.BeginForm("ReviewCancellation", "Admin", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(m => m.BookingId)
+                <input type="hidden" name="reviewAction" id="reviewAction" value="">
+
+                <div style="background: #fff; border: 1px solid #ebeaf1; border-radius: 18px; padding: 28px; box-shadow: rgba(40,40,70,0.04) 0px 1px 2px;">
+
+                    @if (!string.IsNullOrWhiteSpace(Model.CancellationReason))
+                    {
+                        <div style="padding: 16px 18px; background: #fbfaf7; border: 1px solid #f0eff5; border-radius: 12px;">
+                            <span style="display: block; font-size: 12px; color: #9a9eaa; font-weight: 600; margin-bottom: 4px;">Customer reason</span>
+                            <span style="display: block; font-size: 14px; color: #4a4e5a; line-height: 1.55;">@Model.CancellationReason</span>
+                        </div>
+                    }
+
+                    <div style="margin-top: 14px; display: flex; align-items: center; justify-content: space-between; padding: 16px 18px; background: var(--accent-soft); border-radius: 12px;">
+                        <span style="font-size: 13px; color: var(--accent-ink); font-weight: 600;">Refund amount</span>
+                        <span style="font-size: 20px; font-weight: 800; color: var(--accent-ink); font-family: Newsreader, serif;">@Model.Price.ToString("C")</span>
+                    </div>
+
+                    <label style="display: block; margin-top: 16px;">
+                        <span style="display: block; font-size: 12px; font-weight: 700; color: #6b7280; margin-bottom: 6px;">Admin notes</span>
+                        @Html.TextAreaFor(m => m.AdminNotes, 2, 0, new { placeholder = "Reason for decision...", style = fieldStyle })
+                    </label>
+
+                    <div style="margin-top: 22px; display: flex; gap: 12px;">
+                        <button type="submit" onclick="document.getElementById('reviewAction').value='ApproveRefund'" style="padding: 12px 22px; border-radius: 11px; border: none; background: #4f9d70; color: #fff; font-weight: 700; font-size: 14px; cursor: pointer; font-family: inherit;">Approve refund</button>
+                        <button type="submit" onclick="document.getElementById('reviewAction').value='Deny'"          style="padding: 12px 20px; border-radius: 11px; border: 1px solid #ecd9d9; background: #fff; color: #b4564f; font-weight: 700; font-size: 14px; cursor: pointer; font-family: inherit;">Deny</button>
+                        <a href="@Url.Action("Index", "Admin")" style="margin-left: auto; padding: 12px 18px; border-radius: 11px; border: none; background: none; color: #9a9eaa; font-weight: 600; font-size: 14px; font-family: inherit; text-decoration: none; display: inline-flex; align-items: center;">Back</a>
+                    </div>
+
+                </div>
+            }
+        </div>
+    </main>
+</div>
+</body>
+</html>
