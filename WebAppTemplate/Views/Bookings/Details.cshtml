@@ -82,6 +82,34 @@
                     </div>
                 }
 
+                @if (Model.Status == "Cancelled")
+                {
+                    <div style="margin-top: 16px; padding: 16px 18px; background: #fdf4f4; border: 1px solid #f0d9d8; border-radius: 12px;">
+                        <span style="display: block; font-size: 12px; color: #b4564f; font-weight: 700; margin-bottom: 8px; letter-spacing: 0.04em;">CANCELLATION</span>
+                        @if (Model.CancelledAt.HasValue)
+                        {
+                            <div style="margin-bottom: 6px;">
+                                <span style="font-size: 12px; color: #9a9eaa; font-weight: 600;">Cancelled on</span>
+                                <span style="display: block; font-size: 14px; color: #4a4e5a; font-weight: 600;">@Model.CancelledAt.Value.ToString("MMM d, yyyy h:mm tt")</span>
+                            </div>
+                        }
+                        @if (!string.IsNullOrWhiteSpace(Model.CancellationReason))
+                        {
+                            <div>
+                                <span style="font-size: 12px; color: #9a9eaa; font-weight: 600;">Reason</span>
+                                <span style="display: block; font-size: 14px; color: #4a4e5a; line-height: 1.55;">@Model.CancellationReason</span>
+                            </div>
+                        }
+                        @if (!string.IsNullOrWhiteSpace(Model.RefundStatus))
+                        {
+                            <div style="margin-top: 8px; padding-top: 8px; border-top: 1px solid #f0d9d8;">
+                                <span style="font-size: 12px; color: #9a9eaa; font-weight: 600;">Refund status</span>
+                                <span style="display: block; font-size: 14px; font-weight: 700; color: @(Model.RefundStatus == "Approved" ? "#37794f" : Model.RefundStatus == "Denied" ? "#b4564f" : "#9a6a1e");">@Model.RefundStatus</span>
+                            </div>
+                        }
+                    </div>
+                }
+
                 <div style="margin-top: 24px; display: flex; gap: 12px;">
                     @if (canEdit)
                     {

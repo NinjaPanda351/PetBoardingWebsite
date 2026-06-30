@@ -41,6 +41,9 @@ namespace PawesomePalace.ViewModels
         public string PickUpTime { get; set; }
         public decimal Price { get; set; }
         public string Notes { get; set; }
+        public string CancellationReason { get; set; }
+        public DateTime? CancelledAt { get; set; }
+        public string RefundStatus { get; set; }
     }
 
     public class CancelBookingViewModel

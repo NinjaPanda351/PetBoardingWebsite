@@ -183,7 +183,10 @@ namespace PawesomePalace.Controllers
                 DropOffTime = booking.BookingStartTime.ToString("h:mm tt"),
                 PickUpTime = booking.BookingEndTime.ToString("h:mm tt"),
                 Price = booking.Price,
-                Notes = booking.Notes
+                Notes = booking.Notes,
+                CancellationReason = booking.CancellationReason,
+                CancelledAt = booking.CancelledAt,
+                RefundStatus = booking.RefundStatus
             };
 
             return View(model);
