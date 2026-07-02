@@ -68,7 +68,7 @@
                         <span style="width: 52px; height: 52px; border-radius: 15px; background: @iconBg; color: @iconColor; display: grid; place-items: center; font-size: 26px;">@Html.Raw(emoji)</span>
                         <span style="display: block; font-size: 18px; font-weight: 700; color: #2b2f3a; margin-top: 14px;">@pet.Name</span>
                         <span style="display: block; font-size: 13px; color: #9a9eaa; margin-top: 2px;">@pet.Breed@Html.Raw(pet.Sex != null ? " &middot; " + pet.Sex : "")</span>
-                        <span style="display: inline-flex; margin-top: 14px; font-size: 12px; font-weight: 600; color: var(--accent-ink); background: var(--accent-soft); padding: 5px 11px; border-radius: 20px;">@pet.Age yrs old</span>
+                        <span style="display: inline-flex; margin-top: 14px; font-size: 12px; font-weight: 600; color: var(--accent-ink); background: var(--accent-soft); padding: 5px 11px; border-radius: 20px;">@(pet.DateOfBirth.HasValue ? ((int)((DateTime.Today - pet.DateOfBirth.Value).TotalDays / 365.25)) + " yrs old" : "Age unknown")</span>
                     </a>
                 }
                 <a href="@Url.Action("Create", "Pets")" style="border: 2px dashed #d6d5e2; border-radius: 18px; padding: 22px; background: #fafafc; cursor: pointer; display: grid; place-items: center; min-height: 168px; font-family: inherit; text-decoration: none;">
