@@ -80,7 +80,7 @@
 
                 @if (Model.IsResolved)
                 {
-                    <p style="margin: 0; font-size: 13px; color: #9a9eaa;">Resolved on @Model.ResolvedAt?.ToString("MMM d, yyyy h:mm tt")</p>
+                    <p style="margin: 0; font-size: 13px; color: #9a9eaa;">Resolved on @(Model.ResolvedAt?.ToString("MMM d, yyyy h:mm tt"))</p>
                 }
                 else
                 {
