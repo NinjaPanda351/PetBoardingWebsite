@@ -29,7 +29,18 @@ namespace PawesomePalace.Controllers
 
             var owner = db.PetOwnerModels.FirstOrDefault(o => o.Email == user.Email);
 
-            var pets = owner != null ? db.PetModels.Where(p => p.OwnerId == owner.OwnerId).ToList() : new List<PetModel>();
+            var pets = owner != null
+                ? db.PetModels.Where(p => p.OwnerId == owner.OwnerId)
+                    .Select(p => new PetListItemViewModel
+                    {
+                        PetId = p.PetId,
+                        Species = p.Species,
+                        Name = p.Name,
+                        Breed = p.Breed,
+                        Sex = p.Sex,
+                        DateOfBirth = p.DateOfBirth
+                    }).ToList()
+                : new List<PetListItemViewModel>();
 
             var viewModel = new PetsIndexViewModel
             {

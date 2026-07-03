@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using PawesomePalace.Models;
+using PawesomePalace.ViewModels;
 
 namespace PawesomePalace.Controllers
 {

@@ -108,6 +108,36 @@
                         }
                     </div>
 
+                    @if (Model.Status == "Cancelled")
+                    {
+                        <div style="background: #fff; border: 1px solid #ebeaf1; border-radius: 16px; padding: 24px;">
+                            <p style="margin: 0 0 14px; font-size: 12px; font-weight: 700; color: #a8514a; letter-spacing: 0.06em;">CANCELLATION</p>
+                            <div style="padding: 16px 18px; background: #fdf4f4; border: 1px solid #f0d9d8; border-radius: 12px;">
+                                @if (Model.CancelledAt.HasValue)
+                                {
+                                    <div style="margin-bottom: 8px;">
+                                        <span style="display: block; font-size: 12px; color: #9a9eaa; font-weight: 600;">Cancelled on</span>
+                                        <span style="display: block; font-size: 14px; color: #4a4e5a; font-weight: 600;">@Model.CancelledAt.Value.ToString("MMM d, yyyy h:mm tt")</span>
+                                    </div>
+                                }
+                                @if (!string.IsNullOrWhiteSpace(Model.CancellationReason))
+                                {
+                                    <div style="margin-bottom: 8px;">
+                                        <span style="display: block; font-size: 12px; color: #9a9eaa; font-weight: 600;">Reason</span>
+                                        <span style="display: block; font-size: 14px; color: #4a4e5a; line-height: 1.55;">@Model.CancellationReason</span>
+                                    </div>
+                                }
+                                @if (!string.IsNullOrWhiteSpace(Model.RefundStatus))
+                                {
+                                    <div style="padding-top: 8px; border-top: 1px solid #f0d9d8;">
+                                        <span style="display: block; font-size: 12px; color: #9a9eaa; font-weight: 600;">Refund status</span>
+                                        <span style="display: block; font-size: 14px; font-weight: 700; color: @(Model.RefundStatus == "Approved" ? "#37794f" : Model.RefundStatus == "Denied" ? "#a8514a" : "#9a6a1e");">@Model.RefundStatus</span>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    }
+
                     <!-- Status override -->
                     <div style="background: #fff; border: 1px solid #ebeaf1; border-radius: 16px; padding: 24px;">
                         <p style="margin: 0 0 14px; font-size: 12px; font-weight: 700; color: #8a8e9b; letter-spacing: 0.06em;">UPDATE STATUS</p>
