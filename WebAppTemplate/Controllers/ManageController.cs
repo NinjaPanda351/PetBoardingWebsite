@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using PawesomePalace.Models;
+using PawesomePalace.ViewModels;
 
 namespace PawesomePalace.Controllers
 {
@@ -32,9 +33,9 @@ namespace PawesomePalace.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -52,21 +53,57 @@ namespace PawesomePalace.Controllers
 
         //
         // GET: /Manage/Index
-        public async Task<ActionResult> Index(ManageMessageId? message)
+        public ActionResult Index(ManageMessageId? message)
         {
-            ViewBag.StatusMessage =
-                message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
-                : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
-                : message == ManageMessageId.Error ? "An error has occurred."
-                : "";
-
-            var userId = User.Identity.GetUserId();
-            var model = new IndexViewModel
+            var user = UserManager.FindById(User.Identity.GetUserId());
+            var model = new EditProfileViewModel
             {
-                HasPassword = HasPassword(),
-                Logins = await UserManager.GetLoginsAsync(userId),
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
+                Phone = user.Phone,
+                Address = user.Address,
+                City = user.City,
+                State = user.State,
+                ZipCode = user.ZipCode,
+                StatusMessage = message == ManageMessageId.SaveSuccess ? "Profile saved." : null
             };
+
             return View(model);
+        }
+
+        // POST: /Manage/Index
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Index(EditProfileViewModel model)
+        {
+            if (string.IsNullOrEmpty(model.NewPassword))
+            {
+                ModelState.Remove("NewPassword");
+                ModelState.Remove("ConfirmPassword");
+            }
+
+            if (!ModelState.IsValid) return View(model);
+
+            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+            user.FirstName = model.FirstName;
+            user.LastName = model.LastName;
+            user.Email = model.Email;
+            user.UserName = model.Email;
+            user.Phone = model.Phone;
+            user.Address = model.Address;
+            user.City = model.City;
+            user.State = model.State;
+            user.ZipCode = model.ZipCode;
+            await UserManager.UpdateAsync(user);
+
+            if (!string.IsNullOrEmpty(model.NewPassword))
+            {
+                await UserManager.RemovePasswordAsync(user.Id);
+                await UserManager.AddPasswordAsync(user.Id, model.NewPassword);
+            }
+
+            return RedirectToAction("Index", new { message = ManageMessageId.SaveSuccess });
         }
 
         //
@@ -175,7 +212,8 @@ namespace PawesomePalace.Controllers
         {
             ChangePasswordSuccess,
             SetPasswordSuccess,
-            Error
+            Error,
+            SaveSuccess
         }
 
 #endregion

@@ -1,0 +1,97 @@
+@model IEnumerable<PawesomePalace.ViewModels.ServiceViewModel>
+@{
+    Layout = null;
+    ViewBag.Title = "Services";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Services &middot; Pawesome Palace</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; }
+        html, body { margin: 0; padding: 0; }
+        body { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; color: #2b2f3a; background: #f3f4f8; -webkit-font-smoothing: antialiased; }
+        @@keyframes ppFade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+    </style>
+</head>
+<body>
+<div style="min-height: 100vh; --accent: #6b7fd1; --accent-soft: #eef0fb; --accent-ink: #41509a;">
+
+    <header style="position: sticky; top: 0; z-index: 40; background: #2b2f3a;">
+        <div style="max-width: 1120px; margin: 0 auto; padding: 14px 28px; display: flex; align-items: center; gap: 28px;">
+            <div style="display: flex; align-items: center; gap: 11px;">
+                <span style="width: 38px; height: 38px; border-radius: 12px; background: var(--accent); color: #fff; display: grid; place-items: center; font-size: 19px;">&#x1F43E;</span>
+                <span style="line-height: 1.05;">
+                    <span style="display: block; font-family: Newsreader, serif; font-size: 18px; font-weight: 600; color: #fff;">Pawesome Palace</span>
+                    <span style="display: block; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #8a8fa0; font-weight: 600;">Staff console</span>
+                </span>
+            </div>
+            <nav style="display: flex; gap: 6px; margin-left: 8px; flex-wrap: wrap;">
+                <a href="@Url.Action("Index",    "Admin")" style="padding: 8px 15px; border-radius: 10px; font-size: 14px; font-weight: 700; background: transparent; color: rgb(154,160,178); text-decoration: none;">Dashboard</a>
+                <a href="@Url.Action("Schedule", "Admin")" style="padding: 8px 15px; border-radius: 10px; font-size: 14px; font-weight: 700; background: transparent; color: rgb(154,160,178); text-decoration: none;">Schedule</a>
+                <a href="@Url.Action("Bookings", "Admin")" style="padding: 8px 15px; border-radius: 10px; font-size: 14px; font-weight: 700; background: transparent; color: rgb(154,160,178); text-decoration: none;">Bookings</a>
+                <a href="@Url.Action("Pets",     "Admin")" style="padding: 8px 15px; border-radius: 10px; font-size: 14px; font-weight: 700; background: transparent; color: rgb(154,160,178); text-decoration: none;">Pets</a>
+                <a href="@Url.Action("Services", "Admin")" style="padding: 8px 15px; border-radius: 10px; font-size: 14px; font-weight: 700; background: rgba(255,255,255,0.14); color: #fff; text-decoration: none;">Services</a>
+                <a href="@Url.Action("Contacts", "Admin")" style="padding: 8px 15px; border-radius: 10px; font-size: 14px; font-weight: 700; background: transparent; color: rgb(154,160,178); text-decoration: none;">Contacts</a>
+                <a href="@Url.Action("Users",    "Admin")" style="padding: 8px 15px; border-radius: 10px; font-size: 14px; font-weight: 700; background: transparent; color: rgb(154,160,178); text-decoration: none;">Users</a>
+            </nav>
+            <a href="@Url.Action("Index", "Home")" style="margin-left: auto; padding: 8px 15px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.2); background: transparent; color: #fff; font-weight: 700; font-size: 13px; text-decoration: none;">Exit console</a>
+        </div>
+    </header>
+
+    <main style="max-width: 1120px; margin: 0 auto; padding: 36px 28px 80px;">
+        <div style="animation: ppFade 0.34s ease both;">
+
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px;">
+                <h1 style="margin: 0; font-family: Newsreader, serif; font-size: 34px; font-weight: 500;">Services</h1>
+                <a href="@Url.Action("CreateService", "Admin")" style="padding: 11px 20px; border-radius: 11px; border: none; background: var(--accent); color: #fff; font-weight: 700; font-size: 14px; text-decoration: none;">+ Add service</a>
+            </div>
+
+            @if (!Model.Any())
+            {
+                <div style="background: #fff; border: 1px solid #ebeaf1; border-radius: 16px; padding: 48px; text-align: center; color: #9a9eaa; font-size: 15px; font-weight: 600;">
+                    No services configured yet.
+                </div>
+            }
+            else
+            {
+                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px;">
+                    @foreach (var svc in Model)
+                    {
+                        <div style="background: #fff; border: 1px solid @(svc.IsActive ? "#ebeaf1" : "#e4e2ec"); border-radius: 16px; padding: 22px; opacity: @(svc.IsActive ? "1" : "0.65");">
+                            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+                                <h3 style="margin: 0; font-size: 16px; font-weight: 700;">@svc.Name</h3>
+                                <span style="background: @(svc.IsActive ? "#dff0e8" : "#f3f4f8"); color: @(svc.IsActive ? "#2f7a56" : "#9a9eaa"); font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 6px; white-space: nowrap;">
+                                    @(svc.IsActive ? "Active" : "Inactive")
+                                </span>
+                            </div>
+                            @if (!string.IsNullOrWhiteSpace(svc.Description))
+                            {
+                                <p style="margin: 0 0 12px; font-size: 13px; color: #6a6f7d; line-height: 1.5;">@svc.Description</p>
+                            }
+                            <p style="margin: 0 0 16px; font-family: Newsreader, serif; font-size: 22px; font-weight: 500; color: var(--accent-ink);">@svc.PricePerNight.ToString("C") <span style="font-size: 13px; color: #9a9eaa; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600;">/night</span></p>
+                            <div style="display: flex; gap: 8px;">
+                                <a href="@Url.Action("EditService", "Admin", new { serviceId = svc.ServiceId })" style="flex: 1; padding: 9px; border-radius: 9px; border: 1px solid #dcdbe6; background: #fff; color: #2b2f3a; font-weight: 700; font-size: 13px; text-decoration: none; text-align: center; font-family: inherit;">Edit</a>
+                                @using (Html.BeginForm("ToggleService", "Admin", FormMethod.Post, new { style = "flex:1;" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="serviceId" value="@svc.ServiceId" />
+                                    <button type="submit" style="width:100%; padding: 9px; border-radius: 9px; border: 1px solid #dcdbe6; background: #fff; color: @(svc.IsActive ? "#b4564f" : "#2f7a56"); font-weight: 700; font-size: 13px; cursor: pointer; font-family: inherit;">
+                                        @(svc.IsActive ? "Deactivate" : "Activate")
+                                    </button>
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    </main>
+</div>
+</body>
+</html>

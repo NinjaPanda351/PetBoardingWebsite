@@ -1,7 +1,76 @@
+@model PawesomePalace.ViewModels.PetsIndexViewModel
 @{
-    ViewBag.Title = "Manage Pets";
-    Layout = "~/Views/Shared/_UserLayout.cshtml";
+    Layout = null;
+    ViewBag.Title = "My Pets";
+    ViewBag.ActiveNav = "Pets";
 }
-
-<h1>Manage Pets Page</h1>
-<p>Add and manage your pets here.</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>My pets &middot; Pawesome Palace</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; }
+        html, body { margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; color: #2b2f3a; background: #f3f4f8; -webkit-font-smoothing: antialiased; }
+        ::placeholder { color: #aeb2bd; }
+        @@keyframes ppFade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+        input:focus, select:focus, textarea:focus { outline: none; border-color: #6b7fd1; box-shadow: 0 0 0 3px #eef0fb; }
+    </style>
+</head>
+<body>
+<div style="min-height: 100vh; --accent: #6b7fd1; --accent-soft: #eef0fb; --accent-ink: #41509a;">
+    @Html.Partial("_PpHeader")
+    <main style="max-width: 1120px; margin: 0px auto; padding: 36px 28px 80px;">
+        <div style="animation: ppFade 0.34s ease both;">
+            <div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; margin-bottom: 24px;">
+                <div>
+                    <p style="margin: 0px 0px 6px; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-ink); font-weight: 700;">Your companions</p>
+                    <h1 style="margin: 0px; font-family: Newsreader, serif; font-size: 34px; font-weight: 500;">My pets</h1>
+                </div>
+                <a href="@Url.Action("Create", "Pets")" style="padding: 11px 20px; border-radius: 11px; border: none; background: var(--accent); color: #fff; font-weight: 700; font-size: 14px; cursor: pointer; font-family: inherit; text-decoration: none;">+ Add a pet</a>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px;">
+                @foreach (var pet in Model.Pets)
+                {
+                    string emoji;
+                    string iconBg;
+                    string iconColor;
+                    switch ((pet.Species ?? "").ToLower())
+                    {
+                        case "cat":
+                            emoji = "&#x1F431;";
+                            iconBg = "#f1ecfa";
+                            iconColor = "#7a5fb0";
+                            break;
+                        default:
+                            emoji = "&#x1F436;";
+                            iconBg = "#fbecdf";
+                            iconColor = "#b5713e";
+                            break;
+                    }
+                    <a href="@Url.Action("Details", "Pets", new { id = pet.PetId })" style="text-align: left; background: #fff; border: 1px solid #ebeaf1; border-radius: 18px; padding: 22px; cursor: pointer; box-shadow: rgba(40, 40, 70, 0.04) 0px 1px 2px; font-family: inherit; text-decoration: none; display: block;">
+                        <span style="width: 52px; height: 52px; border-radius: 15px; background: @iconBg; color: @iconColor; display: grid; place-items: center; font-size: 26px;">@Html.Raw(emoji)</span>
+                        <span style="display: block; font-size: 18px; font-weight: 700; color: #2b2f3a; margin-top: 14px;">@pet.Name</span>
+                        <span style="display: block; font-size: 13px; color: #9a9eaa; margin-top: 2px;">@pet.Breed@Html.Raw(pet.Sex != null ? " &middot; " + pet.Sex : "")</span>
+                        <span style="display: inline-flex; margin-top: 14px; font-size: 12px; font-weight: 600; color: var(--accent-ink); background: var(--accent-soft); padding: 5px 11px; border-radius: 20px;">@(pet.DateOfBirth.HasValue ? ((int)((DateTime.Today - pet.DateOfBirth.Value).TotalDays / 365.25)) + " yrs old" : "Age unknown")</span>
+                    </a>
+                }
+                <a href="@Url.Action("Create", "Pets")" style="border: 2px dashed #d6d5e2; border-radius: 18px; padding: 22px; background: #fafafc; cursor: pointer; display: grid; place-items: center; min-height: 168px; font-family: inherit; text-decoration: none;">
+                    <span style="text-align: center; color: #9a9eaa;">
+                        <span style="display: block; font-size: 30px;">&#43</span>
+                        <span style="display: block; font-size: 14px; font-weight: 600; margin-top: 6px;">Add a pet</span>
+                    </span>
+                </a>
+            </div>
+            <a href="@Url.Action("Index", "MyAccount")" style="display: inline-block; margin-top: 26px; color: #9a9eaa; font-size: 14px; font-weight: 600; text-decoration: none;">&#x2190; Back to profile</a>
+        </div>
+    </main>
+</div>
+</body>
+</html>

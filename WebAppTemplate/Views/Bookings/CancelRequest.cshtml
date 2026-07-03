@@ -1,0 +1,85 @@
+@model PawesomePalace.ViewModels.CancelBookingViewModel
+@{
+    Layout = null;
+    ViewBag.Title = "Request cancellation";
+    ViewBag.ActiveNav = "Bookings";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Request cancellation &middot; Pawesome Palace</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; }
+        html, body { margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; color: #2b2f3a; background: #f3f4f8; -webkit-font-smoothing: antialiased; }
+        ::placeholder { color: #aeb2bd; }
+        @@keyframes ppFade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+        input:focus, select:focus, textarea:focus { outline: none; border-color: #6b7fd1; box-shadow: 0 0 0 3px #eef0fb; }
+    </style>
+</head>
+<body>
+<div style="min-height: 100vh; --accent: #6b7fd1; --accent-soft: #eef0fb; --accent-ink: #41509a;">
+    @Html.Partial("_PpHeader")
+    <main style="max-width: 1120px; margin: 0px auto; padding: 36px 28px 80px;">
+        <div style="animation: ppFade 0.34s ease both; max-width: 520px; margin: 0px auto;">
+            <a href="@Url.Action("Details", "Bookings", new { bookingId = Model.BookingId })" style="display: inline-block; background: none; border: none; color: #9a9eaa; font-size: 14px; font-weight: 600; cursor: pointer; padding: 0px; margin-bottom: 16px; font-family: inherit; text-decoration: none;">&#x2190; Back</a>
+            <h1 style="margin: 0px 0px 20px; font-family: Newsreader, serif; font-size: 28px; font-weight: 500;">Request cancellation</h1>
+
+            @using (Html.BeginForm("CancelRequest", "Bookings", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(m => m.BookingId)
+                @Html.HiddenFor(m => m.BookingReference)
+
+                <div style="background: #fff; border: 1px solid #ebeaf1; border-radius: 18px; padding: 28px; box-shadow: rgba(40, 40, 70, 0.04) 0px 1px 2px;">
+
+                    <div style="display: flex; justify-content: space-between; padding-bottom: 16px; border-bottom: 1px solid #f0eff5;">
+                        <span style="font-size: 13px; color: #9a9eaa; font-weight: 600;">Booking ref</span>
+                        <span style="font-size: 14px; font-weight: 700;">@Model.BookingReference</span>
+                    </div>
+
+                    <label style="display: block; margin-top: 18px;">
+                        <span style="display: block; font-size: 12px; font-weight: 700; color: #6b7280; margin-bottom: 6px;">Reason for cancellation</span>
+                        @Html.TextAreaFor(m => m.CancellationReason, 3, 0, new
+                        {
+                            id = "cancelReason",
+                            placeholder = "Tell us what changed...",
+                            style = "width: 100%; padding: 11px 14px; border: 1px solid #e4e2ec; border-radius: 10px; font: inherit; font-size: 14px; background: #fff; color: #2b2f3a;"
+                        })
+                    </label>
+
+                    <div style="margin-top: 18px; padding: 16px 18px; background: #fbfaf7; border: 1px solid #f0eff5; border-radius: 12px;">
+                        <span style="display: block; font-size: 12px; font-weight: 700; color: #8a8e9b; margin-bottom: 6px; letter-spacing: 0.05em;">CANCELLATION POLICY</span>
+                        <span style="display: block; font-size: 13px; color: #6a6f7d; line-height: 1.6;">Free cancellation up to 72 hours before drop-off. Cancellations within 72 hours are refunded 50%. Our team will review and confirm your refund within 1 business day.</span>
+                    </div>
+
+                    <div style="margin-top: 22px; display: flex; gap: 12px;">
+                        <button id="submitBtn" type="submit" disabled style="padding: 12px 22px; border-radius: 11px; border: none; background: var(--accent); color: #fff; font-weight: 700; font-size: 14px; font-family: inherit; cursor: not-allowed; opacity: 0.45;">Submit request</button>
+                        <a href="@Url.Action("Details", "Bookings", new { bookingId = Model.BookingId })" style="padding: 12px 20px; border-radius: 11px; border: 1px solid #dcdbe6; background: #fff; color: #2b2f3a; font-weight: 700; font-size: 14px; cursor: pointer; font-family: inherit; text-decoration: none; display: inline-flex; align-items: center;">Back</a>
+                    </div>
+
+                </div>
+            }
+        </div>
+    </main>
+</div>
+<script>
+    (function () {
+        var textarea = document.getElementById('cancelReason');
+        var btn = document.getElementById('submitBtn');
+        textarea.addEventListener('input', function () {
+            var hasText = textarea.value.trim().length > 0;
+            btn.disabled = !hasText;
+            btn.style.opacity = hasText ? '1' : '0.45';
+            btn.style.cursor = hasText ? 'pointer' : 'not-allowed';
+        });
+    })();
+</script>
+</body>
+</html>

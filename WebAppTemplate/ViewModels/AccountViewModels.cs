@@ -1,15 +1,8 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace PawesomePalace.Models
+namespace PawesomePalace.ViewModels
 {
-
-    public class ForgotViewModel
-    {
-        [Required]
-        [Display(Name = "Email")]
-        public string Email { get; set; }
-    }
 
     public class LoginViewModel
     {
@@ -98,5 +91,21 @@ public class ResetPasswordViewModel
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
+    }
+
+    public class DeleteAccountViewModel
+    {
+        public string Email { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+
+        [Required]
+        [DataType(DataType.Password)]
+        [Display(Name = "Password")]
+        public string Password { get; set; }
+
+        [Required]
+        [Display(Name = "Confirm code")]
+        public string ConfirmCode { get; set; }
     }
 }

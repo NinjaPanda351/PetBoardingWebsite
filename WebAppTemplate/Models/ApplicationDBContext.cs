@@ -16,6 +16,7 @@ namespace PawesomePalace.Models
         public DbSet<BookingModel> BookingModels { get; set; }
         public DbSet<BookingEventModel> BookingEventModels { get; set; }
         public DbSet<ContactUsModel> ContactUsModels { get; set; }
+        public DbSet<ServiceModel> ServiceModels { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

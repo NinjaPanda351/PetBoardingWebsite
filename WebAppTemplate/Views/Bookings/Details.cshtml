@@ -1,0 +1,138 @@
+@model PawesomePalace.ViewModels.BookingDetailViewModel
+@{
+    Layout = null;
+    ViewBag.Title = "Booking detail";
+    ViewBag.ActiveNav = "Bookings";
+
+    string badgeBg, badgeColor;
+    switch (Model.Status)
+    {
+        case "Confirmed":  badgeBg = "#e3f2e9"; badgeColor = "#37794f"; break;
+        case "Pending":    badgeBg = "#fbf0df"; badgeColor = "#9a6a1e"; break;
+        case "Completed":  badgeBg = "#eceff4"; badgeColor = "#5a6072"; break;
+        case "Cancelled":  badgeBg = "#fbeceb"; badgeColor = "#b4564f"; break;
+        default:           badgeBg = "#eceff4"; badgeColor = "#5a6072"; break;
+    }
+
+    bool canEdit = Model.Status == "Pending";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Booking detail &middot; Pawesome Palace</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; }
+        html, body { margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; color: #2b2f3a; background: #f3f4f8; -webkit-font-smoothing: antialiased; }
+        ::placeholder { color: #aeb2bd; }
+        @@keyframes ppFade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+        input:focus, select:focus, textarea:focus { outline: none; border-color: #6b7fd1; box-shadow: 0 0 0 3px #eef0fb; }
+    </style>
+</head>
+<body>
+<div style="min-height: 100vh; --accent: #6b7fd1; --accent-soft: #eef0fb; --accent-ink: #41509a;">
+    @Html.Partial("_PpHeader")
+    <main style="max-width: 1120px; margin: 0px auto; padding: 36px 28px 80px;">
+        <div style="animation: ppFade 0.34s ease both; max-width: 600px; margin: 0px auto;">
+            <a href="@Url.Action("Index", "Bookings")" style="display: inline-block; background: none; border: none; color: #9a9eaa; font-size: 14px; font-weight: 600; cursor: pointer; padding: 0px; margin-bottom: 16px; font-family: inherit; text-decoration: none;">&#x2190; Back to bookings</a>
+            <div style="background: #fff; border: 1px solid #ebeaf1; border-radius: 18px; padding: 28px; box-shadow: rgba(40, 40, 70, 0.04) 0px 1px 2px;">
+
+                <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 22px;">
+                    <div>
+                        <p style="margin: 0px 0px 4px; font-size: 12px; color: #b0b3bd; font-weight: 700; letter-spacing: 0.05em;">@Model.BookingReference</p>
+                        <h1 style="margin: 0px; font-family: Newsreader, serif; font-size: 26px; font-weight: 500;">@Model.ServiceType</h1>
+                    </div>
+                    <span style="display: inline-block; background: @badgeBg; color: @badgeColor; font-size: 13px; font-weight: 700; padding: 6px 13px; border-radius: 20px; white-space: nowrap;">@Model.Status</span>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: #f0eff5; border: 1px solid #f0eff5; border-radius: 12px; overflow: hidden;">
+                    <div style="background: #fff; padding: 16px 18px;">
+                        <span style="display: block; font-size: 12px; color: #9a9eaa; font-weight: 600;">Pet</span>
+                        <span style="display: block; font-size: 15px; font-weight: 600; margin-top: 3px;">@Model.PetName</span>
+                    </div>
+                    <div style="background: #fff; padding: 16px 18px;">
+                        <span style="display: block; font-size: 12px; color: #9a9eaa; font-weight: 600;">Sex</span>
+                        <span style="display: block; font-size: 15px; font-weight: 600; margin-top: 3px;">@(string.IsNullOrWhiteSpace(Model.PetSex) ? "—" : Model.PetSex)</span>
+                    </div>
+                    <div style="background: #fff; padding: 16px 18px;">
+                        <span style="display: block; font-size: 12px; color: #9a9eaa; font-weight: 600;">Drop-off</span>
+                        <span style="display: block; font-size: 15px; font-weight: 600; margin-top: 3px;">@Model.StartDate.ToString("MMM d, yyyy") &middot; @Model.DropOffTime</span>
+                    </div>
+                    <div style="background: #fff; padding: 16px 18px;">
+                        <span style="display: block; font-size: 12px; color: #9a9eaa; font-weight: 600;">Pick-up</span>
+                        <span style="display: block; font-size: 15px; font-weight: 600; margin-top: 3px;">@Model.EndDate.ToString("MMM d, yyyy") &middot; @Model.PickUpTime</span>
+                    </div>
+                    <div style="background: #fff; padding: 16px 18px;">
+                        <span style="display: block; font-size: 12px; color: #9a9eaa; font-weight: 600;">Estimated cost</span>
+                        <span style="display: block; font-size: 15px; font-weight: 700; margin-top: 3px; color: var(--accent-ink);">@Model.Price.ToString("C")</span>
+                    </div>
+                </div>
+
+                @if (!string.IsNullOrWhiteSpace(Model.Notes))
+                {
+                    <div style="margin-top: 16px; padding: 16px 18px; background: #fbfaf7; border: 1px solid #f0eff5; border-radius: 12px;">
+                        <span style="display: block; font-size: 12px; color: #9a9eaa; font-weight: 600; margin-bottom: 4px;">Special instructions</span>
+                        <span style="display: block; font-size: 14px; color: #4a4e5a; line-height: 1.55;">@Model.Notes</span>
+                    </div>
+                }
+
+                @if (Model.Status == "Cancelled")
+                {
+                    <div style="margin-top: 16px; padding: 16px 18px; background: #fdf4f4; border: 1px solid #f0d9d8; border-radius: 12px;">
+                        <span style="display: block; font-size: 12px; color: #b4564f; font-weight: 700; margin-bottom: 8px; letter-spacing: 0.04em;">CANCELLATION</span>
+                        @if (Model.CancelledAt.HasValue)
+                        {
+                            <div style="margin-bottom: 6px;">
+                                <span style="font-size: 12px; color: #9a9eaa; font-weight: 600;">Cancelled on</span>
+                                <span style="display: block; font-size: 14px; color: #4a4e5a; font-weight: 600;">@Model.CancelledAt.Value.ToString("MMM d, yyyy h:mm tt")</span>
+                            </div>
+                        }
+                        @if (!string.IsNullOrWhiteSpace(Model.CancellationReason))
+                        {
+                            <div>
+                                <span style="font-size: 12px; color: #9a9eaa; font-weight: 600;">Reason</span>
+                                <span style="display: block; font-size: 14px; color: #4a4e5a; line-height: 1.55;">@Model.CancellationReason</span>
+                            </div>
+                        }
+                        @if (!string.IsNullOrWhiteSpace(Model.RefundStatus))
+                        {
+                            <div style="margin-top: 8px; padding-top: 8px; border-top: 1px solid #f0d9d8;">
+                                <span style="font-size: 12px; color: #9a9eaa; font-weight: 600;">Refund status</span>
+                                <span style="display: block; font-size: 14px; font-weight: 700; color: @(Model.RefundStatus == "Approved" ? "#37794f" : Model.RefundStatus == "Denied" ? "#b4564f" : "#9a6a1e");">@Model.RefundStatus</span>
+                            </div>
+                        }
+                    </div>
+                }
+
+                <div style="margin-top: 24px; display: flex; gap: 12px;">
+                    @if (canEdit)
+                    {
+                        <a href="@Url.Action("Edit", "Bookings", new { bookingId = Model.BookingId })"
+                           style="padding: 12px 22px; border-radius: 11px; border: none; background: var(--accent); color: #fff; font-weight: 700; font-size: 14px; font-family: inherit; text-decoration: none; display: inline-flex; align-items: center;">Edit booking</a>
+                    }
+                    else
+                    {
+                        <button disabled style="padding: 12px 22px; border-radius: 11px; border: none; background: var(--accent); color: #fff; font-weight: 700; font-size: 14px; font-family: inherit; cursor: not-allowed; opacity: 0.45;">Edit booking</button>
+                    }
+                    @if (Model.Status != "Cancelled" && Model.Status != "Completed")
+                    {
+                        <a href="@Url.Action("CancelRequest", "Bookings", new { bookingId = Model.BookingId })" style="padding: 12px 18px; border-radius: 11px; border: 1px solid #ecd9d9; background: #fff; color: #b4564f; font-weight: 700; font-size: 14px; font-family: inherit; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center;">Request cancellation</a>
+                    }
+                </div>
+                @if (!canEdit)
+                {
+                    <p style="margin: 12px 0px 0px; font-size: 12.5px; color: #b0b3bd;">Editing is only available while a booking is pending.</p>
+                }
+
+            </div>
+        </div>
+    </main>
+</div>
+</body>
+</html>

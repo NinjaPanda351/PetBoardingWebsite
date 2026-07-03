@@ -1,0 +1,75 @@
+@model PawesomePalace.ViewModels.PetDetailsViewModel
+@{
+    Layout = null;
+    ViewBag.Title = "Confirm pet removal";
+    ViewBag.ActiveNav = "Pets";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Confirm pet removal &middot; Pawesome Palace</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; }
+        html, body { margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; color: #2b2f3a; background: #f3f4f8; -webkit-font-smoothing: antialiased; }
+        ::placeholder { color: #aeb2bd; }
+        @@keyframes ppFade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+        input:focus { outline: none; border-color: #6b7fd1; box-shadow: 0 0 0 3px #eef0fb; }
+    </style>
+</head>
+<body>
+<div style="min-height: 100vh; --accent: #6b7fd1; --accent-soft: #eef0fb; --accent-ink: #41509a;">
+    @Html.Partial("_PpHeader")
+    <main style="max-width: 1120px; margin: 0px auto; padding: 36px 28px 80px;">
+        <div style="animation: ppFade 0.34s ease both; max-width: 480px; margin: 0px auto;">
+            <a href="@Url.Action("Details", "Pets", new { id = Model.PetId })" style="color: #9a9eaa; font-size: 14px; font-weight: 600; text-decoration: none; display: inline-block; margin-bottom: 16px;">&#x2190; Back</a>
+            <div style="background: #fff; border: 1px solid #ecdede; border-radius: 18px; padding: 30px; box-shadow: rgba(40, 40, 70, 0.04) 0px 1px 2px;">
+                <span style="width: 50px; height: 50px; border-radius: 14px; background: #fbeceb; display: grid; place-items: center; font-size: 24px;">&#x1F5D1;&#xFE0F;</span>
+                <h1 style="margin: 16px 0px 6px; font-family: Newsreader, serif; font-size: 24px; font-weight: 500;">Remove @Model.Name?</h1>
+                <p style="margin: 0px 0px 22px; font-size: 14px; color: #8a8e9b; line-height: 1.55;">
+                    This removes @Model.Name and any associated records. To confirm, type <b style="color: #b4564f;">@Model.Name.ToUpper()</b> below.
+                </p>
+
+                @using (Html.BeginForm("DeletePet", "Pets", new { id = Model.PetId }, FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    <input id="removeText" placeholder="@Model.Name.ToUpper()" autocomplete="off"
+                           style="width: 100%; padding: 11px 14px; border: 1px solid #e4e2ec; border-radius: 10px; font: inherit; font-size: 14px; color: #2b2f3a; letter-spacing: 0.06em;">
+                    <div style="margin-top: 22px; display: flex; gap: 12px;">
+                        <button id="removeBtn" type="submit" disabled
+                                style="padding: 12px 22px; border-radius: 11px; border: none; background: #e7d4d3; color: #fff; font-weight: 700; font-size: 14px; font-family: inherit; cursor: not-allowed; opacity: 0.7;">
+                            Remove pet
+                        </button>
+                        <a href="@Url.Action("Details", "Pets", new { id = Model.PetId })"
+                           style="padding: 12px 20px; border-radius: 11px; border: 1px solid #dcdbe6; background: #fff; color: #2b2f3a; font-weight: 700; font-size: 14px; text-decoration: none;">
+                            Cancel
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+    </main>
+</div>
+<script>
+    (function () {
+        var input = document.getElementById('removeText');
+        var btn = document.getElementById('removeBtn');
+        var expected = '@Model.Name.ToUpper()';
+
+        input.addEventListener('input', function () {
+            var match = input.value.toUpperCase() === expected;
+            btn.disabled = !match;
+            btn.style.background = match ? '#b4564f' : '#e7d4d3';
+            btn.style.cursor = match ? 'pointer' : 'not-allowed';
+            btn.style.opacity = match ? '1' : '0.7';
+        });
+    })();
+</script>
+</body>
+</html>

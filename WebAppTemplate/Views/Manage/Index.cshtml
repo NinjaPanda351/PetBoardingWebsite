@@ -1,29 +1,138 @@
-﻿@model PawesomePalace.Models.IndexViewModel
+@model PawesomePalace.ViewModels.EditProfileViewModel
 @{
-    ViewBag.Title = "Manage";
+    Layout = null;
+    var initials = (string.IsNullOrEmpty(Model.FirstName) ? "" : Model.FirstName[0].ToString()) +
+                   (string.IsNullOrEmpty(Model.LastName) ? "" : Model.LastName[0].ToString());
+    var fullName = Model.FirstName + " " + Model.LastName;
 }
-
-<main aria-labelledby="title">
-    <h2 id="title">@ViewBag.Title.</h2>
-
-    <p class="text-success">@ViewBag.StatusMessage</p>
-    <div>
-        <h4>Change your account settings</h4>
-        <hr />
-        <dl class="dl-horizontal">
-            <dt>Password:</dt>
-            <dd>
-                [
-                @if (Model.HasPassword)
-                {
-                    @Html.ActionLink("Change your password", "ChangePassword")
-                }
-                else
-                {
-                    @Html.ActionLink("Create", "SetPassword")
-                }
-                ]
-            </dd>
-        </dl>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Edit profile &middot; Pawesome Palace</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; color: #2b2f3a; background: #f3f4f8; -webkit-font-smoothing: antialiased; }
+    ::placeholder { color: #aeb2bd; }
+    @@keyframes ppFade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+    input:focus, select:focus, textarea:focus { outline: none; border-color: #6b7fd1; box-shadow: 0 0 0 3px #eef0fb; }
+    .field-error { display: block; font-size: 12px; color: #b4564f; margin-top: 4px; }
+  </style>
+</head>
+<body>
+<div style="min-height: 100vh; --accent: #6b7fd1; --accent-soft: #eef0fb; --accent-ink: #41509a;">
+  <header style="position: sticky; top: 0px; z-index: 40; background: rgba(255, 255, 255, 0.86); backdrop-filter: blur(10px); border-bottom: 1px solid rgb(231, 230, 238);">
+    <div style="max-width: 1120px; margin: 0px auto; padding: 14px 28px; display: flex; align-items: center; gap: 28px;">
+      <a href="@Url.Action("Index", "MyAccount")" style="display: flex; align-items: center; gap: 11px; text-decoration: none;">
+        <span style="width: 38px; height: 38px; border-radius: 12px; background: var(--accent); color: rgb(255, 255, 255); display: grid; place-items: center; font-size: 19px; box-shadow: 0 4px 12px -3px var(--accent);">&#x1F43E;</span>
+        <span style="text-align: left; line-height: 1.05;">
+          <span style="display: block; font-family: Newsreader, serif; font-size: 18px; font-weight: 600; color: rgb(43, 47, 58);">Pawesome Palace</span>
+          <span style="display: block; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: rgb(154, 158, 170); font-weight: 600;">Pet Boarding</span>
+        </span>
+      </a>
+      <nav style="display: flex; gap: 6px; margin-left: 8px;">
+        <a href="@Url.Action("Index", "MyAccount")" style="padding: 8px 15px; border-radius: 10px; font-size: 14px; font-weight: 700; font-family: inherit; background: var(--accent-soft); color: var(--accent-ink); text-decoration: none;">Profile</a>
+        <a href="@Url.Action("Index", "Pets")" style="padding: 8px 15px; border-radius: 10px; font-size: 14px; font-weight: 700; font-family: inherit; background: transparent; color: rgb(122, 127, 140); text-decoration: none;">My Pets</a>
+        <a href="@Url.Action("Index", "Bookings")" style="padding: 8px 15px; border-radius: 10px; font-size: 14px; font-weight: 700; font-family: inherit; background: transparent; color: rgb(122, 127, 140); text-decoration: none;">Bookings</a>
+      </nav>
+      <div style="margin-left: auto; display: flex; align-items: center; gap: 11px;">
+        <span style="text-align: right; line-height: 1.1;">
+          <span style="display: block; font-size: 13px; font-weight: 700; color: rgb(43, 47, 58);">@fullName</span>
+          <span style="display: block; font-size: 11px; color: rgb(154, 158, 170);">Pet parent</span>
+        </span>
+        <span style="width: 36px; height: 36px; border-radius: 50%; background: var(--accent-soft); color: var(--accent-ink); display: grid; place-items: center; font-weight: 800; font-size: 14px;">@initials</span>
+      </div>
     </div>
-</main>
+  </header>
+  <main style="max-width: 1120px; margin: 0px auto; padding: 36px 28px 80px;">
+    <div style="animation: ppFade 0.34s ease both; max-width: 720px; margin: 0px auto;">
+      <a href="@Url.Action("Index", "MyAccount")" style="display: inline-block; color: rgb(154, 158, 170); font-size: 14px; font-weight: 600; text-decoration: none; margin-bottom: 16px;">&#x2190; Back to profile</a>
+      <h1 style="margin: 0px 0px 22px; font-family: Newsreader, serif; font-size: 30px; font-weight: 500;">Edit profile</h1>
+      @if (!string.IsNullOrEmpty(Model.StatusMessage))
+      {
+        <div style="margin-bottom: 20px; padding: 13px 18px; border-radius: 12px; background: #edfaf3; border: 1px solid #b6e8cf; color: #1e6e46; font-size: 14px; font-weight: 600;">
+          @Model.StatusMessage
+        </div>
+      }
+      @using (Html.BeginForm("Index", "Manage", FormMethod.Post))
+      {
+        @Html.AntiForgeryToken()
+        <div style="background: rgb(255, 255, 255); border: 1px solid rgb(235, 234, 241); border-radius: 18px; padding: 28px; box-shadow: rgba(40, 40, 70, 0.04) 0px 1px 2px;">
+          @Html.ValidationSummary(true, "", new { @style = "color: #b4564f; font-size: 13px; margin-bottom: 14px;" })
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            <label style="display: block;">
+              <span style="display: block; font-size: 12px; font-weight: 700; color: rgb(107, 114, 128); margin-bottom: 6px;">First name</span>
+              @Html.TextBoxFor(m => m.FirstName, new { style = "width: 100%; padding: 11px 14px; border: 1px solid rgb(228, 226, 236); border-radius: 10px; font: inherit; font-size: 14px; color: rgb(43, 47, 58);" })
+              @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "field-error" })
+            </label>
+            <label style="display: block;">
+              <span style="display: block; font-size: 12px; font-weight: 700; color: rgb(107, 114, 128); margin-bottom: 6px;">Last name</span>
+              @Html.TextBoxFor(m => m.LastName, new { style = "width: 100%; padding: 11px 14px; border: 1px solid rgb(228, 226, 236); border-radius: 10px; font: inherit; font-size: 14px; color: rgb(43, 47, 58);" })
+              @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "field-error" })
+            </label>
+            <label style="display: block;">
+              <span style="display: block; font-size: 12px; font-weight: 700; color: rgb(107, 114, 128); margin-bottom: 6px;">Phone number</span>
+              @Html.TextBoxFor(m => m.Phone, new { style = "width: 100%; padding: 11px 14px; border: 1px solid rgb(228, 226, 236); border-radius: 10px; font: inherit; font-size: 14px; color: rgb(43, 47, 58);", type = "tel" })
+              @Html.ValidationMessageFor(m => m.Phone, "", new { @class = "field-error" })
+            </label>
+            <label style="display: block;">
+              <span style="display: block; font-size: 12px; font-weight: 700; color: rgb(107, 114, 128); margin-bottom: 6px;">Email</span>
+              @Html.TextBoxFor(m => m.Email, new { style = "width: 100%; padding: 11px 14px; border: 1px solid rgb(228, 226, 236); border-radius: 10px; font: inherit; font-size: 14px; color: rgb(43, 47, 58);", type = "email" })
+              @Html.ValidationMessageFor(m => m.Email, "", new { @class = "field-error" })
+            </label>
+          </div>
+          <label style="display: block; margin-top: 16px;">
+            <span style="display: block; font-size: 12px; font-weight: 700; color: rgb(107, 114, 128); margin-bottom: 6px;">Address</span>
+            @Html.TextBoxFor(m => m.Address, new { style = "width: 100%; padding: 11px 14px; border: 1px solid rgb(228, 226, 236); border-radius: 10px; font: inherit; font-size: 14px; color: rgb(43, 47, 58);" })
+            @Html.ValidationMessageFor(m => m.Address, "", new { @class = "field-error" })
+          </label>
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-top: 16px;">
+            <label style="display: block;">
+              <span style="display: block; font-size: 12px; font-weight: 700; color: rgb(107, 114, 128); margin-bottom: 6px;">City</span>
+              @Html.TextBoxFor(m => m.City, new { style = "width: 100%; padding: 11px 14px; border: 1px solid rgb(228, 226, 236); border-radius: 10px; font: inherit; font-size: 14px; color: rgb(43, 47, 58);" })
+              @Html.ValidationMessageFor(m => m.City, "", new { @class = "field-error" })
+            </label>
+            <label style="display: block;">
+              <span style="display: block; font-size: 12px; font-weight: 700; color: rgb(107, 114, 128); margin-bottom: 6px;">State</span>
+              @Html.TextBoxFor(m => m.State, new { style = "width: 100%; padding: 11px 14px; border: 1px solid rgb(228, 226, 236); border-radius: 10px; font: inherit; font-size: 14px; color: rgb(43, 47, 58);" })
+              @Html.ValidationMessageFor(m => m.State, "", new { @class = "field-error" })
+            </label>
+            <label style="display: block;">
+              <span style="display: block; font-size: 12px; font-weight: 700; color: rgb(107, 114, 128); margin-bottom: 6px;">Zip code</span>
+              @Html.TextBoxFor(m => m.ZipCode, new { style = "width: 100%; padding: 11px 14px; border: 1px solid rgb(228, 226, 236); border-radius: 10px; font: inherit; font-size: 14px; color: rgb(43, 47, 58);" })
+              @Html.ValidationMessageFor(m => m.ZipCode, "", new { @class = "field-error" })
+            </label>
+          </div>
+          <div style="margin-top: 24px; padding-top: 22px; border-top: 1px solid rgb(240, 239, 245);">
+            <p style="margin: 0px 0px 14px; font-size: 13px; font-weight: 700; color: rgb(138, 142, 155);">CHANGE PASSWORD</p>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+              <label style="display: block;">
+                <span style="display: block; font-size: 12px; font-weight: 700; color: rgb(107, 114, 128); margin-bottom: 6px;">New password</span>
+                @Html.PasswordFor(m => m.NewPassword, new { style = "width: 100%; padding: 11px 14px; border: 1px solid rgb(228, 226, 236); border-radius: 10px; font: inherit; font-size: 14px; color: rgb(43, 47, 58);", placeholder = "Leave blank to keep" })
+                @Html.ValidationMessageFor(m => m.NewPassword, "", new { @class = "field-error" })
+              </label>
+              <label style="display: block;">
+                <span style="display: block; font-size: 12px; font-weight: 700; color: rgb(107, 114, 128); margin-bottom: 6px;">Confirm password</span>
+                @Html.PasswordFor(m => m.ConfirmPassword, new { style = "width: 100%; padding: 11px 14px; border: 1px solid rgb(228, 226, 236); border-radius: 10px; font: inherit; font-size: 14px; color: rgb(43, 47, 58);", placeholder = "Re-enter new password" })
+                @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "field-error" })
+              </label>
+            </div>
+          </div>
+          <div style="margin-top: 26px; display: flex; align-items: center; gap: 12px;">
+            <button type="submit" style="padding: 12px 22px; border-radius: 11px; border: none; background: var(--accent); color: rgb(255, 255, 255); font-weight: 700; font-size: 14px; cursor: pointer; font-family: inherit;">Save changes</button>
+            <a href="@Url.Action("Index", "MyAccount")" style="padding: 12px 20px; border-radius: 11px; border: 1px solid rgb(220, 219, 230); background: rgb(255, 255, 255); color: rgb(43, 47, 58); font-weight: 700; font-size: 14px; font-family: inherit; text-decoration: none;">Cancel</a>
+            <a href="@Url.Action("DeleteAccount", "Account")" style="margin-left: auto; padding: 12px 18px; border-radius: 11px; border: 1px solid rgb(236, 217, 217); background: rgb(255, 255, 255); color: rgb(180, 86, 79); font-weight: 700; font-size: 14px; font-family: inherit; text-decoration: none;">Delete account</a>
+          </div>
+        </div>
+      }
+    </div>
+  </main>
+</div>
+</body>
+</html>

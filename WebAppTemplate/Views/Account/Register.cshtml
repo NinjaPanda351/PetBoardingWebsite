@@ -1,85 +1,178 @@
-﻿@model PawesomePalace.Models.RegisterViewModel
+@model PawesomePalace.ViewModels.RegisterViewModel
 @{
-    ViewBag.Title = "Register";
+    Layout = null;
+    ViewBag.Title = "Create account";
 }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Create account &middot; Pawesome Palace</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; }
+        html, body { margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; color: #2b2f3a; background: #f3f4f8; -webkit-font-smoothing: antialiased; }
+        ::placeholder { color: #aeb2bd; }
+        @@keyframes ppFade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+        input:focus, select:focus, textarea:focus { outline: none; border-color: #6b7fd1; box-shadow: 0 0 0 3px #eef0fb; }
+        .field-validation-error { display: block; font-size: 12px; color: #d9534f; margin-top: 4px; }
+        .validation-summary-errors ul { margin: 0; padding: 0 0 0 16px; font-size: 13px; color: #d9534f; }
+    </style>
+</head>
+<body>
+<div style="min-height: 100vh; --accent: #6b7fd1; --accent-soft: #eef0fb; --accent-ink: #41509a;">
+    <div style="min-height: 100vh; display: grid; place-items: center; padding: 44px 20px; background: linear-gradient(165deg, var(--accent-soft), #f3f4f8 62%);">
+        <div style="width: 100%; max-width: 440px; animation: ppFade 0.34s ease both;">
+            <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 22px;">
+                <span style="width: 54px; height: 54px; border-radius: 16px; background: var(--accent); color: #fff; display: grid; place-items: center; font-size: 27px; box-shadow: 0 8px 22px -6px var(--accent);">&#x1F43E;</span>
+                <span style="font-family: Newsreader, serif; font-size: 23px; font-weight: 600; margin-top: 12px;">Pawesome Palace</span>
+                <span style="font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #9a9eaa; font-weight: 600;">Pet Boarding</span>
+            </div>
+            <div style="background: #fff; border: 1px solid #ebeaf1; border-radius: 20px; padding: 30px; box-shadow: rgba(40,40,70,0.3) 0px 14px 36px -20px;">
+                <h1 style="margin: 0 0 4px; font-family: Newsreader, serif; font-size: 24px; font-weight: 500;">Create your account</h1>
+                <p style="margin: 0 0 22px; font-size: 14px; color: #9a9eaa;">Join Pawesome Palace in a couple of steps.</p>
 
-<main aria-labelledby="title">
-    <h2 id="title">@ViewBag.Title.</h2>
+                @Html.ValidationSummary(true, "", new { @class = "validation-summary-errors" })
 
-    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { role = "form" }))
-    {
-        @Html.AntiForgeryToken()
-        <h4>Create a new account.</h4>
-        <hr />
-        @Html.ValidationSummary("", new { @class = "text-danger" })
-        <div class="row">
-            @Html.LabelFor(m => m.FirstName, new { @class = "col-md-2 col-form-label" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
-            </div>
-        </div>
-        <div class="row">
-            @Html.LabelFor(m => m.LastName, new { @class = "col-md-2 col-form-label" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
-            </div>
-        </div>
-        <div class="row">
-            @Html.LabelFor(m => m.Phone, new { @class = "col-md-2 col-form-label" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(m => m.Phone, new { @class = "form-control" })
-            </div>
-        </div>
-        <div class="row">
-            @Html.LabelFor(m => m.Address, new { @class = "col-md-2 col-form-label" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(m => m.Address, new { @class = "form-control" })
-            </div>
-        </div>
-        <div class="row">
-            @Html.LabelFor(m => m.City, new { @class = "col-md-2 col-form-label" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(m => m.City, new { @class = "form-control" })
-            </div>
-        </div>
-        <div class="row">
-            @Html.LabelFor(m => m.State, new { @class = "col-md-2 col-form-label" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(m => m.State, new { @class = "form-control" })
-            </div>
-        </div>
-        <div class="row">
-            @Html.LabelFor(m => m.ZipCode, new { @class = "col-md-2 col-form-label" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(m => m.ZipCode, new { @class = "form-control" })
-            </div>
-        </div>
-        <div class="row">
-            @Html.LabelFor(m => m.Email, new { @class = "col-md-2 col-form-label" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-            </div>
-        </div>
-        <div class="row">
-            @Html.LabelFor(m => m.Password, new { @class = "col-md-2 col-form-label" })
-            <div class="col-md-10">
-                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-            </div>
-        </div>
-        <div class="row">
-            @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 col-form-label" })
-            <div class="col-md-10">
-                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
-            </div>
-        </div>
-        <div class="row">
-            <div class="offset-md-2 col-md-10">
-                <input type="submit" value="Register" class="btn btn-outline-dark" />
-            </div>
-        </div>
-    }
-</main>
+                @using (Html.BeginForm("Register", "Account", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+                        <label style="display: block;">
+                            <span style="display: block; font-size: 12px; font-weight: 700; color: #6b7280; margin-bottom: 6px;">First name *</span>
+                            @Html.TextBoxFor(m => m.FirstName, new { placeholder = "John", style = "width: 100%; padding: 12px 14px; border: 1px solid #e4e2ec; border-radius: 10px; font: inherit; font-size: 14px; color: #2b2f3a;" })
+                            @Html.ValidationMessageFor(m => m.FirstName)
+                        </label>
+                        <label style="display: block;">
+                            <span style="display: block; font-size: 12px; font-weight: 700; color: #6b7280; margin-bottom: 6px;">Last name *</span>
+                            @Html.TextBoxFor(m => m.LastName, new { placeholder = "Doe", style = "width: 100%; padding: 12px 14px; border: 1px solid #e4e2ec; border-radius: 10px; font: inherit; font-size: 14px; color: #2b2f3a;" })
+                            @Html.ValidationMessageFor(m => m.LastName)
+                        </label>
+                    </div>
+
+                    <label style="display: block; margin-top: 14px;">
+                        <span style="display: block; font-size: 12px; font-weight: 700; color: #6b7280; margin-bottom: 6px;">Email address *</span>
+                        @Html.TextBoxFor(m => m.Email, new { type = "email", placeholder = "you@email.com", style = "width: 100%; padding: 12px 14px; border: 1px solid #e4e2ec; border-radius: 10px; font: inherit; font-size: 14px; color: #2b2f3a;" })
+                        @Html.ValidationMessageFor(m => m.Email)
+                    </label>
+
+                    <label style="display: block; margin-top: 14px;">
+                        <span style="display: block; font-size: 12px; font-weight: 700; color: #6b7280; margin-bottom: 6px;">Phone number *</span>
+                        @Html.TextBoxFor(m => m.Phone, new { type = "tel", placeholder = "(XXX) XXX-XXXX", style = "width: 100%; padding: 12px 14px; border: 1px solid #e4e2ec; border-radius: 10px; font: inherit; font-size: 14px; color: #2b2f3a;" })
+                        @Html.ValidationMessageFor(m => m.Phone)
+                    </label>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 14px;">
+                        <label style="display: block;">
+                            <span style="display: block; font-size: 12px; font-weight: 700; color: #6b7280; margin-bottom: 6px;">Password *</span>
+                            @Html.PasswordFor(m => m.Password, new { placeholder = "Password", style = "width: 100%; padding: 12px 14px; border: 1px solid #e4e2ec; border-radius: 10px; font: inherit; font-size: 14px; color: #2b2f3a;" })
+                            @Html.ValidationMessageFor(m => m.Password)
+                        </label>
+                        <label style="display: block;">
+                            <span style="display: block; font-size: 12px; font-weight: 700; color: #6b7280; margin-bottom: 6px;">Confirm *</span>
+                            @Html.PasswordFor(m => m.ConfirmPassword, new { placeholder = "Password", style = "width: 100%; padding: 12px 14px; border: 1px solid #e4e2ec; border-radius: 10px; font: inherit; font-size: 14px; color: #2b2f3a;" })
+                            @Html.ValidationMessageFor(m => m.ConfirmPassword)
+                        </label>
+                    </div>
+
+                    <label style="display: flex; align-items: center; gap: 9px; cursor: pointer; font-size: 13px; color: #6a6f7d; font-weight: 600; margin: 18px 0 20px;">
+                        <input type="checkbox" id="agreeCheck" style="width: 16px; height: 16px; accent-color: var(--accent);">
+                        I agree to the
+                        <a href="#" id="termsLink" style="color: var(--accent-ink); font-weight: 700; text-decoration: none;">Terms of Service &amp; Privacy Policy</a>
+                    </label>
+
+                    <button type="submit" style="width: 100%; padding: 13px; border-radius: 11px; border: none; background: var(--accent); color: #fff; font-weight: 700; font-size: 15px; cursor: pointer; font-family: inherit;">Create account</button>
+                }
+
+                <p style="margin: 18px 0 0; text-align: center; font-size: 14px; color: #9a9eaa;">
+                    Already have an account? @Html.ActionLink("Sign in", "Login", "Account", null, new { style = "color: var(--accent-ink); font-weight: 700; text-decoration: none;" })
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Terms & Conditions Modal -->
+<div id="termsModal" style="display:none; position:fixed; inset:0; z-index:1000; background:rgba(30,30,50,0.45); padding:24px 16px; overflow-y:auto;">
+    <div style="background:#fff; border-radius:20px; max-width:560px; margin:0 auto; box-shadow:0 24px 60px -12px rgba(30,30,50,0.4); animation:ppFade 0.25s ease both;">
+        <div style="padding:28px 28px 0;">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:6px;">
+                <h2 style="margin:0; font-family:Newsreader, serif; font-size:22px; font-weight:500;">Terms of Service &amp; Privacy Policy</h2>
+                <button id="termsClose" style="background:none; border:none; font-size:20px; cursor:pointer; color:#9a9eaa; line-height:1; padding:4px 8px;">x</button>
+            </div>
+            <p style="margin:0 0 20px; font-size:12px; color:#9a9eaa;">Effective date: January 1, 2025 (or whenever your cat decides to cooperate)</p>
+        </div>
+        <div style="padding:0 28px 28px; max-height:60vh; overflow-y:auto; font-size:14px; color:#4a4f5d; line-height:1.7;">
+
+            <h3 style="font-size:15px; font-weight:700; margin:0 0 6px;">1. Acceptance of Terms</h3>
+            <p style="margin:0 0 16px;">By creating an account at Pawesome Palace, you agree to these terms in their entirety. If you do not agree, please consult your dog, who almost certainly would. Studies show 9 out of 10 golden retrievers accept all terms immediately and with great enthusiasm.</p>
+
+            <h3 style="font-size:15px; font-weight:700; margin:0 0 6px;">2. Pet Drop-Off Conduct</h3>
+            <p style="margin:0 0 16px;">You agree not to describe your pet as "low maintenance" when they are, in fact, a husky. Pawesome Palace reserves the right to send hourly voice updates if your dog howls the entire first night. We will not be held responsible for any separation anxiety -- yours or the dog's.</p>
+
+            <h3 style="font-size:15px; font-weight:700; margin:0 0 6px;">3. Feeding Disclosures</h3>
+            <p style="margin:0 0 16px;">You must disclose your pet's actual diet, including but not limited to: socks, remote controls, homework, that one corner of the couch, and any food item that fell on the floor for more than 0.3 seconds. We are a judgment-free zone. Mostly.</p>
+
+            <h3 style="font-size:15px; font-weight:700; margin:0 0 16px;">4. The "Good Boy / Good Girl" Guarantee</h3>
+            <p style="margin:0 0 16px;">All pets will be told they are a good boy or good girl no fewer than twelve (12) times per day, regardless of behavior. This is non-negotiable. Even Gerald, who ate the couch cushion. Especially Gerald.</p>
+
+            <h3 style="font-size:15px; font-weight:700; margin:0 0 6px;">5. Cat Clause</h3>
+            <p style="margin:0 0 16px;">Cats are accepted under the following conditions: (a) They must not judge our staff. (b) They agree to knock things off surfaces only on weekdays. (c) If they stare into empty corners of the room, staff are not required to investigate what they see there. Pawesome Palace assumes no liability for existential dread.</p>
+
+            <h3 style="font-size:15px; font-weight:700; margin:0 0 6px;">6. Zoomies Policy</h3>
+            <p style="margin:0 0 16px;">In the event of sudden, unexplained high-speed laps around the facility at 2:00 AM, Pawesome Palace staff will do their best to cheer enthusiastically. We cannot guarantee we will keep up.</p>
+
+            <h3 style="font-size:15px; font-weight:700; margin:0 0 6px;">7. Photo &amp; Video Rights</h3>
+            <p style="margin:0 0 16px;">Your pet may be photographed doing something incredibly cute. We reserve the right to show this photo to everyone in the building and possibly our families. We promise to make them look their best. We cannot make the same promise for the blep photos.</p>
+
+            <h3 style="font-size:15px; font-weight:700; margin:0 0 6px;">8. Privacy Policy</h3>
+            <p style="margin:0 0 16px;">Your personal information is kept secure and will never be shared with third parties, unless that third party is your pet, who has already figured out your phone passcode anyway. We collect your name, email, and phone number solely to contact you about your booking. We do not sell data. We are a pet boarding company, not a villain.</p>
+
+            <h3 style="font-size:15px; font-weight:700; margin:0 0 6px;">9. Limitation of Liability</h3>
+            <p style="margin:0 0 16px;">Pawesome Palace is not liable for: post-vacation puppy-dog eyes, your cat pretending not to know you upon return, or the overwhelming guilt of leaving in the first place. These are the known and documented hazards of pet ownership and we respect the emotional journey.</p>
+
+            <h3 style="font-size:15px; font-weight:700; margin:0 0 6px;">10. Governing Law</h3>
+            <p style="margin:0;">These terms are governed by the laws of the state in which Pawesome Palace operates, and also by the ancient and unknowable laws of the cat. In case of conflict, assume the cat is right. It always is.</p>
+        </div>
+        <div style="padding:0 28px 28px; display:flex; justify-content:flex-end; gap:10px; border-top:1px solid #f0eff5; padding-top:20px; margin-top:4px;">
+            <button id="termsDecline" style="padding:10px 20px; border-radius:10px; border:1px solid #e4e2ec; background:#fff; color:#6a6f7d; font-weight:700; font-size:14px; cursor:pointer; font-family:inherit;">Decline</button>
+            <button id="termsAccept" style="padding:10px 20px; border-radius:10px; border:none; background:#6b7fd1; color:#fff; font-weight:700; font-size:14px; cursor:pointer; font-family:inherit;">I Accept</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    var modal = document.getElementById('termsModal');
+    var check = document.getElementById('agreeCheck');
+
+    document.getElementById('termsLink').addEventListener('click', function (e) {
+        e.preventDefault();
+        modal.style.display = 'block';
+    });
+
+    document.getElementById('termsClose').addEventListener('click', function () {
+        modal.style.display = 'none';
+    });
+
+    document.getElementById('termsDecline').addEventListener('click', function () {
+        check.checked = false;
+        modal.style.display = 'none';
+    });
+
+    document.getElementById('termsAccept').addEventListener('click', function () {
+        check.checked = true;
+        modal.style.display = 'none';
+    });
+
+    modal.addEventListener('click', function (e) {
+        if (e.target === modal) modal.style.display = 'none';
+    });
+</script>
+</body>
+</html>
