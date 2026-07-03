@@ -57,7 +57,7 @@
                         <label class="pp-field">
                             <span class="pp-label">Species *</span>
                             @Html.DropDownListFor(m => m.Species,
-                                new SelectList(new[] { "Dog", "Cat", "Rabbit", "Bird", "Other" }),
+                                new SelectList(new[] { "Dog", "Cat" }),
                                 "-- Select --",
                                 new { @class = "pp-input" })
                             @Html.ValidationMessageFor(m => m.Species)
