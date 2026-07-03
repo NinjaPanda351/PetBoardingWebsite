@@ -1,14 +1,15 @@
-@model PawesomePalace.ViewModels.AdminPetsListViewModel
+@model IEnumerable<PawesomePalace.ViewModels.AdminContactRowViewModel>
 @{
     Layout = null;
-    ViewBag.Title = "Pets";
+    ViewBag.Title = "Contact Submissions";
+    bool showResolved = ViewBag.ShowResolved == true;
 }
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Pets &middot; Pawesome Palace</title>
+    <title>Contacts &middot; Pawesome Palace</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -17,7 +18,6 @@
         html, body { margin: 0; padding: 0; }
         body { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; color: #2b2f3a; background: #f3f4f8; -webkit-font-smoothing: antialiased; }
         @@keyframes ppFade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
-        input[type=text]:focus { outline: none; border-color: #6b7fd1; box-shadow: 0 0 0 3px #eef0fb; }
         table { width: 100%; border-collapse: collapse; }
         th { font-size: 12px; font-weight: 700; color: #8a8e9b; letter-spacing: 0.06em; text-align: left; padding: 14px 16px 10px; }
         td { padding: 14px 16px; border-top: 1px solid #f0eff5; font-size: 14px; vertical-align: middle; }
@@ -40,9 +40,9 @@
                 <a href="@Url.Action("Index",    "Admin")" style="padding: 8px 15px; border-radius: 10px; font-size: 14px; font-weight: 700; background: transparent; color: rgb(154,160,178); text-decoration: none;">Dashboard</a>
                 <a href="@Url.Action("Schedule", "Admin")" style="padding: 8px 15px; border-radius: 10px; font-size: 14px; font-weight: 700; background: transparent; color: rgb(154,160,178); text-decoration: none;">Schedule</a>
                 <a href="@Url.Action("Bookings", "Admin")" style="padding: 8px 15px; border-radius: 10px; font-size: 14px; font-weight: 700; background: transparent; color: rgb(154,160,178); text-decoration: none;">Bookings</a>
-                <a href="@Url.Action("Pets",     "Admin")" style="padding: 8px 15px; border-radius: 10px; font-size: 14px; font-weight: 700; background: rgba(255,255,255,0.14); color: #fff; text-decoration: none;">Pets</a>
+                <a href="@Url.Action("Pets",     "Admin")" style="padding: 8px 15px; border-radius: 10px; font-size: 14px; font-weight: 700; background: transparent; color: rgb(154,160,178); text-decoration: none;">Pets</a>
                 <a href="@Url.Action("Services", "Admin")" style="padding: 8px 15px; border-radius: 10px; font-size: 14px; font-weight: 700; background: transparent; color: rgb(154,160,178); text-decoration: none;">Services</a>
-                <a href="@Url.Action("Contacts", "Admin")" style="padding: 8px 15px; border-radius: 10px; font-size: 14px; font-weight: 700; background: transparent; color: rgb(154,160,178); text-decoration: none;">Contacts</a>
+                <a href="@Url.Action("Contacts", "Admin")" style="padding: 8px 15px; border-radius: 10px; font-size: 14px; font-weight: 700; background: rgba(255,255,255,0.14); color: #fff; text-decoration: none;">Contacts</a>
                 <a href="@Url.Action("Users",    "Admin")" style="padding: 8px 15px; border-radius: 10px; font-size: 14px; font-weight: 700; background: transparent; color: rgb(154,160,178); text-decoration: none;">Users</a>
             </nav>
             <a href="@Url.Action("Index", "Home")" style="margin-left: auto; padding: 8px 15px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.2); background: transparent; color: #fff; font-weight: 700; font-size: 13px; text-decoration: none;">Exit console</a>
@@ -52,56 +52,53 @@
     <main style="max-width: 1120px; margin: 0 auto; padding: 36px 28px 80px;">
         <div style="animation: ppFade 0.34s ease both;">
 
-            <h1 style="margin: 0 0 20px; font-family: Newsreader, serif; font-size: 34px; font-weight: 500;">Pets</h1>
+            <h1 style="margin: 0 0 20px; font-family: Newsreader, serif; font-size: 34px; font-weight: 500;">Contact Submissions</h1>
 
-            @using (Html.BeginForm("Pets", "Admin", FormMethod.Get, new { style = "display:flex; gap:8px; margin-bottom:16px;" }))
-            {
-                <input type="text" name="search" value="@Model.Search" placeholder="Search by name, species, or owner&hellip;"
-                       style="padding: 10px 14px; border: 1px solid #dcdbe6; border-radius: 10px; font-size: 14px; font-family: inherit; width: 300px;" />
-                <button type="submit" style="padding: 10px 18px; border-radius: 10px; border: none; background: var(--accent); color: #fff; font-weight: 700; font-size: 14px; cursor: pointer; font-family: inherit;">Search</button>
-            }
+            <div style="display: flex; gap: 8px; margin-bottom: 20px;">
+                <a href="@Url.Action("Contacts", "Admin", new { resolved = false })"
+                   style="padding: 9px 18px; border-radius: 10px; font-size: 14px; font-weight: 700; text-decoration: none;
+                          @(!showResolved ? "background: var(--accent); color: #fff;" : "background: #fff; color: #6a6f7d; border: 1px solid #dcdbe6;")">
+                    Open
+                </a>
+                <a href="@Url.Action("Contacts", "Admin", new { resolved = true })"
+                   style="padding: 9px 18px; border-radius: 10px; font-size: 14px; font-weight: 700; text-decoration: none;
+                          @(showResolved ? "background: var(--accent); color: #fff;" : "background: #fff; color: #6a6f7d; border: 1px solid #dcdbe6;")">
+                    Resolved
+                </a>
+            </div>
 
             <div style="background: #fff; border: 1px solid #ebeaf1; border-radius: 16px; overflow: hidden;">
-                @if (!Model.Pets.Any())
+                @if (!Model.Any())
                 {
-                    <div style="padding: 48px; text-align: center; color: #9a9eaa; font-size: 15px; font-weight: 600;">No pets found.</div>
+                    <div style="padding: 48px; text-align: center; color: #9a9eaa; font-size: 15px; font-weight: 600;">
+                        No @(showResolved ? "resolved" : "open") submissions.
+                    </div>
                 }
                 else
                 {
                     <table>
                         <thead><tr>
                             <th>Name</th>
-                            <th>Species / Breed</th>
-                            <th>Owner</th>
-                            <th>Bookings</th>
-                            <th>Medical</th>
+                            <th>Email</th>
+                            <th>Subject</th>
+                            <th>Submitted</th>
                             <th></th>
                         </tr></thead>
                         <tbody>
-                            @foreach (var p in Model.Pets)
+                            @foreach (var c in Model)
                             {
                                 <tr>
-                                    <td style="font-weight: 700;">@p.Name</td>
-                                    <td style="color: #6a6f7d;">
-                                        @p.Species
-                                        @if (!string.IsNullOrWhiteSpace(p.Breed)) { <text>&middot; @p.Breed</text> }
-                                    </td>
-                                    <td>@p.OwnerName</td>
-                                    <td>@p.BookingCount</td>
-                                    <td>
-                                        @if (p.HasMedicalNotes)
-                                        {
-                                            <span style="background: #fbe9df; color: #a85c2e; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 6px;">MEDICAL</span>
-                                        }
-                                    </td>
-                                    <td><a href="@Url.Action("PetDetail", "Admin", new { petId = p.PetId })" style="font-size: 13px; font-weight: 600; color: var(--accent-ink); text-decoration: none;">View &#x2192;</a></td>
+                                    <td style="font-weight: 600;">@c.FullName</td>
+                                    <td style="color: #6a6f7d;">@c.Email</td>
+                                    <td>@c.Subject</td>
+                                    <td style="font-size: 13px; color: #9a9eaa;">@c.SubmittedAt.ToString("MMM d, yyyy h:mm tt")</td>
+                                    <td><a href="@Url.Action("ContactDetail", "Admin", new { submissionId = c.SubmissionId })" style="font-size: 13px; font-weight: 600; color: var(--accent-ink); text-decoration: none;">View &#x2192;</a></td>
                                 </tr>
                             }
                         </tbody>
                     </table>
                 }
             </div>
-
         </div>
     </main>
 </div>

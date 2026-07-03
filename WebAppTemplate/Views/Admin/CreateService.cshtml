@@ -1,0 +1,86 @@
+@model PawesomePalace.ViewModels.ServiceViewModel
+@{
+    Layout = null;
+    ViewBag.Title = "Add Service";
+    string fieldStyle = "width: 100%; padding: 11px 14px; border: 1px solid #e4e2ec; border-radius: 10px; font: inherit; font-size: 14px; background: #fff; color: #2b2f3a;";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Add Service &middot; Pawesome Palace</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; }
+        html, body { margin: 0; padding: 0; }
+        body { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; color: #2b2f3a; background: #f3f4f8; -webkit-font-smoothing: antialiased; }
+        ::placeholder { color: #aeb2bd; }
+        @@keyframes ppFade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+        input:focus, select:focus, textarea:focus { outline: none; border-color: #6b7fd1; box-shadow: 0 0 0 3px #eef0fb; }
+    </style>
+</head>
+<body>
+<div style="min-height: 100vh; --accent: #6b7fd1; --accent-soft: #eef0fb; --accent-ink: #41509a;">
+
+    <header style="position: sticky; top: 0; z-index: 40; background: #2b2f3a;">
+        <div style="max-width: 1120px; margin: 0 auto; padding: 14px 28px; display: flex; align-items: center; gap: 28px;">
+            <div style="display: flex; align-items: center; gap: 11px;">
+                <span style="width: 38px; height: 38px; border-radius: 12px; background: var(--accent); color: #fff; display: grid; place-items: center; font-size: 19px;">&#x1F43E;</span>
+                <span style="line-height: 1.05;">
+                    <span style="display: block; font-family: Newsreader, serif; font-size: 18px; font-weight: 600; color: #fff;">Pawesome Palace</span>
+                    <span style="display: block; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #8a8fa0; font-weight: 600;">Staff console</span>
+                </span>
+            </div>
+            <a href="@Url.Action("Index", "Home")" style="margin-left: auto; padding: 8px 15px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.2); background: transparent; color: #fff; font-weight: 700; font-size: 13px; text-decoration: none;">Exit console</a>
+        </div>
+    </header>
+
+    <main style="max-width: 1120px; margin: 0 auto; padding: 36px 28px 80px;">
+        <div style="animation: ppFade 0.34s ease both; max-width: 520px; margin: 0 auto;">
+
+            <a href="@Url.Action("Services", "Admin")" style="display: inline-block; color: #9a9eaa; font-size: 14px; font-weight: 600; margin-bottom: 16px; text-decoration: none;">&#x2190; Back to services</a>
+            <h1 style="margin: 0 0 24px; font-family: Newsreader, serif; font-size: 28px; font-weight: 500;">Add Service</h1>
+
+            @using (Html.BeginForm("CreateService", "Admin", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                <div style="background: #fff; border: 1px solid #ebeaf1; border-radius: 18px; padding: 28px; display: flex; flex-direction: column; gap: 16px;">
+
+                    @Html.ValidationSummary(true, "", new { style = "color:#b4564f; font-size:13px; margin:0;" })
+
+                    <label>
+                        <span style="display:block; font-size:12px; font-weight:700; color:#6b7280; margin-bottom:6px;">Service Name</span>
+                        @Html.TextBoxFor(m => m.Name, new { placeholder = "e.g. Standard Boarding", style = fieldStyle })
+                        @Html.ValidationMessageFor(m => m.Name, "", new { style = "color:#b4564f; font-size:12px;" })
+                    </label>
+
+                    <label>
+                        <span style="display:block; font-size:12px; font-weight:700; color:#6b7280; margin-bottom:6px;">Description</span>
+                        @Html.TextAreaFor(m => m.Description, 3, 0, new { placeholder = "Brief description of this service…", style = fieldStyle })
+                    </label>
+
+                    <label>
+                        <span style="display:block; font-size:12px; font-weight:700; color:#6b7280; margin-bottom:6px;">Price per Night ($)</span>
+                        @Html.TextBoxFor(m => m.PricePerNight, new { type = "number", step = "0.01", min = "0", style = fieldStyle })
+                        @Html.ValidationMessageFor(m => m.PricePerNight, "", new { style = "color:#b4564f; font-size:12px;" })
+                    </label>
+
+                    <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                        @Html.CheckBoxFor(m => m.IsActive)
+                        <span style="font-size: 14px; font-weight: 600;">Active (visible on booking form)</span>
+                    </label>
+
+                    <div style="display: flex; gap: 10px; margin-top: 6px;">
+                        <button type="submit" style="padding: 12px 24px; border-radius: 11px; border: none; background: var(--accent); color: #fff; font-weight: 700; font-size: 14px; cursor: pointer; font-family: inherit;">Create service</button>
+                        <a href="@Url.Action("Services", "Admin")" style="padding: 12px 18px; border-radius: 11px; border: none; background: none; color: #9a9eaa; font-weight: 600; font-size: 14px; text-decoration: none;">Cancel</a>
+                    </div>
+                </div>
+            }
+        </div>
+    </main>
+</div>
+</body>
+</html>

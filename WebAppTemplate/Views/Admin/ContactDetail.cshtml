@@ -1,0 +1,99 @@
+@model PawesomePalace.ViewModels.AdminContactDetailViewModel
+@{
+    Layout = null;
+    ViewBag.Title = "Contact Submission";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Contact Submission &middot; Pawesome Palace</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; }
+        html, body { margin: 0; padding: 0; }
+        body { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; color: #2b2f3a; background: #f3f4f8; -webkit-font-smoothing: antialiased; }
+        @@keyframes ppFade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+    </style>
+</head>
+<body>
+<div style="min-height: 100vh; --accent: #6b7fd1; --accent-soft: #eef0fb; --accent-ink: #41509a;">
+
+    <header style="position: sticky; top: 0; z-index: 40; background: #2b2f3a;">
+        <div style="max-width: 1120px; margin: 0 auto; padding: 14px 28px; display: flex; align-items: center; gap: 28px;">
+            <div style="display: flex; align-items: center; gap: 11px;">
+                <span style="width: 38px; height: 38px; border-radius: 12px; background: var(--accent); color: #fff; display: grid; place-items: center; font-size: 19px;">&#x1F43E;</span>
+                <span style="line-height: 1.05;">
+                    <span style="display: block; font-family: Newsreader, serif; font-size: 18px; font-weight: 600; color: #fff;">Pawesome Palace</span>
+                    <span style="display: block; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #8a8fa0; font-weight: 600;">Staff console</span>
+                </span>
+            </div>
+            <a href="@Url.Action("Index", "Home")" style="margin-left: auto; padding: 8px 15px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.2); background: transparent; color: #fff; font-weight: 700; font-size: 13px; text-decoration: none;">Exit console</a>
+        </div>
+    </header>
+
+    <main style="max-width: 1120px; margin: 0 auto; padding: 36px 28px 80px;">
+        <div style="animation: ppFade 0.34s ease both; max-width: 620px; margin: 0 auto;">
+
+            <a href="@Url.Action("Contacts", "Admin")" style="display: inline-block; color: #9a9eaa; font-size: 14px; font-weight: 600; margin-bottom: 16px; text-decoration: none;">&#x2190; Back to contacts</a>
+
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 24px;">
+                <h1 style="margin: 0; font-family: Newsreader, serif; font-size: 24px; font-weight: 500;">@Model.Subject</h1>
+                @if (Model.IsResolved)
+                {
+                    <span style="background: #dff0e8; color: #2f7a56; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 6px;">Resolved</span>
+                }
+                else
+                {
+                    <span style="background: #fef3dc; color: #9a6a1e; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 6px;">Open</span>
+                }
+            </div>
+
+            <div style="background: #fff; border: 1px solid #ebeaf1; border-radius: 18px; padding: 28px;">
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: #f0eff5; border: 1px solid #f0eff5; border-radius: 12px; overflow: hidden; margin-bottom: 20px;">
+                    <div style="background:#fff; padding:14px 16px;">
+                        <span style="display:block; font-size:12px; color:#9a9eaa; font-weight:600;">Name</span>
+                        <span style="display:block; font-size:15px; font-weight:600; margin-top:3px;">@Model.FirstName @Model.LastName</span>
+                    </div>
+                    <div style="background:#fff; padding:14px 16px;">
+                        <span style="display:block; font-size:12px; color:#9a9eaa; font-weight:600;">Email</span>
+                        <span style="display:block; font-size:15px; font-weight:600; margin-top:3px;">@Model.Email</span>
+                    </div>
+                    <div style="background:#fff; padding:14px 16px;">
+                        <span style="display:block; font-size:12px; color:#9a9eaa; font-weight:600;">Phone</span>
+                        <span style="display:block; font-size:15px; font-weight:600; margin-top:3px;">@(string.IsNullOrWhiteSpace(Model.Phone) ? "-" : Model.Phone)</span>
+                    </div>
+                    <div style="background:#fff; padding:14px 16px;">
+                        <span style="display:block; font-size:12px; color:#9a9eaa; font-weight:600;">Submitted</span>
+                        <span style="display:block; font-size:15px; font-weight:600; margin-top:3px;">@Model.SubmittedAt.ToString("MMM d, yyyy h:mm tt")</span>
+                    </div>
+                </div>
+
+                <div style="padding: 16px 18px; background: #f9f8fc; border: 1px solid #f0eff5; border-radius: 12px; margin-bottom: 20px;">
+                    <span style="display:block; font-size:12px; color:#9a9eaa; font-weight:600; margin-bottom:6px;">Message</span>
+                    <p style="margin:0; font-size:14px; color:#2b2f3a; line-height:1.6; white-space: pre-line;">@Model.Message</p>
+                </div>
+
+                @if (Model.IsResolved)
+                {
+                    <p style="margin: 0; font-size: 13px; color: #9a9eaa;">Resolved on @Model.ResolvedAt?.ToString("MMM d, yyyy h:mm tt")</p>
+                }
+                else
+                {
+                    using (Html.BeginForm("ResolveContact", "Admin", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="submissionId" value="@Model.SubmissionId" />
+                        <button type="submit" style="padding: 12px 22px; border-radius: 11px; border: none; background: #4f9d70; color: #fff; font-weight: 700; font-size: 14px; cursor: pointer; font-family: inherit;">Mark as resolved</button>
+                    }
+                }
+            </div>
+        </div>
+    </main>
+</div>
+</body>
+</html>

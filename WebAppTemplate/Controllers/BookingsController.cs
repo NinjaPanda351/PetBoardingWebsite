@@ -81,12 +81,19 @@ namespace PawesomePalace.Controllers
                 ? db.PetModels.Where(p => p.OwnerId == owner.OwnerId).ToList()
                 : new List<PetModel>();
 
+            var services = db.ServiceModels.Where(s => s.IsActive).OrderBy(s => s.Name).ToList();
+
             var model = new CreateBookingViewModel
             {
                 PetOptions = pets.Select(p => new SelectListItem
                 {
                     Value = p.PetId.ToString(),
                     Text = p.Name + " (" + (p.Species ?? "Pet") + ")"
+                }).ToList(),
+                ServiceOptions = services.Select(s => new SelectListItem
+                {
+                    Value = s.Name,
+                    Text = s.Name + " ($" + s.PricePerNight.ToString("0.##") + "/night)"
                 }).ToList(),
                 StartDate = DateTime.Today,
                 EndDate = DateTime.Today.AddDays(1)
@@ -302,6 +309,13 @@ namespace PawesomePalace.Controllers
                 Text = p.Name + " (" + (p.Species ?? "Pet") + ")"
             }).ToList();
 
+            var servicesList = db.ServiceModels.Where(s => s.IsActive).OrderBy(s => s.Name).ToList();
+            model.ServiceOptions = servicesList.Select(s => new SelectListItem
+            {
+                Value = s.Name,
+                Text = s.Name + " ($" + s.PricePerNight.ToString("0.##") + "/night)"
+            }).ToList();
+
             if (model.StartDate.Year < 2000)
                 ModelState.AddModelError("StartDate", "Please enter a valid start date.");
             if (model.EndDate.Year < 2000)
@@ -320,14 +334,8 @@ namespace PawesomePalace.Controllers
             TimeSpan dropOff = TimeSpan.TryParse(model.DropOffTime, out var dto) ? dto : new TimeSpan(9, 0, 0);
             TimeSpan pickUp = TimeSpan.TryParse(model.PickUpTime, out var put) ? put : new TimeSpan(17, 0, 0);
 
-            decimal nightlyRate;
-            switch (model.ServiceType)
-            {
-                case "Deluxe Suite": nightlyRate = 75m; break;
-                case "Daycare": nightlyRate = 35m; break;
-                case "Grooming Add-on": nightlyRate = 30m; break;
-                default: nightlyRate = 45m; break;
-            }
+            var service = db.ServiceModels.FirstOrDefault(s => s.Name == model.ServiceType && s.IsActive);
+            decimal nightlyRate = service?.PricePerNight ?? 45m;
             int nights = Math.Max(1, (model.EndDate.Date - model.StartDate.Date).Days);
             decimal price = nightlyRate * nights;
 

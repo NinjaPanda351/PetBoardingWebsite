@@ -74,6 +74,7 @@ namespace PawesomePalace.ViewModels
     public class CreateBookingViewModel
     {
         public List<SelectListItem> PetOptions { get; set; } = new List<SelectListItem>();
+        public List<SelectListItem> ServiceOptions { get; set; } = new List<SelectListItem>();
 
         [Required]
         public string PetId { get; set; }

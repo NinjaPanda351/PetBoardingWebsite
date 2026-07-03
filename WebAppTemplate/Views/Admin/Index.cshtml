@@ -32,9 +32,14 @@
                     <span style="display: block; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #8a8fa0; font-weight: 600;">Staff console</span>
                 </span>
             </div>
-            <nav style="display: flex; gap: 6px; margin-left: 8px;">
-                <a href="@Url.Action("Index", "Admin")" style="padding: 8px 15px; border-radius: 10px; font-size: 14px; font-weight: 700; font-family: inherit; background: rgba(255,255,255,0.14); color: #fff; text-decoration: none;">Dashboard</a>
-                <a href="@Url.Action("Users", "Admin")" style="padding: 8px 15px; border-radius: 10px; font-size: 14px; font-weight: 700; font-family: inherit; background: transparent; color: rgb(154,160,178); text-decoration: none;">Users</a>
+            <nav style="display: flex; gap: 6px; margin-left: 8px; flex-wrap: wrap;">
+                <a href="@Url.Action("Index",    "Admin")" style="padding: 8px 15px; border-radius: 10px; font-size: 14px; font-weight: 700; background: rgba(255,255,255,0.14); color: #fff; text-decoration: none;">Dashboard</a>
+                <a href="@Url.Action("Schedule", "Admin")" style="padding: 8px 15px; border-radius: 10px; font-size: 14px; font-weight: 700; background: transparent; color: rgb(154,160,178); text-decoration: none;">Schedule</a>
+                <a href="@Url.Action("Bookings", "Admin")" style="padding: 8px 15px; border-radius: 10px; font-size: 14px; font-weight: 700; background: transparent; color: rgb(154,160,178); text-decoration: none;">Bookings</a>
+                <a href="@Url.Action("Pets",     "Admin")" style="padding: 8px 15px; border-radius: 10px; font-size: 14px; font-weight: 700; background: transparent; color: rgb(154,160,178); text-decoration: none;">Pets</a>
+                <a href="@Url.Action("Services", "Admin")" style="padding: 8px 15px; border-radius: 10px; font-size: 14px; font-weight: 700; background: transparent; color: rgb(154,160,178); text-decoration: none;">Services</a>
+                <a href="@Url.Action("Contacts", "Admin")" style="padding: 8px 15px; border-radius: 10px; font-size: 14px; font-weight: 700; background: transparent; color: rgb(154,160,178); text-decoration: none;">Contacts</a>
+                <a href="@Url.Action("Users",    "Admin")" style="padding: 8px 15px; border-radius: 10px; font-size: 14px; font-weight: 700; background: transparent; color: rgb(154,160,178); text-decoration: none;">Users</a>
             </nav>
             <a href="@Url.Action("Index", "Home")" style="margin-left: auto; padding: 8px 15px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.2); background: transparent; color: #fff; font-weight: 700; font-size: 13px; font-family: inherit; text-decoration: none;">Exit console</a>
         </div>
@@ -46,18 +51,31 @@
             <p style="margin: 0 0 6px; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-ink); font-weight: 700;">Staff console</p>
             <h1 style="margin: 0 0 24px; font-family: Newsreader, serif; font-size: 34px; font-weight: 500;">Dashboard</h1>
 
-            <div style="display: flex; gap: 16px; margin-bottom: 24px;">
-                <div style="flex: 1; background: #fff; border: 1px solid #ebeaf1; border-radius: 16px; padding: 20px 22px;">
+            <!-- Stat cards -->
+            <div style="display: flex; gap: 16px; margin-bottom: 24px; flex-wrap: wrap;">
+                <div style="flex: 1; min-width: 140px; background: #fff; border: 1px solid #ebeaf1; border-radius: 16px; padding: 20px 22px;">
                     <span style="display: block; font-size: 13px; color: #9a9eaa; font-weight: 600;">Pending bookings</span>
                     <span style="display: block; font-family: Newsreader, serif; font-size: 36px; font-weight: 500; margin-top: 4px; color: #9a6a1e;">@Model.PendingCount</span>
                 </div>
-                <div style="flex: 1; background: #fff; border: 1px solid #ebeaf1; border-radius: 16px; padding: 20px 22px;">
+                <div style="flex: 1; min-width: 140px; background: #fff; border: 1px solid #ebeaf1; border-radius: 16px; padding: 20px 22px;">
                     <span style="display: block; font-size: 13px; color: #9a9eaa; font-weight: 600;">Confirmed bookings</span>
                     <span style="display: block; font-family: Newsreader, serif; font-size: 36px; font-weight: 500; margin-top: 4px; color: #37794f;">@Model.ConfirmedCount</span>
                 </div>
-                <div style="flex: 1; background: #fff; border: 1px solid #ebeaf1; border-radius: 16px; padding: 20px 22px;">
+                <div style="flex: 1; min-width: 140px; background: #fff; border: 1px solid #ebeaf1; border-radius: 16px; padding: 20px 22px;">
                     <span style="display: block; font-size: 13px; color: #9a9eaa; font-weight: 600;">Cancellation requests</span>
                     <span style="display: block; font-family: Newsreader, serif; font-size: 36px; font-weight: 500; margin-top: 4px; color: #a85c2e;">@Model.CancellationRequestCount</span>
+                </div>
+                <div style="flex: 1; min-width: 140px; background: #fff; border: 1px solid #ebeaf1; border-radius: 16px; padding: 20px 22px;">
+                    <span style="display: block; font-size: 13px; color: #9a9eaa; font-weight: 600;">Today's check-ins</span>
+                    <span style="display: block; font-family: Newsreader, serif; font-size: 36px; font-weight: 500; margin-top: 4px; color: #41509a;">@Model.TodayCheckIns</span>
+                </div>
+                <div style="flex: 1; min-width: 140px; background: #fff; border: 1px solid #ebeaf1; border-radius: 16px; padding: 20px 22px;">
+                    <span style="display: block; font-size: 13px; color: #9a9eaa; font-weight: 600;">Today's check-outs</span>
+                    <span style="display: block; font-family: Newsreader, serif; font-size: 36px; font-weight: 500; margin-top: 4px; color: #2f7a56;">@Model.TodayCheckOuts</span>
+                </div>
+                <div style="flex: 1; min-width: 140px; background: #fff; border: 1px solid #ebeaf1; border-radius: 16px; padding: 20px 22px;">
+                    <span style="display: block; font-size: 13px; color: #9a9eaa; font-weight: 600;">Month revenue</span>
+                    <span style="display: block; font-family: Newsreader, serif; font-size: 28px; font-weight: 500; margin-top: 4px; color: #2b2f3a;">@Model.MonthRevenue.ToString("C")</span>
                 </div>
             </div>
 
@@ -83,15 +101,16 @@
                             {
                                 dateDisplay = b.StartDate.ToString("MMM d") + " - " + b.EndDate.ToString("MMM d, yyyy");
                             }
-                            string petInfo = b.PetName
-                                + (!string.IsNullOrWhiteSpace(b.PetSpecies) ? " · " + b.PetSpecies : "")
-                                + (!string.IsNullOrWhiteSpace(b.PetBreed) ? " · " + b.PetBreed : "");
 
                             <a href="@Url.Action("Review", "Admin", new { bookingId = b.BookingId })" style="text-align: left; background: #fff; border: 1px solid #ebeaf1; border-radius: 14px; padding: 15px 18px; display: flex; align-items: center; gap: 14px; text-decoration: none;">
                                 <span style="width: 44px; height: 44px; border-radius: 13px; background: var(--accent-soft); color: var(--accent-ink); display: grid; place-items: center; font-size: 21px; flex: 0 0 auto;">&#x1F43E;</span>
                                 <span style="flex: 1; min-width: 0;">
                                     <span style="display: block; font-size: 15px; font-weight: 700; color: #2b2f3a;">@b.OwnerName</span>
-                                    <span style="display: block; font-size: 13px; color: #9a9eaa; margin-top: 2px;">@petInfo</span>
+                                    <span style="display: block; font-size: 13px; color: #9a9eaa; margin-top: 2px;">
+                                        @b.PetName
+                                        @if (!string.IsNullOrWhiteSpace(b.PetSpecies)) { <text>&middot; @b.PetSpecies</text> }
+                                        @if (!string.IsNullOrWhiteSpace(b.PetBreed)) { <text>&middot; @b.PetBreed</text> }
+                                    </span>
                                 </span>
                                 <span style="text-align: right;">
                                     <span style="display: block; font-size: 13px; color: #6a6f7d; font-weight: 600;">@dateDisplay</span>
@@ -100,6 +119,27 @@
                             </a>
                         }
                     </div>
+
+                    @if (Model.CheckInsDue.Any())
+                    {
+                        <p style="margin: 20px 0 12px; font-size: 13px; font-weight: 700; color: #8a8e9b; letter-spacing: 0.04em;">TODAY'S CHECK-INS DUE</p>
+                        <div style="display: flex; flex-direction: column; gap: 8px;">
+                            @foreach (var ci in Model.CheckInsDue)
+                            {
+                                <div style="background: #fff; border: 1px solid #ebeaf1; border-radius: 14px; padding: 14px 18px; display: flex; align-items: center; gap: 14px;">
+                                    <span style="flex:1;">
+                                        <span style="display:block; font-size:14px; font-weight:700;">@ci.PetName</span>
+                                        <span style="display:block; font-size:12px; color:#9a9eaa;">@ci.OwnerName &middot; Drop-off @ci.DropOffTime</span>
+                                    </span>
+                                    @if (ci.MedicalAlert)
+                                    {
+                                        <span style="background: #fbe9df; color: #a85c2e; font-size: 11px; font-weight: 700; padding: 3px 7px; border-radius: 5px;">MEDICAL</span>
+                                    }
+                                    <a href="@Url.Action("BookingDetail", "Admin", new { bookingId = ci.BookingId })" style="font-size: 13px; font-weight: 600; color: var(--accent-ink); text-decoration: none;">Details &#x2192;</a>
+                                </div>
+                            }
+                        </div>
+                    }
                 </div>
 
                 <div>
@@ -122,9 +162,10 @@
                             </a>
                         }
                     </div>
-                    <div style="display: flex; gap: 10px; margin-top: 16px;">
-                        <a href="@Url.Action("Users", "Admin")" style="flex: 1; padding: 11px; border-radius: 11px; border: 1px solid #dcdbe6; background: #fff; color: #2b2f3a; font-weight: 700; font-size: 13px; font-family: inherit; text-decoration: none; text-align: center;">Manage users</a>
-                        <a href="@Url.Action("Index", "Hours")" style="flex: 1; padding: 11px; border-radius: 11px; border: 1px solid #dcdbe6; background: #fff; color: #2b2f3a; font-weight: 700; font-size: 13px; font-family: inherit; text-decoration: none; text-align: center;">Manage services</a>
+                    <div style="display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap;">
+                        <a href="@Url.Action("Schedule", "Admin")" style="flex: 1; padding: 11px; border-radius: 11px; border: 1px solid #dcdbe6; background: #fff; color: #2b2f3a; font-weight: 700; font-size: 13px; text-decoration: none; text-align: center;">Schedule</a>
+                        <a href="@Url.Action("Services", "Admin")" style="flex: 1; padding: 11px; border-radius: 11px; border: 1px solid #dcdbe6; background: #fff; color: #2b2f3a; font-weight: 700; font-size: 13px; text-decoration: none; text-align: center;">Services</a>
+                        <a href="@Url.Action("Users",    "Admin")" style="flex: 1; padding: 11px; border-radius: 11px; border: 1px solid #dcdbe6; background: #fff; color: #2b2f3a; font-weight: 700; font-size: 13px; text-decoration: none; text-align: center;">Users</a>
                     </div>
                 </div>
 

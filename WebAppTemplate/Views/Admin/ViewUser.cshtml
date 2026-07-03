@@ -7,6 +7,10 @@
     string badgeColor = Model.IsSuspended ? "#a8514a" : "#37794f";
     string badgeText  = Model.IsSuspended ? "Suspended" : "Active";
     string petLabel   = Model.PetCount == 1 ? "1" : Model.PetCount.ToString();
+
+    string fullAddress = string.Join(", ",
+        new[] { Model.Address, Model.City, Model.State, Model.ZipCode }
+        .Where(s => !string.IsNullOrWhiteSpace(s)));
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -37,52 +41,89 @@
                     <span style="display: block; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #8a8fa0; font-weight: 600;">Staff console</span>
                 </span>
             </div>
-            <nav style="display: flex; gap: 6px; margin-left: 8px;">
-                <a href="@Url.Action("Index", "Admin")" style="padding: 8px 15px; border-radius: 10px; font-size: 14px; font-weight: 700; font-family: inherit; background: transparent; color: rgb(154,160,178); text-decoration: none;">Dashboard</a>
-                <a href="@Url.Action("Users", "Admin")" style="padding: 8px 15px; border-radius: 10px; font-size: 14px; font-weight: 700; font-family: inherit; background: rgba(255,255,255,0.14); color: #fff; text-decoration: none;">Users</a>
+            <nav style="display: flex; gap: 6px; margin-left: 8px; flex-wrap: wrap;">
+                <a href="@Url.Action("Index",    "Admin")" style="padding: 8px 15px; border-radius: 10px; font-size: 14px; font-weight: 700; background: transparent; color: rgb(154,160,178); text-decoration: none;">Dashboard</a>
+                <a href="@Url.Action("Schedule", "Admin")" style="padding: 8px 15px; border-radius: 10px; font-size: 14px; font-weight: 700; background: transparent; color: rgb(154,160,178); text-decoration: none;">Schedule</a>
+                <a href="@Url.Action("Bookings", "Admin")" style="padding: 8px 15px; border-radius: 10px; font-size: 14px; font-weight: 700; background: transparent; color: rgb(154,160,178); text-decoration: none;">Bookings</a>
+                <a href="@Url.Action("Pets",     "Admin")" style="padding: 8px 15px; border-radius: 10px; font-size: 14px; font-weight: 700; background: transparent; color: rgb(154,160,178); text-decoration: none;">Pets</a>
+                <a href="@Url.Action("Services", "Admin")" style="padding: 8px 15px; border-radius: 10px; font-size: 14px; font-weight: 700; background: transparent; color: rgb(154,160,178); text-decoration: none;">Services</a>
+                <a href="@Url.Action("Contacts", "Admin")" style="padding: 8px 15px; border-radius: 10px; font-size: 14px; font-weight: 700; background: transparent; color: rgb(154,160,178); text-decoration: none;">Contacts</a>
+                <a href="@Url.Action("Users",    "Admin")" style="padding: 8px 15px; border-radius: 10px; font-size: 14px; font-weight: 700; background: rgba(255,255,255,0.14); color: #fff; text-decoration: none;">Users</a>
             </nav>
             <a href="@Url.Action("Index", "Home")" style="margin-left: auto; padding: 8px 15px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.2); background: transparent; color: #fff; font-weight: 700; font-size: 13px; font-family: inherit; text-decoration: none;">Exit console</a>
         </div>
     </header>
 
     <main style="max-width: 1120px; margin: 0 auto; padding: 36px 28px 80px;">
-        <div style="animation: ppFade 0.34s ease both; max-width: 560px; margin: 0 auto;">
+        <div style="animation: ppFade 0.34s ease both; max-width: 600px; margin: 0 auto;">
 
             <a href="@Url.Action("Users", "Admin")" style="display: inline-block; background: none; border: none; color: #9a9eaa; font-size: 14px; font-weight: 600; cursor: pointer; padding: 0; margin-bottom: 16px; font-family: inherit; text-decoration: none;">&#x2190; Back to users</a>
 
-            <div style="background: #fff; border: 1px solid #ebeaf1; border-radius: 18px; padding: 28px; box-shadow: rgba(40,40,70,0.04) 0px 1px 2px;">
+            <div style="display: flex; flex-direction: column; gap: 16px;">
 
-                <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 22px;">
-                    <span style="width: 56px; height: 56px; border-radius: 50%; background: var(--accent-soft); color: var(--accent-ink); display: grid; place-items: center; font-weight: 800; font-size: 20px; flex: 0 0 auto;">@Model.Initials</span>
-                    <div>
-                        <h1 style="margin: 0; font-family: Newsreader, serif; font-size: 24px; font-weight: 500;">@Model.FullName</h1>
-                        <p style="margin: 3px 0 0; font-size: 13px; color: #9a9eaa;">Member since @Model.MemberSince.ToString("MMM yyyy")</p>
+                <!-- Identity card -->
+                <div style="background: #fff; border: 1px solid #ebeaf1; border-radius: 18px; padding: 28px; box-shadow: rgba(40,40,70,0.04) 0px 1px 2px;">
+
+                    <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 22px;">
+                        <span style="width: 56px; height: 56px; border-radius: 50%; background: var(--accent-soft); color: var(--accent-ink); display: grid; place-items: center; font-weight: 800; font-size: 20px; flex: 0 0 auto;">@Model.Initials</span>
+                        <div>
+                            <h1 style="margin: 0; font-family: Newsreader, serif; font-size: 24px; font-weight: 500;">@Model.FullName</h1>
+                            <p style="margin: 3px 0 0; font-size: 13px; color: #9a9eaa;">Member since @Model.MemberSince.ToString("MMM yyyy")</p>
+                        </div>
+                        <span style="margin-left: auto; display: inline-block; background: @badgeBg; color: @badgeColor; font-size: 12px; font-weight: 700; padding: 5px 12px; border-radius: 20px; white-space: nowrap;">@badgeText</span>
                     </div>
-                    <span style="margin-left: auto; display: inline-block; background: @badgeBg; color: @badgeColor; font-size: 12px; font-weight: 700; padding: 5px 12px; border-radius: 20px; white-space: nowrap;">@badgeText</span>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: #f0eff5; border: 1px solid #f0eff5; border-radius: 12px; overflow: hidden;">
+                        <div style="background: #fff; padding: 16px 18px;">
+                            <span style="display: block; font-size: 12px; color: #9a9eaa; font-weight: 600;">Email</span>
+                            <span style="display: block; font-size: 15px; font-weight: 600; margin-top: 3px;">@Model.Email</span>
+                        </div>
+                        <div style="background: #fff; padding: 16px 18px;">
+                            <span style="display: block; font-size: 12px; color: #9a9eaa; font-weight: 600;">Phone</span>
+                            <span style="display: block; font-size: 15px; font-weight: 600; margin-top: 3px;">@(string.IsNullOrWhiteSpace(Model.Phone) ? "-" : Model.Phone)</span>
+                        </div>
+                        <div style="background: #fff; padding: 16px 18px;">
+                            <span style="display: block; font-size: 12px; color: #9a9eaa; font-weight: 600;">Pets on file</span>
+                            <span style="display: block; font-size: 15px; font-weight: 600; margin-top: 3px;">@petLabel</span>
+                        </div>
+                        <div style="background: #fff; padding: 16px 18px;">
+                            <span style="display: block; font-size: 12px; color: #9a9eaa; font-weight: 600;">Account status</span>
+                            <span style="display: block; font-size: 15px; font-weight: 600; margin-top: 3px; color: @badgeColor;">@badgeText</span>
+                        </div>
+                        @if (!string.IsNullOrWhiteSpace(fullAddress))
+                        {
+                            <div style="background: #fff; padding: 16px 18px; grid-column: 1 / -1;">
+                                <span style="display: block; font-size: 12px; color: #9a9eaa; font-weight: 600;">Address</span>
+                                <span style="display: block; font-size: 15px; font-weight: 600; margin-top: 3px;">@fullAddress</span>
+                            </div>
+                        }
+                    </div>
                 </div>
 
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: #f0eff5; border: 1px solid #f0eff5; border-radius: 12px; overflow: hidden;">
-                    <div style="background: #fff; padding: 16px 18px;">
-                        <span style="display: block; font-size: 12px; color: #9a9eaa; font-weight: 600;">Email</span>
-                        <span style="display: block; font-size: 15px; font-weight: 600; margin-top: 3px;">@Model.Email</span>
+                <!-- Emergency contacts -->
+                @if (Model.EmergencyContacts.Any())
+                {
+                    <div style="background: #fff; border: 1px solid #ebeaf1; border-radius: 18px; padding: 24px; box-shadow: rgba(40,40,70,0.04) 0px 1px 2px;">
+                        <p style="margin: 0 0 14px; font-size: 12px; font-weight: 700; color: #8a8e9b; letter-spacing: 0.06em;">EMERGENCY CONTACTS</p>
+                        <div style="display: flex; flex-direction: column; gap: 8px;">
+                            @foreach (var ec in Model.EmergencyContacts)
+                            {
+                                <div style="padding: 13px 15px; background: #f9f8fc; border-radius: 10px; display: flex; align-items: center; gap: 12px;">
+                                    <div style="flex: 1;">
+                                        <span style="font-size: 14px; font-weight: 700;">@ec.FirstName @ec.LastName</span>
+                                        <span style="font-size: 13px; color: #9a9eaa; margin-left: 8px;">@ec.Relationship</span>
+                                    </div>
+                                    <span style="font-size: 14px; color: #6a6f7d;">@ec.Phone</span>
+                                </div>
+                            }
+                        </div>
                     </div>
-                    <div style="background: #fff; padding: 16px 18px;">
-                        <span style="display: block; font-size: 12px; color: #9a9eaa; font-weight: 600;">Phone</span>
-                        <span style="display: block; font-size: 15px; font-weight: 600; margin-top: 3px;">@(string.IsNullOrWhiteSpace(Model.Phone) ? "-" : Model.Phone)</span>
-                    </div>
-                    <div style="background: #fff; padding: 16px 18px;">
-                        <span style="display: block; font-size: 12px; color: #9a9eaa; font-weight: 600;">Pets on file</span>
-                        <span style="display: block; font-size: 15px; font-weight: 600; margin-top: 3px;">@petLabel</span>
-                    </div>
-                    <div style="background: #fff; padding: 16px 18px;">
-                        <span style="display: block; font-size: 12px; color: #9a9eaa; font-weight: 600;">Account status</span>
-                        <span style="display: block; font-size: 15px; font-weight: 600; margin-top: 3px; color: @badgeColor;">@badgeText</span>
-                    </div>
-                </div>
-
-                <a href="@Url.Action("Users", "Admin")" style="display: inline-block; margin-top: 22px; padding: 11px 20px; border-radius: 11px; border: 1px solid #dcdbe6; background: #fff; color: #2b2f3a; font-weight: 700; font-size: 14px; font-family: inherit; text-decoration: none;">&#x2190; Back to users</a>
+                }
 
             </div>
+
+            <a href="@Url.Action("Users", "Admin")" style="display: inline-block; margin-top: 22px; padding: 11px 20px; border-radius: 11px; border: 1px solid #dcdbe6; background: #fff; color: #2b2f3a; font-weight: 700; font-size: 14px; font-family: inherit; text-decoration: none;">&#x2190; Back to users</a>
+
         </div>
     </main>
 </div>

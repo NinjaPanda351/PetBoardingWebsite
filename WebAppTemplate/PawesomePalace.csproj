@@ -227,6 +227,10 @@
     <Compile Include="Migrations\202606301432500_PetDateOfBirth.Designer.cs">
       <DependentUpon>202606301432500_PetDateOfBirth.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202607022350592_AddServiceModel.cs" />
+    <Compile Include="Migrations\202607022350592_AddServiceModel.Designer.cs">
+      <DependentUpon>202607022350592_AddServiceModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\BookingEventModel.cs" />
@@ -237,6 +241,7 @@
     <Compile Include="Models\PetMedicationModel.cs" />
     <Compile Include="Models\PetModel.cs" />
     <Compile Include="Models\PetOwnerModel.cs" />
+    <Compile Include="Models\ServiceModel.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="ViewModels\BookingsViewModel.cs" />
     <Compile Include="ViewModels\MyAccountViewModel.cs" />
@@ -322,10 +327,18 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Admin\Bookings.cshtml" />
+    <Content Include="Views\Admin\BookingDetail.cshtml" />
+    <Content Include="Views\Admin\Contacts.cshtml" />
+    <Content Include="Views\Admin\ContactDetail.cshtml" />
+    <Content Include="Views\Admin\CreateService.cshtml" />
+    <Content Include="Views\Admin\EditService.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Admin\PetDetail.cshtml" />
     <Content Include="Views\Admin\Pets.cshtml" />
     <Content Include="Views\Admin\Review.cshtml" />
     <Content Include="Views\Admin\ReviewCancellation.cshtml" />
+    <Content Include="Views\Admin\Schedule.cshtml" />
+    <Content Include="Views\Admin\Services.cshtml" />
     <Content Include="Views\Admin\Users.cshtml" />
     <Content Include="Views\Admin\ViewUser.cshtml" />
     <Content Include="Views\Bookings\Index.cshtml" />
@@ -410,6 +423,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202606301432500_PetDateOfBirth.resx">
       <DependentUpon>202606301432500_PetDateOfBirth.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202607022350592_AddServiceModel.resx">
+      <DependentUpon>202607022350592_AddServiceModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

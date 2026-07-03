@@ -46,16 +46,21 @@
                     <span style="display: block; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #8a8fa0; font-weight: 600;">Staff console</span>
                 </span>
             </div>
-            <nav style="display: flex; gap: 6px; margin-left: 8px;">
-                <a href="@Url.Action("Index", "Admin")" style="padding: 8px 15px; border-radius: 10px; font-size: 14px; font-weight: 700; font-family: inherit; background: rgba(255,255,255,0.14); color: #fff; text-decoration: none;">Dashboard</a>
-                <a href="@Url.Action("Users", "Admin")" style="padding: 8px 15px; border-radius: 10px; font-size: 14px; font-weight: 700; font-family: inherit; background: transparent; color: rgb(154,160,178); text-decoration: none;">Users</a>
+            <nav style="display: flex; gap: 6px; margin-left: 8px; flex-wrap: wrap;">
+                <a href="@Url.Action("Index",    "Admin")" style="padding: 8px 15px; border-radius: 10px; font-size: 14px; font-weight: 700; background: rgba(255,255,255,0.14); color: #fff; text-decoration: none;">Dashboard</a>
+                <a href="@Url.Action("Schedule", "Admin")" style="padding: 8px 15px; border-radius: 10px; font-size: 14px; font-weight: 700; background: transparent; color: rgb(154,160,178); text-decoration: none;">Schedule</a>
+                <a href="@Url.Action("Bookings", "Admin")" style="padding: 8px 15px; border-radius: 10px; font-size: 14px; font-weight: 700; background: transparent; color: rgb(154,160,178); text-decoration: none;">Bookings</a>
+                <a href="@Url.Action("Pets",     "Admin")" style="padding: 8px 15px; border-radius: 10px; font-size: 14px; font-weight: 700; background: transparent; color: rgb(154,160,178); text-decoration: none;">Pets</a>
+                <a href="@Url.Action("Services", "Admin")" style="padding: 8px 15px; border-radius: 10px; font-size: 14px; font-weight: 700; background: transparent; color: rgb(154,160,178); text-decoration: none;">Services</a>
+                <a href="@Url.Action("Contacts", "Admin")" style="padding: 8px 15px; border-radius: 10px; font-size: 14px; font-weight: 700; background: transparent; color: rgb(154,160,178); text-decoration: none;">Contacts</a>
+                <a href="@Url.Action("Users",    "Admin")" style="padding: 8px 15px; border-radius: 10px; font-size: 14px; font-weight: 700; background: transparent; color: rgb(154,160,178); text-decoration: none;">Users</a>
             </nav>
             <a href="@Url.Action("Index", "Home")" style="margin-left: auto; padding: 8px 15px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.2); background: transparent; color: #fff; font-weight: 700; font-size: 13px; font-family: inherit; text-decoration: none;">Exit console</a>
         </div>
     </header>
 
     <main style="max-width: 1120px; margin: 0 auto; padding: 36px 28px 80px;">
-        <div style="animation: ppFade 0.34s ease both; max-width: 620px; margin: 0 auto;">
+        <div style="animation: ppFade 0.34s ease both; max-width: 680px; margin: 0 auto;">
 
             <a href="@Url.Action("Index", "Admin")" style="display: inline-block; background: none; border: none; color: #9a9eaa; font-size: 14px; font-weight: 600; cursor: pointer; padding: 0; margin-bottom: 16px; font-family: inherit; text-decoration: none;">&#x2190; Back to dashboard</a>
             <h1 style="margin: 0 0 20px; font-family: Newsreader, serif; font-size: 28px; font-weight: 500;">Review booking request</h1>
@@ -66,7 +71,7 @@
                 @Html.HiddenFor(m => m.BookingId)
                 <input type="hidden" name="reviewAction" id="reviewAction" value="">
 
-                <div style="background: #fff; border: 1px solid #ebeaf1; border-radius: 18px; padding: 28px; box-shadow: rgba(40,40,70,0.04) 0px 1px 2px;">
+                <div style="background: #fff; border: 1px solid #ebeaf1; border-radius: 18px; padding: 28px; box-shadow: rgba(40,40,70,0.04) 0px 1px 2px; margin-bottom: 16px;">
 
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: #f0eff5; border: 1px solid #f0eff5; border-radius: 12px; overflow: hidden;">
                         <div style="background: #fff; padding: 16px 18px;">
@@ -105,6 +110,50 @@
                         <button type="submit" onclick="document.getElementById('reviewAction').value='Decline'" style="padding: 12px 20px; border-radius: 11px; border: 1px solid #ecd9d9; background: #fff; color: #b4564f; font-weight: 700; font-size: 14px; cursor: pointer; font-family: inherit;">Decline</button>
                         <button type="submit" onclick="document.getElementById('reviewAction').value='Flag'"    style="padding: 12px 20px; border-radius: 11px; border: 1px solid #e6dcc4; background: #fff; color: #9a6a1e; font-weight: 700; font-size: 14px; cursor: pointer; font-family: inherit;">Flag</button>
                         <a href="@Url.Action("Index", "Admin")" style="margin-left: auto; padding: 12px 18px; border-radius: 11px; border: none; background: none; color: #9a9eaa; font-weight: 600; font-size: 14px; font-family: inherit; text-decoration: none;">Back</a>
+                    </div>
+                </div>
+            }
+
+            <!-- Pet care section -->
+            @if (!string.IsNullOrWhiteSpace(Model.VetName) || !string.IsNullOrWhiteSpace(Model.MedicalNotes) || !string.IsNullOrWhiteSpace(Model.Medication) || !string.IsNullOrWhiteSpace(Model.FeedingInstructions))
+            {
+                <div style="background: #fff; border: 1px solid #ebeaf1; border-radius: 18px; padding: 28px; box-shadow: rgba(40,40,70,0.04) 0px 1px 2px;">
+                    <p style="margin: 0 0 16px; font-size: 13px; font-weight: 700; color: #8a8e9b; letter-spacing: 0.06em;">PET CARE NOTES</p>
+
+                    @if (!string.IsNullOrWhiteSpace(Model.VetName))
+                    {
+                        <div style="padding: 13px 15px; background: #f9f8fc; border-radius: 10px; margin-bottom: 10px;">
+                            <span style="display:block; font-size:11px; color:#9a9eaa; font-weight:700; margin-bottom:3px;">VETERINARIAN</span>
+                            <span style="font-size:14px; font-weight:600;">@Model.VetName</span>
+                            @if (!string.IsNullOrWhiteSpace(Model.VetPhone)) { <span style="font-size:13px; color:#6a6f7d;"> &middot; @Model.VetPhone</span> }
+                        </div>
+                    }
+
+                    @if (!string.IsNullOrWhiteSpace(Model.MedicalNotes) || !string.IsNullOrWhiteSpace(Model.Medication))
+                    {
+                        <div style="padding: 13px 15px; background: #fef3dc; border: 1px solid #f5e3b0; border-radius: 10px; margin-bottom: 10px;">
+                            <span style="display:block; font-size:11px; color:#9a6a1e; font-weight:700; margin-bottom:4px;">MEDICAL</span>
+                            @if (!string.IsNullOrWhiteSpace(Model.MedicalNotes))
+                            {
+                                <p style="margin:0 0 4px; font-size:13px; color:#4a4e5a;">@Model.MedicalNotes</p>
+                            }
+                            @if (!string.IsNullOrWhiteSpace(Model.Medication))
+                            {
+                                <p style="margin:0; font-size:13px; color:#4a4e5a;"><strong>Medication:</strong> @Model.Medication</p>
+                            }
+                        </div>
+                    }
+
+                    <div style="padding: 13px 15px; background: #f9f8fc; border-radius: 10px;">
+                        <span style="display:block; font-size:11px; color:#9a9eaa; font-weight:700; margin-bottom:4px;">FEEDING</span>
+                        <p style="margin:0; font-size:13px; color:#4a4e5a;">
+                            @Model.FeedingsPerDay x/day
+                            @if (!string.IsNullOrWhiteSpace(Model.FeedAmount)) { <text>&middot; @Model.FeedAmount</text> }
+                        </p>
+                        @if (!string.IsNullOrWhiteSpace(Model.FeedingInstructions))
+                        {
+                            <p style="margin:4px 0 0; font-size:13px; color:#6a6f7d;">@Model.FeedingInstructions</p>
+                        }
                     </div>
                 </div>
             }

@@ -13,7 +13,6 @@
         dateDisplay = Model.StartDate.ToString("MMM d") + " - " + Model.EndDate.ToString("MMM d, yyyy");
     }
 
-    string subtitle = Model.OwnerName + " · " + Model.PetDetails + " · " + dateDisplay;
     string fieldStyle = "width: 100%; padding: 11px 14px; border: 1px solid #e4e2ec; border-radius: 10px; font: inherit; font-size: 14px; background: #fff; color: #2b2f3a;";
 }
 <!DOCTYPE html>
@@ -60,7 +59,7 @@
 
             <a href="@Url.Action("Index", "Admin")" style="display: inline-block; background: none; border: none; color: #9a9eaa; font-size: 14px; font-weight: 600; cursor: pointer; padding: 0; margin-bottom: 16px; font-family: inherit; text-decoration: none;">&#x2190; Back to dashboard</a>
             <h1 style="margin: 0 0 4px; font-family: Newsreader, serif; font-size: 28px; font-weight: 500;">Handle cancellation</h1>
-            <p style="margin: 0 0 20px; font-size: 13px; color: #9a9eaa;">@subtitle</p>
+            <p style="margin: 0 0 20px; font-size: 13px; color: #9a9eaa;">@Model.OwnerName &middot; @Model.PetDetails &middot; @dateDisplay</p>
 
             @using (Html.BeginForm("ReviewCancellation", "Admin", FormMethod.Post))
             {
