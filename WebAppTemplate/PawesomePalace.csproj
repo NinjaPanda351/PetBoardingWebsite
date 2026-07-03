@@ -12,8 +12,8 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WebAppTemplate</RootNamespace>
-    <AssemblyName>WebAppTemplate</AssemblyName>
+    <RootNamespace>PawesomePalace</RootNamespace>
+    <AssemblyName>PawesomePalace</AssemblyName>
     <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
@@ -207,6 +207,30 @@
     <Compile Include="Migrations\202606230259494_AddUserProfileFields.Designer.cs">
       <DependentUpon>202606230259494_AddUserProfileFields.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202606280616377_AddSpeciesToPet.cs" />
+    <Compile Include="Migrations\202606280616377_AddSpeciesToPet.Designer.cs">
+      <DependentUpon>202606280616377_AddSpeciesToPet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202606280747016_AddSexToPet.cs" />
+    <Compile Include="Migrations\202606280747016_AddSexToPet.Designer.cs">
+      <DependentUpon>202606280747016_AddSexToPet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202606300040347_AddServiceTypeAndPriceAndReferenceToBooking.cs" />
+    <Compile Include="Migrations\202606300040347_AddServiceTypeAndPriceAndReferenceToBooking.Designer.cs">
+      <DependentUpon>202606300040347_AddServiceTypeAndPriceAndReferenceToBooking.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202606300836489_UpdateBookingModel.cs" />
+    <Compile Include="Migrations\202606300836489_UpdateBookingModel.Designer.cs">
+      <DependentUpon>202606300836489_UpdateBookingModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202606301432500_PetDateOfBirth.cs" />
+    <Compile Include="Migrations\202606301432500_PetDateOfBirth.Designer.cs">
+      <DependentUpon>202606301432500_PetDateOfBirth.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202607022350592_AddServiceModel.cs" />
+    <Compile Include="Migrations\202607022350592_AddServiceModel.Designer.cs">
+      <DependentUpon>202607022350592_AddServiceModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\BookingEventModel.cs" />
@@ -217,14 +241,29 @@
     <Compile Include="Models\PetMedicationModel.cs" />
     <Compile Include="Models\PetModel.cs" />
     <Compile Include="Models\PetOwnerModel.cs" />
+    <Compile Include="Models\ServiceModel.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
+    <Compile Include="ViewModels\BookingsViewModel.cs" />
+    <Compile Include="ViewModels\MyAccountViewModel.cs" />
     <Compile Include="Models\ApplicationDBContext.cs" />
     <Compile Include="ViewModels\ContactUsSubmissionVM.cs" />
     <Compile Include="ViewModels\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\PetsViewModel.cs" />
+    <Compile Include="ViewModels\AdminViewModels.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\7451504006991794744.JPG" />
+    <Content Include="Assets\9027344693747640248.JPG" />
+    <Content Include="Assets\image000001.jpeg" />
+    <Content Include="Assets\IMG_0178.JPG" />
+    <Content Include="Assets\IMG_2322.jpeg" />
+    <Content Include="Assets\IMG_3274.JPG" />
+    <Content Include="Assets\IMG_4725.jpeg" />
+    <Content Include="Assets\IMG_5420.JPG" />
+    <Content Include="Assets\IMG_6366.JPG" />
+    <Content Include="Assets\Resized_Resized_20230313_104129%281%29.JPG" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-grid.rtl.css" />
@@ -288,14 +327,29 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Admin\Bookings.cshtml" />
+    <Content Include="Views\Admin\BookingDetail.cshtml" />
+    <Content Include="Views\Admin\Contacts.cshtml" />
+    <Content Include="Views\Admin\ContactDetail.cshtml" />
+    <Content Include="Views\Admin\CreateService.cshtml" />
+    <Content Include="Views\Admin\EditService.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Admin\PetDetail.cshtml" />
     <Content Include="Views\Admin\Pets.cshtml" />
+    <Content Include="Views\Admin\Review.cshtml" />
+    <Content Include="Views\Admin\ReviewCancellation.cshtml" />
+    <Content Include="Views\Admin\Schedule.cshtml" />
+    <Content Include="Views\Admin\Services.cshtml" />
+    <Content Include="Views\Admin\Users.cshtml" />
+    <Content Include="Views\Admin\ViewUser.cshtml" />
     <Content Include="Views\Bookings\Index.cshtml" />
     <Content Include="Views\ContactUs\Index.cshtml" />
     <Content Include="Views\MyAccount\Index.cshtml" />
     <Content Include="Views\Pets\Index.cshtml" />
     <Content Include="Views\Hours\Index.cshtml" />
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
+    <Content Include="Views\Pets\Create.cshtml" />
+    <Content Include="Views\Pets\Edit.cshtml" />
+    <Content Include="Views\Pets\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -354,6 +408,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202606230259494_AddUserProfileFields.resx">
       <DependentUpon>202606230259494_AddUserProfileFields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202606280616377_AddSpeciesToPet.resx">
+      <DependentUpon>202606280616377_AddSpeciesToPet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202606280747016_AddSexToPet.resx">
+      <DependentUpon>202606280747016_AddSexToPet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202606300040347_AddServiceTypeAndPriceAndReferenceToBooking.resx">
+      <DependentUpon>202606300040347_AddServiceTypeAndPriceAndReferenceToBooking.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202606300836489_UpdateBookingModel.resx">
+      <DependentUpon>202606300836489_UpdateBookingModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202606301432500_PetDateOfBirth.resx">
+      <DependentUpon>202606301432500_PetDateOfBirth.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202607022350592_AddServiceModel.resx">
+      <DependentUpon>202607022350592_AddServiceModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

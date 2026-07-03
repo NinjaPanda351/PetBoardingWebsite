@@ -1,16 +1,19 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Profile;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using WebAppTemplate.Models;
+using PawesomePalace.Models;
+using PawesomePalace.ViewModels;
 
-namespace WebAppTemplate.Controllers
+namespace PawesomePalace.Controllers
 {
     [Authorize]
     public class AccountController : Controller
@@ -58,6 +61,7 @@ namespace WebAppTemplate.Controllers
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
+            ViewBag.StatusMessage = TempData["StatusMessage"];
             return View();
         }
 
@@ -70,6 +74,13 @@ namespace WebAppTemplate.Controllers
         {
             if (!ModelState.IsValid)
             {
+                return View(model);
+            }
+
+            var pendingUser = await UserManager.FindByNameAsync(model.Email);
+            if (pendingUser != null && !await UserManager.IsEmailConfirmedAsync(pendingUser.Id))
+            {
+                ModelState.AddModelError("", "Please confirm your email address before signing in.");
                 return View(model);
             }
 
@@ -120,16 +131,23 @@ namespace WebAppTemplate.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
-                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
+                    var db = new ApplicationDbContext();
+                    var owner = new PetOwnerModel
+                    {
+                        FirstName = model.FirstName,
+                        LastName = model.LastName,
+                        Email = model.Email,
+                        Phone = model.Phone
+                    };
+                    db.PetOwnerModels.Add(owner);
+                    db.SaveChanges();
+
                     string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    TempData["SuccessMessage"] = "Registration successful! Please check your email to confirm your account";
-                    return RedirectToAction("Index", "Home");
+                    TempData["StatusMessage"] = "Account created! Please check your email to confirm your account before signing in.";
+                    return RedirectToAction("Login", "Account");
                 }
                 AddErrors(result);
             }
@@ -238,6 +256,45 @@ namespace WebAppTemplate.Controllers
         }
 
         //
+        // GET: /Account/DeleteAccount
+        public ActionResult DeleteAccount()
+        {
+            var user = UserManager.FindById(User.Identity.GetUserId());
+            var model = new DeleteAccountViewModel
+            {
+                Email = user.Email,
+                FirstName = user.FirstName,
+                LastName = user.LastName
+            };
+            return View(model);
+        }
+
+        //
+        // POST: /Account/DeleteAccount
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> DeleteAccount(DeleteAccountViewModel model)
+        {
+            if (model.ConfirmCode != "DELETE")
+                ModelState.AddModelError("ConfirmCode", "Please type DELETE exactly to confirm.");
+
+            if (!ModelState.IsValid)
+                return View(model);
+
+            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+            var passwordOk = await UserManager.CheckPasswordAsync(user, model.Password);
+            if (!passwordOk)
+            {
+                ModelState.AddModelError("Password", "Incorrect password.");
+                return View(model);
+            }
+
+            await UserManager.DeleteAsync(user);
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            return RedirectToAction("Index", "Home");
+        }
+
+        //
         // POST: /Account/LogOff
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -267,6 +324,34 @@ namespace WebAppTemplate.Controllers
             base.Dispose(disposing);
         }
 
+        // GET - /Account/Resend
+        [AllowAnonymous]
+        public ActionResult ResendConfirmation()
+        {
+            return View();
+        }
+
+        // POST -
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ResendConfirmation(ResendConfirmationViewModel model)
+        {
+            if (!ModelState.IsValid) return View(model);
+
+            var user = await UserManager.FindByEmailAsync(model.Email);
+
+            if (user != null && !await UserManager.IsEmailConfirmedAsync(user.Id))
+            {
+                string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                var callbackUrl = Url.Action("ConfirmEmail", "Account", new {userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+            }
+
+            // Always redirect to confirmation
+            TempData["StatusMessage"] = "If that email is registered and unconfirmed, a new link has been sent.";
+            return RedirectToAction("Login", "Account");
+        }
         #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
@@ -293,7 +378,7 @@ namespace WebAppTemplate.Controllers
             {
                 return Redirect(returnUrl);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "MyAccount");
         }
 
         internal class ChallengeResult : HttpUnauthorizedResult
@@ -325,5 +410,12 @@ namespace WebAppTemplate.Controllers
             }
         }
         #endregion
+    }
+
+    public class ResendConfirmationViewModel
+    {
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; }
     }
 }

@@ -1,0 +1,28 @@
+@{
+    var headerFullName = ViewBag.HeaderFullName as string ?? "";
+    var headerInitials = ViewBag.HeaderInitials as string ?? "?";
+    var activeNav = ViewBag.ActiveNav as string ?? "";
+}
+<header style="position: sticky; top: 0; z-index: 40; background: rgba(255,255,255,0.86); backdrop-filter: blur(10px); border-bottom: 1px solid #e7e6ee;">
+    <div style="max-width: 1120px; margin: 0 auto; padding: 14px 28px; display: flex; align-items: center; gap: 28px;">
+        <a href="@Url.Action("Index", "Home")" style="display: flex; align-items: center; gap: 11px; text-decoration: none;">
+            <span style="width: 38px; height: 38px; border-radius: 12px; background: var(--accent); color: #fff; display: grid; place-items: center; font-size: 19px; box-shadow: 0 4px 12px -3px var(--accent);">&#x1F43E;</span>
+            <span style="text-align: left; line-height: 1.05;">
+                <span style="display: block; font-family: Newsreader, serif; font-size: 18px; font-weight: 600; color: #2b2f3a;">Pawesome Palace</span>
+                <span style="display: block; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #9a9eaa; font-weight: 600;">Pet Boarding</span>
+            </span>
+        </a>
+        <nav style="display: flex; gap: 6px; margin-left: 8px;">
+            <a href="@Url.Action("Index", "MyAccount")" style="padding: 8px 15px; border-radius: 10px; font-size: 14px; font-weight: 700; text-decoration: none; @(activeNav == "Profile" ? "background: var(--accent-soft); color: var(--accent-ink);" : "background: transparent; color: #7a7f8c;")">Profile</a>
+            <a href="@Url.Action("Index", "Pets")" style="padding: 8px 15px; border-radius: 10px; font-size: 14px; font-weight: 700; text-decoration: none; @(activeNav == "Pets" ? "background: var(--accent-soft); color: var(--accent-ink);" : "background: transparent; color: #7a7f8c;")">My Pets</a>
+            <a href="@Url.Action("Index", "Bookings")" style="padding: 8px 15px; border-radius: 10px; font-size: 14px; font-weight: 700; text-decoration: none; @(activeNav == "Bookings" ? "background: var(--accent-soft); color: var(--accent-ink);" : "background: transparent; color: #7a7f8c;")">Bookings</a>
+        </nav>
+        <div style="margin-left: auto; display: flex; align-items: center; gap: 11px;">
+            <span style="text-align: right; line-height: 1.1;">
+                <span style="display: block; font-size: 13px; font-weight: 700; color: #2b2f3a;">@headerFullName</span>
+                <span style="display: block; font-size: 11px; color: #9a9eaa;">Pet parent</span>
+            </span>
+            <span style="width: 36px; height: 36px; border-radius: 50%; background: var(--accent-soft); color: var(--accent-ink); display: grid; place-items: center; font-weight: 800; font-size: 14px;">@headerInitials</span>
+        </div>
+    </div>
+</header>

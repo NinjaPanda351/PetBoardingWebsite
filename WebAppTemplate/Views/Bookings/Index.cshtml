@@ -1,7 +1,119 @@
+@model PawesomePalace.ViewModels.BookingsIndexViewModel
 @{
-    ViewBag.Title = "Manage Bookings";
-    Layout = "~/Views/Shared/_UserLayout.cshtml";
+    Layout = null;
+    ViewBag.Title = "My Bookings";
+    ViewBag.ActiveNav = "Bookings";
 }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>My bookings &middot; Pawesome Palace</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; }
+        html, body { margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; color: #2b2f3a; background: #f3f4f8; -webkit-font-smoothing: antialiased; }
+        @@keyframes ppFade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+    </style>
+</head>
+<body>
+<div style="min-height: 100vh; --accent: #6b7fd1; --accent-soft: #eef0fb; --accent-ink: #41509a;">
+    @Html.Partial("_PpHeader")
+    <main style="max-width: 1120px; margin: 0px auto; padding: 36px 28px 80px;">
+        <div style="animation: ppFade 0.34s ease both;">
 
-<h1>Manage Bookings Page</h1>
-<p>View and manage your boarding bookings here.</p>
+            <div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; margin-bottom: 22px;">
+                <div>
+                    <p style="margin: 0px 0px 6px; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-ink); font-weight: 700;">Stays &amp; reservations</p>
+                    <h1 style="margin: 0px; font-family: Newsreader, serif; font-size: 34px; font-weight: 500;">My bookings</h1>
+                </div>
+                <a href="@Url.Action("Create", "Bookings")" style="padding: 11px 20px; border-radius: 11px; border: none; background: var(--accent); color: #fff; font-weight: 700; font-size: 14px; font-family: inherit; text-decoration: none;">+ New booking</a>
+            </div>
+
+            <div style="display: flex; gap: 8px; margin-bottom: 18px;">
+                @foreach (var filter in new[] { "All", "Pending", "Confirmed", "Completed", "Cancelled" })
+                {
+                    bool isActive = Model.ActiveFilter == filter;
+                    <a href="@Url.Action("Index", "Bookings", new { status = filter })"
+                       style="padding: 8px 15px; border-radius: 20px; font-size: 13px; font-weight: 700; font-family: inherit; text-decoration: none;
+                              @(isActive ? "border: 1px solid var(--accent); background: var(--accent-soft); color: var(--accent-ink);"
+                                        : "border: 1px solid #e4e2ec; background: #fff; color: #7a7f8c;")">
+                        @filter
+                    </a>
+                }
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+                @if (!Model.Bookings.Any())
+                {
+                    <div style="background: #fff; border: 1px solid #ebeaf1; border-radius: 16px; padding: 40px; text-align: center; color: #9a9eaa; font-size: 14px; font-weight: 600;">
+                        No bookings found.
+                    </div>
+                }
+                @foreach (var booking in Model.Bookings)
+                {
+                    string emoji;
+                    string iconBg;
+                    string iconColor;
+                    switch ((booking.PetSpecies ?? "").ToLower())
+                    {
+                        case "cat":
+                            emoji = "&#x1F431;"; iconBg = "#f1ecfa"; iconColor = "#7a5fb0"; break;
+                        default:
+                            emoji = "&#x1F436;"; iconBg = "#fbecdf"; iconColor = "#b5713e"; break;
+                    }
+
+                    string badgeBg;
+                    string badgeColor;
+                    switch (booking.Status)
+                    {
+                        case "Confirmed":
+                            badgeBg = "#e3f2e9"; badgeColor = "#37794f"; break;
+                        case "Pending":
+                            badgeBg = "#fbf0df"; badgeColor = "#9a6a1e"; break;
+                        case "Completed":
+                            badgeBg = "#eceff4"; badgeColor = "#5a6072"; break;
+                        case "Cancelled":
+                            badgeBg = "#fbeceb"; badgeColor = "#b4564f"; break;
+                        default:
+                            badgeBg = "#eceff4"; badgeColor = "#5a6072"; break;
+                    }
+
+                    string dateDisplay;
+                    if (booking.StartDate.Date == booking.EndDate.Date)
+                    {
+                        dateDisplay = booking.StartDate.ToString("MMM d, yyyy");
+                    }
+                    else
+                    {
+                        dateDisplay = booking.StartDate.ToString("MMM d") + " - " + booking.EndDate.ToString("MMM d, yyyy");
+                    }
+
+                    <a href="@Url.Action("Details", "Bookings", new { bookingId = booking.BookingId })" style="text-align: left; background: #fff; border: 1px solid #ebeaf1; border-radius: 16px; padding: 18px 22px; display: flex; align-items: center; gap: 18px; box-shadow: rgba(40,40,70,0.04) 0px 1px 2px; text-decoration: none;">
+                        <span style="width: 46px; height: 46px; border-radius: 13px; background: @iconBg; color: @iconColor; display: grid; place-items: center; font-size: 22px; flex: 0 0 auto;">@Html.Raw(emoji)</span>
+                        <span style="flex: 1 1 0%; min-width: 0px;">
+                            <span style="display: flex; align-items: center; gap: 10px;">
+                                <span style="font-size: 16px; font-weight: 700; color: #2b2f3a;">@booking.PetName</span>
+                                <span style="font-size: 12px; color: #b0b3bd; font-weight: 600;">@booking.BookingReference</span>
+                            </span>
+                            <span style="display: block; font-size: 13px; color: #9a9eaa; margin-top: 3px;">@(booking.ServiceType ?? "-") &middot; @dateDisplay</span>
+                        </span>
+                        <span style="text-align: right;">
+                            <span style="display: block; font-size: 15px; font-weight: 700; color: #2b2f3a;">@booking.Price.ToString("C")</span>
+                            <span style="display: inline-block; background: @badgeBg; color: @badgeColor; font-size: 11.5px; font-weight: 700; padding: 4px 10px; border-radius: 20px; margin-top: 5px; white-space: nowrap;">@booking.Status</span>
+                        </span>
+                    </a>
+                }
+            </div>
+
+            <a href="@Url.Action("Index", "MyAccount")" style="display: inline-block; margin-top: 26px; color: #9a9eaa; font-size: 14px; font-weight: 600; text-decoration: none;">&#x2190; Back to profile</a>
+        </div>
+    </main>
+</div>
+</body>
+</html>

@@ -1,0 +1,156 @@
+@model PawesomePalace.ViewModels.EditPetViewModel
+@{
+    Layout = null;
+    ViewBag.Title = "Edit pet";
+    ViewBag.ActiveNav = "Pets";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Edit @Model.Name - Pawesome Palace</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; }
+        html, body { margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; color: #2b2f3a; background: #f3f4f8; -webkit-font-smoothing: antialiased; }
+        ::placeholder { color: #aeb2bd; }
+        @@keyframes ppFade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+        input:focus, select:focus, textarea:focus { outline: none; border-color: #6b7fd1; box-shadow: 0 0 0 3px #eef0fb; }
+        .field-validation-error { display: block; font-size: 12px; color: #d9534f; margin-top: 4px; }
+        .pp-field { display: block; margin-bottom: 16px; }
+        .pp-label { display: block; font-size: 12px; font-weight: 700; color: #6b7280; margin-bottom: 6px; }
+        .pp-input { width: 100%; padding: 11px 14px; border: 1px solid #e4e2ec; border-radius: 10px; font: inherit; font-size: 14px; color: #2b2f3a; background: #fff; }
+        .pp-textarea { width: 100%; padding: 11px 14px; border: 1px solid #e4e2ec; border-radius: 10px; font: inherit; font-size: 14px; color: #2b2f3a; resize: vertical; }
+        .pp-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .pp-section-label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #9a9eaa; margin: 28px 0 16px; padding-bottom: 10px; border-bottom: 1px solid #f0eff5; }
+    </style>
+</head>
+<body>
+<div style="min-height: 100vh; --accent: #6b7fd1; --accent-soft: #eef0fb; --accent-ink: #41509a;">
+    @Html.Partial("_PpHeader")
+    <main style="max-width: 1120px; margin: 0 auto; padding: 36px 28px 80px;">
+        <div style="animation: ppFade 0.34s ease both; max-width: 680px; margin: 0 auto;">
+            <a href="@Url.Action("Details", "Pets", new { id = Model.PetId })" style="color: #9a9eaa; font-size: 14px; font-weight: 600; text-decoration: none; display: inline-block; margin-bottom: 16px;">&lt;- Back to pet</a>
+            <h1 style="margin: 0 0 22px; font-family: Newsreader, serif; font-size: 30px; font-weight: 500;">Edit @Model.Name</h1>
+            <div style="background: #fff; border: 1px solid #ebeaf1; border-radius: 18px; padding: 28px; box-shadow: rgba(40,40,70,0.04) 0px 1px 2px;">
+                @using (Html.BeginForm("Edit", "Pets", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(m => m.PetId)
+                    if (!ViewData.ModelState.IsValid)
+                    {
+                        @Html.ValidationSummary(false, "", new { style = "margin-bottom: 16px; padding: 12px 16px; border-radius: 10px; background: #fef2f2; border: 1px solid #fecaca; color: #b91c1c; font-size: 13px;" })
+                    }
+
+                    <p class="pp-section-label">Basic info</p>
+
+                    <label class="pp-field">
+                        <span class="pp-label">Pet name *</span>
+                        @Html.TextBoxFor(m => m.Name, new { @class = "pp-input", placeholder = "e.g. Biscuit" })
+                        @Html.ValidationMessageFor(m => m.Name)
+                    </label>
+
+                    <div class="pp-grid-2">
+                        <label class="pp-field">
+                            <span class="pp-label">Species *</span>
+                            @Html.DropDownListFor(m => m.Species,
+                                new SelectList(new[] { "Dog", "Cat" }, Model.Species),
+                                new { @class = "pp-input" })
+                            @Html.ValidationMessageFor(m => m.Species)
+                        </label>
+                        <label class="pp-field">
+                            <span class="pp-label">Breed</span>
+                            @Html.TextBoxFor(m => m.Breed, new { @class = "pp-input", placeholder = "e.g. Golden Retriever" })
+                        </label>
+                        <label class="pp-field">
+                            <span class="pp-label">Date of birth</span>
+                            @Html.TextBoxFor(m => m.DateOfBirth, new { type = "date", @class = "pp-input", Value = Model.DateOfBirth.HasValue ? Model.DateOfBirth.Value.ToString("yyyy-MM-dd") : "" })
+                        </label>
+                        <label class="pp-field">
+                            <span class="pp-label">Sex *</span>
+                            @Html.DropDownListFor(m => m.Sex,
+                                new SelectList(new[] { "Female", "Male" }, Model.Sex),
+                                new { @class = "pp-input" })
+                            @Html.ValidationMessageFor(m => m.Sex)
+                        </label>
+                    </div>
+
+                    <p class="pp-section-label">Appearance</p>
+
+                    <div class="pp-grid-2">
+                        <label class="pp-field">
+                            <span class="pp-label">Primary color</span>
+                            @Html.TextBoxFor(m => m.Color, new { @class = "pp-input", placeholder = "e.g. Golden" })
+                        </label>
+                        <label class="pp-field">
+                            <span class="pp-label">Secondary color</span>
+                            @Html.TextBoxFor(m => m.SecondaryColor, new { @class = "pp-input", placeholder = "e.g. White" })
+                        </label>
+                    </div>
+
+                    <p class="pp-section-label">Vet &amp; medical</p>
+
+                    <div class="pp-grid-2">
+                        <label class="pp-field">
+                            <span class="pp-label">Vet name *</span>
+                            @Html.TextBoxFor(m => m.VetName, new { @class = "pp-input", placeholder = "Dr. Smith" })
+                            @Html.ValidationMessageFor(m => m.VetName)
+                        </label>
+                        <label class="pp-field">
+                            <span class="pp-label">Vet phone *</span>
+                            @Html.TextBoxFor(m => m.VetPhone, new { @class = "pp-input", type = "tel", placeholder = "(XXX) XXX-XXXX" })
+                            @Html.ValidationMessageFor(m => m.VetPhone)
+                        </label>
+                    </div>
+                    <label class="pp-field">
+                        <span class="pp-label">Medications</span>
+                        @Html.TextBoxFor(m => m.Medication, new { @class = "pp-input", placeholder = "Name, dosage, and frequency" })
+                    </label>
+                    <label class="pp-field">
+                        <span class="pp-label">Medical notes</span>
+                        @Html.TextAreaFor(m => m.MedicalNotes, 3, 0, new { @class = "pp-textarea", placeholder = "Allergies, conditions, or anything our staff should know..." })
+                    </label>
+
+                    <p class="pp-section-label">Feeding</p>
+
+                    <div class="pp-grid-2">
+                        <label class="pp-field">
+                            <span class="pp-label">Feedings per day *</span>
+                            @Html.TextBoxFor(m => m.FeedingsPerDay, new { type = "number", min = "1", max = "10", @class = "pp-input" })
+                            @Html.ValidationMessageFor(m => m.FeedingsPerDay)
+                        </label>
+                        <label class="pp-field">
+                            <span class="pp-label">Amount per feeding *</span>
+                            @Html.TextBoxFor(m => m.FeedAmount, new { @class = "pp-input", placeholder = "e.g. 1 cup" })
+                            @Html.ValidationMessageFor(m => m.FeedAmount)
+                        </label>
+                    </div>
+                    <label class="pp-field">
+                        <span class="pp-label">Feeding instructions</span>
+                        @Html.TextAreaFor(m => m.FeedingInstructions, 2, 0, new { @class = "pp-textarea", placeholder = "Food brand, timing, any special preparation..." })
+                    </label>
+
+                    <p class="pp-section-label">Special instructions</p>
+
+                    <label class="pp-field">
+                        <span class="pp-label">Anything else we should know?</span>
+                        @Html.TextAreaFor(m => m.SpecialInstructions, 3, 0, new { @class = "pp-textarea", placeholder = "Temperament, favourite toys, do not disturb after 9pm..." })
+                    </label>
+
+                    <div style="margin-top: 24px; display: flex; align-items: center; gap: 12px;">
+                        <button type="submit" style="padding: 12px 22px; border-radius: 11px; border: none; background: var(--accent); color: #fff; font-weight: 700; font-size: 14px; cursor: pointer; font-family: inherit;">Save changes</button>
+                        <a href="@Url.Action("Details", "Pets", new { id = Model.PetId })" style="padding: 12px 20px; border-radius: 11px; border: 1px solid #dcdbe6; background: #fff; color: #2b2f3a; font-weight: 700; font-size: 14px; text-decoration: none;">Cancel</a>
+                        <a href="@Url.Action("DeletePet", "Pets", new { id = Model.PetId })" style="margin-left: auto; padding: 12px 18px; border-radius: 11px; border: 1px solid #ecd9d9; background: #fff; color: #b4564f; font-weight: 700; font-size: 14px; text-decoration: none;">Remove pet</a>
+                    </div>
+                }
+            </div>
+        </div>
+    </main>
+</div>
+</body>
+</html>

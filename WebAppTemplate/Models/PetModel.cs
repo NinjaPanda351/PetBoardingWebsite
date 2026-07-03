@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace WebAppTemplate.Models
+namespace PawesomePalace.Models
 {
     public class PetModel
     {
@@ -16,10 +16,15 @@ namespace WebAppTemplate.Models
         public string Name { get; set; }
 
         [MaxLength(100)]
+        public string Species { get; set; }
+
+        [MaxLength(100)]
         public string Breed { get; set; }
 
-        [Range(0, 30)]
-        public int Age { get; set; }
+        [MaxLength(10)]
+        public string Sex { get; set; }
+
+        public DateTime? DateOfBirth { get; set; }
 
         [MaxLength(50)]
         public string Color { get; set; }
@@ -30,7 +35,7 @@ namespace WebAppTemplate.Models
         [MaxLength(100)]
         public string VetName { get; set; }
 
-        [MaxLength(20), Phone]
+        [MaxLength(20)]
         public string VetPhone { get; set; }
 
         [MaxLength(1000)]

@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Optimization;
 
-namespace WebAppTemplate
+namespace PawesomePalace
 {
     public class BundleConfig
     {

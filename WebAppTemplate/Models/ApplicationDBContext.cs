@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
-namespace WebAppTemplate.Models
+namespace PawesomePalace.Models
 {
      public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
@@ -16,6 +16,7 @@ namespace WebAppTemplate.Models
         public DbSet<BookingModel> BookingModels { get; set; }
         public DbSet<BookingEventModel> BookingEventModels { get; set; }
         public DbSet<ContactUsModel> ContactUsModels { get; set; }
+        public DbSet<ServiceModel> ServiceModels { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

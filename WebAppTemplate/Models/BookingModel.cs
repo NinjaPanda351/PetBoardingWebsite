@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
-namespace WebAppTemplate.Models
+namespace PawesomePalace.Models
 {
     public class BookingModel
     {
@@ -33,9 +33,25 @@ namespace WebAppTemplate.Models
         [MaxLength(500)]
         public string CancellationReason { get; set; }
 
+        [MaxLength(2000)]
+        public string AdminNotes { get; set; }
+
+        // null = not yet reviewed, "Approved", "Denied"
+        [MaxLength(20)]
+        public string RefundStatus { get; set; }
+
         // Navigation Properties
         [ForeignKey("PetId")]
         public PetModel Pet { get; set; }
+
+        [Required]
+        public string ServiceType { get; set; }
+        public decimal Price { get; set; }
+
+        [Required]
+        public string BookingReference { get; set; }
+
+
 
         public BookingModel()
         {

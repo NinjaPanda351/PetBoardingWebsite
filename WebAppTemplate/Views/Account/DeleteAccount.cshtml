@@ -1,0 +1,104 @@
+@model PawesomePalace.ViewModels.DeleteAccountViewModel
+@{
+    Layout = null;
+    var initials = (string.IsNullOrEmpty(Model.FirstName) ? "" : Model.FirstName[0].ToString()) +
+                   (string.IsNullOrEmpty(Model.LastName) ? "" : Model.LastName[0].ToString());
+    var fullName = Model.FirstName + " " + Model.LastName;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Delete account &middot; Pawesome Palace</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; color: #2b2f3a; background: #f3f4f8; -webkit-font-smoothing: antialiased; }
+    ::placeholder { color: #aeb2bd; }
+    @@keyframes ppFade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+    input:focus, select:focus, textarea:focus { outline: none; border-color: #6b7fd1; box-shadow: 0 0 0 3px #eef0fb; }
+    .field-error { display: block; font-size: 12px; color: #b4564f; margin-top: 4px; }
+  </style>
+</head>
+<body>
+<div style="min-height: 100vh; --accent: #6b7fd1; --accent-soft: #eef0fb; --accent-ink: #41509a;">
+  <header style="position: sticky; top: 0px; z-index: 40; background: rgba(255, 255, 255, 0.86); backdrop-filter: blur(10px); border-bottom: 1px solid rgb(231, 230, 238);">
+    <div style="max-width: 1120px; margin: 0px auto; padding: 14px 28px; display: flex; align-items: center; gap: 28px;">
+      <a href="@Url.Action("Index", "MyAccount")" style="display: flex; align-items: center; gap: 11px; text-decoration: none;">
+        <span style="width: 38px; height: 38px; border-radius: 12px; background: var(--accent); color: rgb(255, 255, 255); display: grid; place-items: center; font-size: 19px; box-shadow: 0 4px 12px -3px var(--accent);">&#x1F43E;</span>
+        <span style="text-align: left; line-height: 1.05;">
+          <span style="display: block; font-family: Newsreader, serif; font-size: 18px; font-weight: 600; color: rgb(43, 47, 58);">Pawesome Palace</span>
+          <span style="display: block; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: rgb(154, 158, 170); font-weight: 600;">Pet Boarding</span>
+        </span>
+      </a>
+      <nav style="display: flex; gap: 6px; margin-left: 8px;">
+        <a href="@Url.Action("Index", "MyAccount")" style="padding: 8px 15px; border-radius: 10px; font-size: 14px; font-weight: 700; font-family: inherit; background: var(--accent-soft); color: var(--accent-ink); text-decoration: none;">Profile</a>
+        <a href="@Url.Action("Index", "Pets")" style="padding: 8px 15px; border-radius: 10px; font-size: 14px; font-weight: 700; font-family: inherit; background: transparent; color: rgb(122, 127, 140); text-decoration: none;">My Pets</a>
+        <a href="@Url.Action("Index", "Bookings")" style="padding: 8px 15px; border-radius: 10px; font-size: 14px; font-weight: 700; font-family: inherit; background: transparent; color: rgb(122, 127, 140); text-decoration: none;">Bookings</a>
+      </nav>
+      <div style="margin-left: auto; display: flex; align-items: center; gap: 11px;">
+        <span style="text-align: right; line-height: 1.1;">
+          <span style="display: block; font-size: 13px; font-weight: 700; color: rgb(43, 47, 58);">@fullName</span>
+          <span style="display: block; font-size: 11px; color: rgb(154, 158, 170);">Pet parent</span>
+        </span>
+        <span style="width: 36px; height: 36px; border-radius: 50%; background: var(--accent-soft); color: var(--accent-ink); display: grid; place-items: center; font-weight: 800; font-size: 14px;">@initials</span>
+      </div>
+    </div>
+  </header>
+  <main style="max-width: 1120px; margin: 0px auto; padding: 36px 28px 80px;">
+    <div style="animation: ppFade 0.34s ease both; max-width: 520px; margin: 0px auto;">
+      <a href="@Url.Action("Index", "Manage")" style="display: inline-block; color: rgb(154, 158, 170); font-size: 14px; font-weight: 600; text-decoration: none; margin-bottom: 16px;">&#x2190; Back</a>
+      @using (Html.BeginForm("DeleteAccount", "Account", FormMethod.Post))
+      {
+        @Html.AntiForgeryToken()
+        <div style="background: rgb(255, 255, 255); border: 1px solid rgb(236, 222, 222); border-radius: 18px; padding: 30px; box-shadow: rgba(40, 40, 70, 0.04) 0px 1px 2px;">
+          <span style="width: 50px; height: 50px; border-radius: 14px; background: rgb(251, 236, 235); display: grid; place-items: center; font-size: 24px;">&#x26A0;</span>
+          <h1 style="margin: 16px 0px 6px; font-family: Newsreader, serif; font-size: 26px; font-weight: 500;">Delete your account</h1>
+          <p style="margin: 0px 0px 22px; font-size: 14px; color: rgb(138, 142, 155); line-height: 1.55;">This permanently removes your profile, pets, and booking history. Confirm your identity and type the code below to continue.</p>
+          @Html.ValidationSummary(true, "", new { @style = "color: #b4564f; font-size: 13px; margin-bottom: 14px;" })
+          <label style="display: block; margin-bottom: 14px;">
+            <span style="display: block; font-size: 12px; font-weight: 700; color: rgb(107, 114, 128); margin-bottom: 6px;">Email</span>
+            @Html.TextBoxFor(m => m.Email, new { @readonly = "readonly", style = "width: 100%; padding: 11px 14px; border: 1px solid rgb(228, 226, 236); border-radius: 10px; font: inherit; font-size: 14px; color: rgb(138, 142, 155); background: rgb(247, 247, 250);" })
+          </label>
+          <label style="display: block; margin-bottom: 14px;">
+            <span style="display: block; font-size: 12px; font-weight: 700; color: rgb(107, 114, 128); margin-bottom: 6px;">Password</span>
+            @Html.PasswordFor(m => m.Password, new { placeholder = "Enter your password", style = "width: 100%; padding: 11px 14px; border: 1px solid rgb(228, 226, 236); border-radius: 10px; font: inherit; font-size: 14px; color: rgb(43, 47, 58);" })
+            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "field-error" })
+          </label>
+          <label style="display: block; margin-bottom: 6px;">
+            <span style="display: block; font-size: 12px; font-weight: 700; color: rgb(107, 114, 128); margin-bottom: 6px;">Type <b style="color: rgb(180, 86, 79);">DELETE</b> to confirm</span>
+            @Html.TextBoxFor(m => m.ConfirmCode, new { id = "ConfirmCode", placeholder = "DELETE", style = "width: 100%; padding: 11px 14px; border: 1px solid rgb(228, 226, 236); border-radius: 10px; font: inherit; font-size: 14px; color: rgb(43, 47, 58); letter-spacing: 0.08em;" })
+            @Html.ValidationMessageFor(m => m.ConfirmCode, "", new { @class = "field-error" })
+          </label>
+          <div style="margin-top: 24px; display: flex; gap: 12px;">
+            <button id="deleteBtn" type="submit" disabled="disabled" style="padding: 12px 22px; border-radius: 11px; border: none; background: rgb(231, 212, 211); color: rgb(255, 255, 255); font-weight: 700; font-size: 14px; font-family: inherit; cursor: not-allowed; opacity: 0.7;">Delete account</button>
+            <a href="@Url.Action("Index", "MyAccount")" style="padding: 12px 20px; border-radius: 11px; border: 1px solid rgb(220, 219, 230); background: rgb(255, 255, 255); color: rgb(43, 47, 58); font-weight: 700; font-size: 14px; font-family: inherit; text-decoration: none;">Cancel</a>
+          </div>
+        </div>
+      }
+    </div>
+  </main>
+</div>
+<script>
+  document.getElementById('ConfirmCode').addEventListener('input', function () {
+    var btn = document.getElementById('deleteBtn');
+    if (this.value === 'DELETE') {
+      btn.disabled = false;
+      btn.style.background = '#b4564f';
+      btn.style.cursor = 'pointer';
+      btn.style.opacity = '1';
+    } else {
+      btn.disabled = true;
+      btn.style.background = 'rgb(231, 212, 211)';
+      btn.style.cursor = 'not-allowed';
+      btn.style.opacity = '0.7';
+    }
+  });
+</script>
+</body>
+</html>

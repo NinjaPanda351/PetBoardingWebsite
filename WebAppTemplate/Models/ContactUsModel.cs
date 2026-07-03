@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace WebAppTemplate.Models
+namespace PawesomePalace.Models
 {
     public class ContactUsModel
     {

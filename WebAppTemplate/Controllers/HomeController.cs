@@ -3,15 +3,42 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using WebAppTemplate.Models;
+using PawesomePalace.Models;
+using PawesomePalace.ViewModels;
 
-namespace WebAppTemplate.Controllers
+namespace PawesomePalace.Controllers
 {
     public class HomeController : Controller
     {
         public ActionResult Index()
         {
-            return View();
+            return View(new HomeContactViewModel());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult HomeContact(HomeContactViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("Index", model);
+            }
+
+            var nameParts = (model.Name ?? "").Trim().Split(new[] { ' ' }, 2);
+            var submission = new ContactUsModel
+            {
+                FirstName = nameParts[0],
+                LastName = nameParts.Length > 1 ? nameParts[1] : "-",
+                Email = model.Email,
+                Subject = "Website Inquiry",
+                Message = model.Message
+            };
+
+            var db = new ApplicationDbContext();
+            db.ContactUsModels.Add(submission);
+            db.SaveChanges();
+
+            return RedirectToAction("ThankYou", "ContactUs");
         }
 
         public ActionResult About()
